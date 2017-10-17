@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjetoDRG.Models
+namespace ProjetoDRG.ViewModels
 {
-    public class GerarXML
+    public class GerarXMLViewModel
     {
-        [Key]
-        public int Id { get; set; }
         [Required]
         public DateTime  DataInicio { get; set; }
         [Required]
