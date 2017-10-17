@@ -1,0 +1,84 @@
+﻿@model GeradorDRG.Models.Configuracao
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Configuracao</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BancoURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BancoURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BancoUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BancoUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BancoSenha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BancoSenha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BancoSID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BancoSID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CodDRG)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CodDRG)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeDRG)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomeDRG)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UtilizaWebService)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UtilizaWebService)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WebServiceUsuario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WebServiceUsuario)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WebServiceSenha)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.WebServiceSenha)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Banco)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Banco.Nome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Sistema)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sistema.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

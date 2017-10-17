@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace GeradorDRG.Models
 {
-    public class Configuracao
-    {
+	public class Configuracao
+	{
+		public Configuracao() {
+			this.Pacientes=new List<PacienteTeste>();
+			this.Banco = new Banco();
+			this.Prestadores = new List<PrestadorTeste>();
+			this.Sistema = new Sistema();
+		}
         [Key]
         public int Id { get; set; }
 
