@@ -12,6 +12,7 @@ using GeradorDRG.Data;
 using GeradorDRG.Models;
 using GeradorDRG.Services;
 using GeradorDRG.Extensions;
+using GeradorDRG.Filter;
 
 namespace GeradorDRG
 {
@@ -37,7 +38,13 @@ namespace GeradorDRG
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add(new ConfiguracaoAsyncActionFilter());
+                }
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +58,7 @@ namespace GeradorDRG
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
             }
 
             applicationDbContext.Seed();
@@ -64,7 +71,7 @@ namespace GeradorDRG
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Gerar}/{action=Index}/{id?}");
             });
         }
     }
