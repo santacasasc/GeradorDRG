@@ -1,4 +1,5 @@
 ﻿using GeradorDRG.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace GeradorDRG.Extensions
         {
             // Perform database delete and create
             //context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
 
             // Save changes and release resources

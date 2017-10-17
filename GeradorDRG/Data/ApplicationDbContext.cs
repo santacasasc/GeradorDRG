@@ -22,5 +22,17 @@ namespace GeradorDRG.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<GeradorDRG.Models.Banco> Banco { get; set; }
+
+        public DbSet<GeradorDRG.Models.Sistema> Sistema { get; set; }
+
+        public DbSet<GeradorDRG.Models.SistemaBanco> SistemaBanco { get; set; }
+
+        public DbSet<GeradorDRG.Models.PacienteTeste> PacienteTeste { get; set; }
+
+        public DbSet<GeradorDRG.Models.PrestadorTeste> PrestadorTeste { get; set; }
+
+        public DbSet<GeradorDRG.Models.Configuracao> Configuracao { get; set; }
     }
 }

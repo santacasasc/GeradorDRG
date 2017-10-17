@@ -18,9 +18,13 @@ namespace GeradorDRG.Models
         [ForeignKey("Sistema")]
         public int SistemaId { get; set; }
 
+        public string BancoURL { get; set; }
+
         public string BancoUsuario { get; set; }
 
         public string BancoSenha { get; set; }
+
+        public string BancoSID { get; set; }
 
         public string CodDRG { get; set; }
 
