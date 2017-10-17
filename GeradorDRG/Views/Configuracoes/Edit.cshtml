@@ -1,0 +1,86 @@
+﻿@model GeradorDRG.Models.Configuracao
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Configuracao</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="BancoId" class="control-label"></label>
+                <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
+                <span asp-validation-for="BancoId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SistemaId" class="control-label"></label>
+                <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
+                <span asp-validation-for="SistemaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BancoURL" class="control-label"></label>
+                <input asp-for="BancoURL" class="form-control" />
+                <span asp-validation-for="BancoURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BancoUsuario" class="control-label"></label>
+                <input asp-for="BancoUsuario" class="form-control" />
+                <span asp-validation-for="BancoUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BancoSenha" class="control-label"></label>
+                <input asp-for="BancoSenha" class="form-control" />
+                <span asp-validation-for="BancoSenha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BancoSID" class="control-label"></label>
+                <input asp-for="BancoSID" class="form-control" />
+                <span asp-validation-for="BancoSID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CodDRG" class="control-label"></label>
+                <input asp-for="CodDRG" class="form-control" />
+                <span asp-validation-for="CodDRG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NomeDRG" class="control-label"></label>
+                <input asp-for="NomeDRG" class="form-control" />
+                <span asp-validation-for="NomeDRG" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="WebServiceUsuario" class="control-label"></label>
+                <input asp-for="WebServiceUsuario" class="form-control" />
+                <span asp-validation-for="WebServiceUsuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WebServiceSenha" class="control-label"></label>
+                <input asp-for="WebServiceSenha" class="form-control" />
+                <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
