@@ -24,25 +24,26 @@
                     <p>Pacientes</p>
                 </div>
                 <div class="wizard-step">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">5</a>
+                    <a href="#step-5" type="button" class="btn btn-default btn-circle disabled">5</a>
                     <p>Prestador</p>
                 </div>
             </div>
         </div>
         <fieldset class="col-xs-12">
             <legend></legend>
-            <form role="form" action="" method="post">
+            <form method="post">
                 <div class="row step-content" id="step-1">
                     <div class="col-md-12">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="BancoId" class="control-label">Selecionar ID</label>
-                            <select asp-for="BancoId" class ="form-control" asp-items="ViewBag.BancoId"></select>
+                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
                             <span asp-validation-for=" BancoId" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
                             <label asp-for="SistemaId" class="control-label">Selecionar Sistema</label>
-                            <select asp-for="SistemaId" class ="form-control" asp-items="ViewBag.SistemaId"></select>
+                            <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
                             <span asp-validation-for="SistemaId" class="text-danger"></span>
                         </div>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
@@ -60,7 +61,14 @@
                             <input asp-for="BancoUsuario" required="required" class="form-control" />
                             <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label asp-for=" BancoSenha" class="control-label">Senha</label>
                             <input asp-for="BancoSenha" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSenha" class="text-danger"></span>
@@ -70,7 +78,7 @@
                             <input asp-for="BancoSID" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSID" class="text-danger"></span>
                         </div>
-                          <!-- <input type="button" value="Validar" class="btn btn-default GeerarPadding" /> -->
+                        <!-- <input type="button" value="Validar" class="btn btn-default GeerarPadding" /> -->
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
@@ -87,45 +95,38 @@
                             <input asp-for="NomeDRG" required="required" class="form-control" />
                             <span asp-validation-for="NomeDRG" class="text-danger"></span>
                         </div>
-                          <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
+                        <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
-
-                 <div class="row step-content" id="step-4">
+                <div class="row step-content" id="step-4">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Banco" class="control-label">Nome do paciente</label>
-                            <input asp-for="Banco" required="required" class="form-control" />
-                            <span asp-validation-for=" Banco" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
+    
+                        @*<div class="form-group">
                             <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
                             <input asp-for="Prestadores" required="required" class="form-control" />
                             <span asp-validation-for="Prestadores" class="text-danger"></span>
-                        </div>
-                          <!-- <input type="submit" value="Adicionar" class="btn btn-default" /> -->
+                        </div>*@
+                        <!-- <input type="submit" value="Adicionar" class="btn btn-default" /> -->
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
-                </div>       
-                 <div class="row step-content" id="step-5">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
-                            <input asp-for="Prestadores" required="required" class="form-control" />
-                            <span asp-validation-for="Prestadores" class="text-danger"></span>
-                        </div>
-                          <input type="submit" value="Adicionar" class="btn btn-default" />
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
-                    </div>
-                </div>                    
-
                 </div>
-                <!-- <div>
-                    <a asp-action="Index" class="btn btn-primary">Voltar a Lista</a>
-                </div> -->
+                <div class="row step-content" id="step-5">
+                    <div class="col-md-12">
+                        @*<div class="form-group">
+                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
+                            <input asp-for="Prestadores" required="required" class="form-control" />
+                            <span asp-validation-for="Prestadores" class="text-danger"></span>
+                        </div>*@
+                        <input type="submit" value="Adicionar" class="btn btn-success pull-right" />
+                        @*<button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>*@
+                    </div>
+                </div>
             </form>
         </fieldset>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

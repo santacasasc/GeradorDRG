@@ -1,4 +1,4 @@
-﻿    <!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -7,7 +7,7 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-       
+
         <link href="~/css/wizard.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
@@ -33,12 +33,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li> -->
-                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li> -->
-                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Configuracao</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">Gerar XML</a></li>
-                   
+                    <li><a asp-area="" asp-controller="Configuracoes" asp-action="Inicial">Configuracao</a></li>
+                    <li><a asp-area="" asp-controller="Gerar" asp-action="Index">Gerar XML</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
