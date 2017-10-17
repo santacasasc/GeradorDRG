@@ -33,3 +33,18 @@
         display: none;
     }
 }
+
+.caixa {
+    border-radius: 25px;
+    box-shadow: 5px 5px 25px 5px rgba(46,61,73,0.2);
+    /*box-shadow: 2px 2px 1px 1px gray;*/
+    background-color: rgba(123, 183, 243, 0.2);
+    border-top: 6px solid #10afbf;
+    overflow: auto;
+    margin-top: 40px;
+    padding-bottom: 30px;
+}
+
+.GeerarPadding{
+    margin-bottom: 10px;
+}
