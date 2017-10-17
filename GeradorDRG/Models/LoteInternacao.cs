@@ -32,6 +32,8 @@ namespace GeradorDRG.Models
 				this.SuporteVentilatorios = new SuporteVentilatorio();
 				this.CondicoesAdquirida = new CondicaoAdquirida();
 				this.AltasAdministrativa = new AltaAdministrativa();
+				this.Rns = new Rn();
+				this.AnalisesCritica = new AnaliseCritica();
 
 			}
 			[XmlElement(ElementName ="situacao")]
@@ -93,8 +95,14 @@ namespace GeradorDRG.Models
 			public CondicaoAdquirida CondicoesAdquirida { get; set; }
 			[XmlElement(ElementName = "AltaAdministrativa")]
 			public AltaAdministrativa AltasAdministrativa { get; set; }
+			[XmlElement(ElementName = "Rn")]
+			public Rn Rns { get; set; }
+			[XmlElement(ElementName = "AnaliseCritica")]
+			public AnaliseCritica AnalisesCritica { get; set; }
 
-			
+
+
+
 			public class Beneficiario
 			{
 				[XmlElement(ElementName = "codigo")]
@@ -233,6 +241,27 @@ namespace GeradorDRG.Models
 				public int NumeroAtendimento { get; set; }
 				[XmlElement(ElementName = "numeroAutorizacao")]
 				public int NumeroAutorizacao { get; set; }
+			}
+
+			public class Rn
+			{
+				[XmlElement(ElementName = "pesoNascimento")]
+				public int PesoNascimento { get; set; }
+				[XmlElement(ElementName = "idadeGestacional")]
+				public int IdadeGestacional { get; set; }
+				[XmlElement(ElementName = "comprimento")]
+				public int Comprimento { get; set; }
+
+
+			}
+
+			public class AnaliseCritica
+			{
+				[XmlElement(ElementName = "dataAnalise")]
+				public DateTime DataAnalise { get; set; }
+				[XmlElement(ElementName = "analiseCritica")]
+				public string AnaliseCriticas { get; set; }
+
 			}
 		}
 	}
