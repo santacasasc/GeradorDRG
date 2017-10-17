@@ -1,17 +1,131 @@
-﻿@{
+﻿@model GeradorDRG.Models.Configuracao
+@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+<div class="container caixa">
+    <div class="well" style="margin-top:50px;">
+        <div class="wizard col-lg-12">
+            <div class="wizard-row steps">
+                <div class="wizard-step">
+                    <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                    <p>ID e SIstema</p>
+                </div>
+                <div class="wizard-step">
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle disabled">2</a>
+                    <p>Config Usuario</p>
+                </div>
+                <div class="wizard-step">
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle disabled">3</a>
+                    <p>Informaçoes Adicionais</p>
+                </div>
+                <div class="wizard-step">
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
+                    <p>Pacientes</p>
+                </div>
+                <div class="wizard-step">
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">5</a>
+                    <p>Prestador</p>
+                </div>
+            </div>
+        </div>
+        <fieldset class="col-xs-12">
+            <legend></legend>
+            <form role="form" action="" method="post">
+                <div class="row step-content" id="step-1">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="BancoId" class="control-label">Selecionar ID</label>
+                            <select asp-for="BancoId" class ="form-control" asp-items="ViewBag.BancoId"></select>
+                            <span asp-validation-for=" BancoId" class="text-danger"></span>
+                        </div>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+                        <div class="form-group">
+                            <label asp-for="SistemaId" class="control-label">Selecionar Sistema</label>
+                            <select asp-for="SistemaId" class ="form-control" asp-items="ViewBag.SistemaId"></select>
+                            <span asp-validation-for="SistemaId" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+                <div class="row step-content" id="step-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for=" BancoURL" class="control-label">URL do Banco</label>
+                            <input asp-for="BancoURL" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoURL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoUsuario" class="control-label">Usuario</label>
+                            <input asp-for="BancoUsuario" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
+                        </div>
+                          <div class="form-group">
+                            <label asp-for=" BancoSenha" class="control-label">Senha</label>
+                            <input asp-for="BancoSenha" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoSID" class="control-label">SID</label>
+                            <input asp-for="BancoSID" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSID" class="text-danger"></span>
+                        </div>
+                          <!-- <input type="button" value="Validar" class="btn btn-default GeerarPadding" /> -->
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+                <div class="row step-content" id="step-3">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="CodDRG" class="control-label">Código DRG</label>
+                            <input asp-for="CodDRG" required="required" class="form-control" />
+                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NomeDRG" class="control-label">Nome DRG</label>
+                            <input asp-for="NomeDRG" required="required" class="form-control" />
+                            <span asp-validation-for="NomeDRG" class="text-danger"></span>
+                        </div>
+                          <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+
+                 <div class="row step-content" id="step-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Banco" class="control-label">Nome do paciente</label>
+                            <input asp-for="Banco" required="required" class="form-control" />
+                            <span asp-validation-for=" Banco" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
+                            <input asp-for="Prestadores" required="required" class="form-control" />
+                            <span asp-validation-for="Prestadores" class="text-danger"></span>
+                        </div>
+                          <!-- <input type="submit" value="Adicionar" class="btn btn-default" /> -->
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>       
+                 <div class="row step-content" id="step-5">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
+                            <input asp-for="Prestadores" required="required" class="form-control" />
+                            <span asp-validation-for="Prestadores" class="text-danger"></span>
+                        </div>
+                          <input type="submit" value="Adicionar" class="btn btn-default" />
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>                    
+
+                </div>
+                <!-- <div>
+                    <a asp-action="Index" class="btn btn-primary">Voltar a Lista</a>
+                </div> -->
+            </form>
+        </fieldset>
+    </div>
+</div>

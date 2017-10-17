@@ -1,18 +1,21 @@
-﻿<!DOCTYPE html>
+﻿    <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GeradorDRG</title>
+    <title>@ViewData["Title"] - ProjetoDRG</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+       
+        <link href="~/css/wizard.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link href="~/css/wizard.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -31,8 +34,11 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li> -->
+                    <!-- <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li> -->
+                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Configuracao</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">Gerar XML</a></li>
+                   
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -50,6 +56,7 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <!-- <scrip src="~js/wizard.js" asp-append-version= "true"></script> -->
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -66,7 +73,53 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+    <script>
+        $(document).ready(function () {
+            var steps_link = $('div.steps div a'),
+                steps_contents = $('.step-content'),
+                nexts = $('.nextBtn');
 
+            steps_contents.hide();
+
+            steps_link.click(function (e) {
+                e.preventDefault();
+                var $target = $($(this).attr('href')),
+                    $item = $(this);
+
+                if (!$item.hasClass('disabled')) {
+                    steps_link.removeClass('btn-primary').addClass('btn-default');
+                    $item.addClass('btn-primary');
+                    steps_contents.hide();
+                    $target.show();
+                    $target.find('input:eq(0)').focus();
+                }
+            });
+
+            nexts.click(function () {
+                var curStep = $(this).closest(".step-content"),
+                    curStepBtn = curStep.attr("id"),
+                    nextwizard = $('div.steps div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+                    curInputs = curStep.find("input[type='text'],input[type='url']"),
+                    isValid = true;
+
+                $(".form-group").removeClass("has-error");
+
+                for (var i = 0; i < curInputs.length; i++) {
+                    if (!curInputs[i].validity.valid) {
+                        isValid = false;
+                        $(curInputs[i]).closest(".form-group").addClass("has-error");
+                    }
+                }
+
+                if (isValid) {
+                    nextwizard.removeClass('disabled').trigger('click');
+                }
+            });
+
+            $('div.steps div a.btn-primary').trigger('click');
+
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
