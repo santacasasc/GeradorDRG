@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using GeradorDRG.Data;
 using GeradorDRG.Models;
 using GeradorDRG.Services;
+using GeradorDRG.Extensions;
+using GeradorDRG.Filter;
 
 namespace GeradorDRG
 {
@@ -27,7 +29,7 @@ namespace GeradorDRG
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -36,11 +38,17 @@ namespace GeradorDRG
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
+
+            services.AddMvc(options =>
+                {
+                    options.Filters.Add(new ConfiguracaoAsyncActionFilter());
+                }
+                );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext applicationDbContext)
         {
             if (env.IsDevelopment())
             {
@@ -50,8 +58,10 @@ namespace GeradorDRG
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
             }
+
+            applicationDbContext.Seed();
 
             app.UseStaticFiles();
 
@@ -61,7 +71,7 @@ namespace GeradorDRG
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Gerar}/{action=Index}/{id?}");
             });
         }
     }
