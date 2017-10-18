@@ -49,19 +49,19 @@ namespace GeradorDRG.Models
 			public string NumeroAutorizacao { get; set; }
 
 			[XmlElement(ElementName = "dataInternacao")]
-			public DateTime DataInternacao { get; set; }
+			public string DataInternacao { get; set; }
 
 			[XmlElement(ElementName = "dataAlta")]
-			public DateTime DataAlta { get; set; }
+			public string DataAlta { get; set; }
 
 			[XmlElement(ElementName = "condicaoAlta")]
 			public char CondicaoAlta { get; set; }
 
 			[XmlElement(ElementName = "dataAutorizacao")]
-			public DateTime DataAutorizacao { get; set; }
+			public string DataAutorizacao { get; set; }
 
 			[XmlElement(ElementName = "codigoCidPrincipal")]
-			public int CodigoCidPrincipal { get; set; }
+			public string CodigoCidPrincipal { get; set; }
 
 			[XmlElement(ElementName = "internadoOutrasVezes")]
 			public char InternadoOutrasVezes { get; set; }
@@ -106,17 +106,17 @@ namespace GeradorDRG.Models
 			public class Beneficiario
 			{
 				[XmlElement(ElementName = "codigo")]
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				[XmlElement(ElementName = "nome")]
 				public string Nome { get; set; }
 				[XmlElement(ElementName = "dataNascimento")]
-				public DateTime DataNascimento { get; set; }
+				public string DataNascimento { get; set; }
 				[XmlElement(ElementName = "sexo")]
 				public char Sexo { get; set; }
 				[XmlElement(ElementName = "nomeMae")]
 				public string NomeMae { get; set; }
 				[XmlElement(ElementName = "cpf")]
-				public int Cpf { get; set; }
+				public string Cpf { get; set; }
 				[XmlElement(ElementName = "endereco")]
 				public string Endereco { get; set; }
 				[XmlElement(ElementName = "recemNascido")]
@@ -126,7 +126,7 @@ namespace GeradorDRG.Models
 			public class Operadora
 			{
 				[XmlElement(ElementName = "codigo")]
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				[XmlElement(ElementName = "nome")]
 				public string Nome { get; set; }
 				[XmlElement(ElementName = "sigla")]
@@ -134,9 +134,9 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "plano")]
 				public string Plano { get; set; }
 				[XmlElement(ElementName = "numeroCarteira")]
-				public int NumeroCarteira { get; set; }
+				public string NumeroCarteira { get; set; }
 				[XmlElement(ElementName = "dataValidade")]
-				public DateTime DataValidade { get; set; }
+				public string DataValidade { get; set; }
 
 			}
 
@@ -145,9 +145,9 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "nome")]
 				public string Nome { get; set; }
 				[XmlElement(ElementName = "ddd")]
-				public int Ddd { get; set; }
+				public string Ddd { get; set; }
 				[XmlElement(ElementName = "telefone")]
-				public int Telefone { get; set; }
+				public string Telefone { get; set; }
 				[XmlElement(ElementName = "email")]
 				public string Email { get; set; }
 				[XmlElement(ElementName = "uf")]
@@ -166,7 +166,7 @@ namespace GeradorDRG.Models
 			public class Hospital
 			{
 				[XmlElement(ElementName = "codigo")]
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				[XmlElement(ElementName = "nome")]
 				public string Nome { get; set; }
 
@@ -181,22 +181,22 @@ namespace GeradorDRG.Models
 			public class Procedimento
 			{
 				[XmlElement(ElementName = "codigoProcedimento")]
-				public int CodigoProcedimento { get; set; }
+				public string CodigoProcedimento { get; set; }
 				[XmlElement(ElementName = "dataAutorizacao")]
-				public DateTime DataAutorizacao { get; set; }
+				public string DataAutorizacao { get; set; }
 				[XmlElement(ElementName = "dataExecucao")]
-				public DateTime DataExecucao { get; set; }
+				public string DataExecucao { get; set; }
 
 			}
 
 			public class Cti
 			{
 				[XmlElement(ElementName = "dataInicial")]
-				public DateTime DataInicial { get; set; }
+				public string DataInicial { get; set; }
 				[XmlElement(ElementName = "dataFinal")]
-				public DateTime DataFinal { get; set; }
+				public string DataFinal { get; set; }
 				[XmlElement(ElementName = "codigoCidPrincipal")]
-				public int CodigoCidPrincipal { get; set; }
+				public string CodigoCidPrincipal { get; set; }
 				[XmlElement(ElementName = "condicaoAlta")]
 				public char CondicaoAlta { get; set; }
 				[XmlElement(ElementName = "uf")]
@@ -204,7 +204,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "crm")]
 				public string Crm { get; set; }
 				[XmlElement(ElementName = "codigoHospital")]
-				public int CodigoHospital { get; set; }
+				public string CodigoHospital { get; set; }
 				[XmlElement(ElementName = "nomeHospital")]
 				public string NomeHospital { get; set; }
 
@@ -221,36 +221,36 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "local")]
 				public char Local { get; set; }
 				[XmlElement(ElementName = "dataInicial")]
-				public DateTime DataInical { get; set; }
+				public string DataInical { get; set; }
 				[XmlElement(ElementName = "dataFinal")]
-				public DateTime DataFinal { get; set; }
+				public string DataFinal { get; set; }
 
 				public CondicaoAdquirida CondicoesAdquirida { get; set; }
 			}
 			public class CondicaoAdquirida
 			{
 				[XmlElement(ElementName = "codigoCondicaoAdquirida")]
-				public int CodigoCondicaoAdquirida { get; set; }
+				public string CodigoCondicaoAdquirida { get; set; }
 				[XmlElement(ElementName = "dataOcorrencia")]
-				public DateTime DataOcorrencia { get; set; }
+				public string DataOcorrencia { get; set; }
 			}
 
 			public class AltaAdministrativa
 			{
 				[XmlElement(ElementName = "numeroAtendimento")]
-				public int NumeroAtendimento { get; set; }
+				public string NumeroAtendimento { get; set; }
 				[XmlElement(ElementName = "numeroAutorizacao")]
-				public int NumeroAutorizacao { get; set; }
+				public string NumeroAutorizacao { get; set; }
 			}
 
 			public class Rn
 			{
 				[XmlElement(ElementName = "pesoNascimento")]
-				public int PesoNascimento { get; set; }
+				public string PesoNascimento { get; set; }
 				[XmlElement(ElementName = "idadeGestacional")]
-				public int IdadeGestacional { get; set; }
+				public string IdadeGestacional { get; set; }
 				[XmlElement(ElementName = "comprimento")]
-				public int Comprimento { get; set; }
+				public string Comprimento { get; set; }
 
 
 			}
@@ -258,7 +258,7 @@ namespace GeradorDRG.Models
 			public class AnaliseCritica
 			{
 				[XmlElement(ElementName = "dataAnalise")]
-				public DateTime DataAnalise { get; set; }
+				public string DataAnalise { get; set; }
 				[XmlElement(ElementName = "analiseCritica")]
 				public string AnaliseCriticas { get; set; }
 

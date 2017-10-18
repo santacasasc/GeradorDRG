@@ -53,13 +53,13 @@ namespace OracleProvider.Models
 
 			public string NumeroAutorizacao { get; set; }
 
-			public DateTime DataInternacao { get; set; }
+			public string DataInternacao { get; set; }
 
-			public DateTime DataAlta { get; set; }
+			public string DataAlta { get; set; }
 
 			public char CondicaoAlta { get; set; }
 
-			public DateTime DataAutorizacao { get; set; }
+			public string DataAutorizacao { get; set; }
 
 			public int CodigoCidPrincipal { get; set; }
 
@@ -96,17 +96,17 @@ namespace OracleProvider.Models
 			public class Beneficiario
 			{
 			
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				
 				public string Nome { get; set; }
 				
-				public DateTime DataNascimento { get; set; }
+				public string DataNascimento { get; set; }
 				
 				public char Sexo { get; set; }
 				
 				public string NomeMae { get; set; }
 				
-				public int Cpf { get; set; }
+				public string Cpf { get; set; }
 				
 				public string Endereco { get; set; }
 				
@@ -115,20 +115,20 @@ namespace OracleProvider.Models
 
 			public class Operadora
 			{
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				public string Nome { get; set; }
 				public string Sigla { get; set; }
 				public string Plano { get; set; }
-				public int NumeroCarteira { get; set; }
-				public DateTime DataValidade { get; set; }
+				public string NumeroCarteira { get; set; }
+				public string DataValidade { get; set; }
 
 			}
 
 			public class Medico
 			{
 				public string Nome { get; set; }
-				public int Ddd { get; set; }
-				public int Telefone { get; set; }
+				public string Ddd { get; set; }
+				public string Telefone { get; set; }
 				public string Email { get; set; }
 				public string Uf { get; set; }
 				public string Crm { get; set; }
@@ -140,7 +140,7 @@ namespace OracleProvider.Models
 
 			public class Hospital
 			{
-				public int Codigo { get; set; }
+				public string Codigo { get; set; }
 				public string Nome { get; set; }
 
 			}
@@ -194,26 +194,26 @@ namespace OracleProvider.Models
 			}
 			public class CondicaoAdquirida
 			{
-				public int CodigoCondicaoAdquirida { get; set; }
+				public string CodigoCondicaoAdquirida { get; set; }
 				
 				public DateTime DataOcorrencia { get; set; }
 			}
 
 			public class AltaAdministrativa
 			{
-				public int NumeroAtendimento { get; set; }
+				public string NumeroAtendimento { get; set; }
 
-                public int NumeroAutorizacao { get; set; }
+                public string NumeroAutorizacao { get; set; }
 			}
 
 			public class Rn
 			{
 				
-				public int PesoNascimento { get; set; }
+				public string PesoNascimento { get; set; }
 				
-				public int IdadeGestacional { get; set; }
+				public string IdadeGestacional { get; set; }
 				
-				public int Comprimento { get; set; }
+				public string Comprimento { get; set; }
 
 
 			}
@@ -221,7 +221,7 @@ namespace OracleProvider.Models
 			public class AnaliseCritica
 			{
 				
-				public DateTime DataAnalise { get; set; }
+				public string DataAnalise { get; set; }
 				
 				public string AnaliseCriticas { get; set; }
 

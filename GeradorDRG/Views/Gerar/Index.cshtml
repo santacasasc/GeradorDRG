@@ -4,7 +4,6 @@
     ViewData["Title"] = "Home";
 }
 
-
 <div class="container caixa">
     <div class="well" style="margin-top:50px;">
         <div class="wizard col-lg-12">
@@ -13,19 +12,12 @@
                     <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
                     <p>Gerar XML</p>
                 </div>
-                @*<div class="wizard-step">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle disabled">2</a>
-                    <p>Informacoes Pessoais</p>
-                </div>
-                <div class="wizard-step">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle disabled">3</a>
-                    <p>Informaçoes Adicionais</p>
-                </div>*@
+
             </div>
         </div>
         <fieldset class="col-xs-12">
             <legend></legend>
-            <form role="form" action="" method="post">
+            <form role="form" asp-action="GeracaoXML" method="get">
                 <div class="row step-content" id="step-1">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -35,35 +27,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="DataFim" class="control-label">asdasdad</label>
+                            <label asp-for="DataFim" class="control-label"></label>
                             <input asp-for="DataFim" required="required" class="form-control" />
                             <span asp-validation-for="DataFim" class="text-danger"></span>
                         </div>
                          <input type="submit" value="Gerar" class="btn btn-default GeerarPadding" />
-                        @*<button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>*@
                     </div>
-                       
-                </div>
-                @*<div class="row step-content" id="step-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label">Company Name</label>
-                            <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-                        </div>
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
-                    </div>
-                </div>*@
-                <div class="row step-content" id="step-2">
-                    <!-- <div class="col-md-12">
-                    
-                      
-                        <button class="btn btn-success pull-right" type="submit">Submit</button>
-                    </div> -->
-                
-
-                </div>
-                <div>
-                    <a asp-action="Index" class="btn btn-primary">Voltar a Lista</a>
                 </div>
             </form>
         </fieldset>
@@ -72,6 +41,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
 }
