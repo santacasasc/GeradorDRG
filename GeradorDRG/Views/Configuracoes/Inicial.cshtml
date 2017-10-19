@@ -9,22 +9,19 @@
             <div class="wizard-row steps">
                 <div class="wizard-step">
                     <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                    <p>ID e SIstema</p>
+                    <p>ID e SIstema Config Usuario </p>
                 </div>
+               
                 <div class="wizard-step">
                     <a href="#step-2" type="button" class="btn btn-default btn-circle disabled">2</a>
-                    <p>Config Usuario</p>
+                    <p>Nome Cógido</p>
                 </div>
                 <div class="wizard-step">
                     <a href="#step-3" type="button" class="btn btn-default btn-circle disabled">3</a>
-                    <p>Informaçoes Adicionais</p>
-                </div>
-                <div class="wizard-step">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
                     <p>Prestador</p>
                 </div>
                 <div class="wizard-step">
-                    <a href="#step-5" type="button" class="btn btn-default btn-circle disabled">5</a>
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
                     <p>Pacientes</p>
                 </div>
             </div>
@@ -39,6 +36,12 @@
                             <label asp-for="BancoId" class="control-label">Selecionar ID</label>
                             <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
                             <span asp-validation-for=" BancoId" class="text-danger"></span>
+
+                            <label asp-for="BancoId" class="control-label"></label>
+                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
+                            <span asp-validation-for="BancoId" class="text-danger"></span>
+
+
                         </div>
 
                         <div class="form-group">
@@ -46,11 +49,6 @@
                             <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
                             <span asp-validation-for="SistemaId" class="text-danger"></span>
                         </div>
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
-                    </div>
-                </div>
-                <div class="row step-content" id="step-2">
-                    <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for=" BancoURL" class="control-label">URL do Banco</label>
                             <input asp-for="BancoURL" required="required" class="form-control" />
@@ -83,11 +81,11 @@
                             <input asp-for="BancoSID" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSID" class="text-danger"></span>
                         </div>
-                        <!-- <input type="button" value="Validar" class="btn btn-default GeerarPadding" /> -->
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
-                <div class="row step-content" id="step-3">
+               
+                <div class="row step-content" id="step-2">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label asp-for="CodDRG" class="control-label">Código DRG</label>
@@ -104,7 +102,7 @@
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
-                <div class="row step-content" id="step-4">
+                <div class="row step-content" id="step-3">
                     <div class="col-md-12">
                         <div class="">
                             <div id="div_prestador">
@@ -114,7 +112,7 @@
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
-                <div class="row step-content" id="step-5">
+                <div class="row step-content" id="step-4">
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <div id="div_paciente">
