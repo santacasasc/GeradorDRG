@@ -81,7 +81,7 @@ namespace GeradorDRG.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha")] Configuracao configuracao)
+        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,Prestadores,Pacientes")] Configuracao configuracao)
         {
             if (ModelState.IsValid)
             {
