@@ -25,7 +25,11 @@ namespace GeradorDRG.Filter
             {
                 context.Result = new RedirectToActionResult("Inicial","Configuracoes", null);
             }
-            else
+			else if (_context.Configuracao.FirstOrDefault() != null && controllerName=="Configuracoes" && (actionName=="Inicial"))
+			{
+				context.Result = new RedirectToActionResult("Edit", "Configuracoes", null);
+			}
+			else
             {
                 await next();
             }
