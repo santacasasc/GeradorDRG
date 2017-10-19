@@ -99,7 +99,7 @@ namespace GeradorDRG.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                id=_context.Configuracao.FirstOrDefault().Id;
             }
 
             var configuracao = await _context.Configuracao.SingleOrDefaultAsync(m => m.Id == id);
