@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -33,8 +37,11 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Configuracoes" asp-action="Inicial">Configuracao</a></li>
-                    <li><a asp-area="" asp-controller="Gerar" asp-action="Index">Gerar XML</a></li>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li><a asp-area="" asp-controller="Configuracoes" asp-action="Inicial">Configuracao</a></li>
+                        <li><a asp-area="" asp-controller="Gerar" asp-action="Index">Gerar XML</a></li>
+                    }
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
