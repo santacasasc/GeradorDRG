@@ -21,11 +21,11 @@
                 </div>
                 <div class="wizard-step">
                     <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
-                    <p>Pacientes</p>
+                    <p>Prestador</p>
                 </div>
                 <div class="wizard-step">
                     <a href="#step-5" type="button" class="btn btn-default btn-circle disabled">5</a>
-                    <p>Prestador</p>
+                    <p>Pacientes</p>
                 </div>
             </div>
         </div>
@@ -74,6 +74,11 @@
                             <span asp-validation-for=" BancoSenha" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for=" BancoSenha" class="control-label">Confirmar Senha</label>
+                            <input asp-for="BancoSenha" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <label asp-for=" BancoSID" class="control-label">SID</label>
                             <input asp-for="BancoSID" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSID" class="text-danger"></span>
@@ -87,7 +92,7 @@
                         <div class="form-group">
                             <label asp-for="CodDRG" class="control-label">Código DRG</label>
                             <input asp-for="CodDRG" required="required" class="form-control" />
-                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                            <span asp-validation-for=" CodDRG"  class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
@@ -101,25 +106,24 @@
                 </div>
                 <div class="row step-content" id="step-4">
                     <div class="col-md-12">
-    
-                        @*<div class="form-group">
-                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
-                            <input asp-for="Prestadores" required="required" class="form-control" />
-                            <span asp-validation-for="Prestadores" class="text-danger"></span>
-                        </div>*@
-                        <!-- <input type="submit" value="Adicionar" class="btn btn-default" /> -->
+                        <div class="">
+                            <div id="div_prestador">
+                            </div>
+                            <button type="button" id="add_prestador" class="btn-success">Adicionar Nome</button>
+                        </div>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content" id="step-5">
                     <div class="col-md-12">
-                        @*<div class="form-group">
-                            <label asp-for="Prestadores" class="control-label">Nome do prestador</label>
-                            <input asp-for="Prestadores" required="required" class="form-control" />
-                            <span asp-validation-for="Prestadores" class="text-danger"></span>
-                        </div>*@
+                        <div class="col-md-6">
+                            <div id="div_paciente">
+                            </div>
+                            <button type="button" id="add_paciente" class="btn-success">Adicionar Nome</button>
+                        </div>
+
                         <input type="submit" value="Adicionar" class="btn btn-success pull-right" />
-                        @*<button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>*@
+
                     </div>
                 </div>
             </form>
@@ -129,4 +133,64 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        "use strict";
+
+        $(document).ready(function () {
+
+            var div_paciente = $("#div_paciente"); //Fields wrapper
+            var div_prestador = $("#div_prestador"); //Fields wrapper
+            var add_paciente = $("#add_paciente"); //Add button ID
+            var add_prestador = $("#add_prestador"); //Add button ID
+            var x = 0; //initlal text box count
+            var y = 0; //initlal text box count
+            $(add_paciente).click(function (e) { //on add input button click
+                e.preventDefault();
+
+
+                $(div_paciente).append('<div class="form-group">' +
+                    '<input type="hidden" name="Pacientes.Index" value=' + y + ' />' +
+                    '<label class="control-label" for="Pacientes[' + y + '].Nome">Nome do paciente</label>' +
+                    '<input name="Pacientes[' + y + '].NomePaciente" class="form-control" id="Pacientes[' + y + '].NomePaciente" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Pacientes[' + y + '].NomePaciente"></span>' +
+
+                    '<label class="control-label" for="Pacientes[' + y + '].Nome">Código do paciente</label>' +
+                    '<input name="Pacientes[' + y + '].CodPaciente" class="form-control" id="Pacientes[' + y + '].CodPaciente" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Pacientes[' + y + '].CodPaciente"></span>' +
+                    '<a href="#" class="btn btn-danger remove_field">Remove</a>' +
+                    '</div>'); //add input box
+                y++; //text box increment
+            });
+
+            $(add_prestador).click(function (e) { //on add input button click
+                e.preventDefault();
+
+
+                $(div_prestador).append('<div class="form-group">' +
+                    '<input type="hidden" name="Prestadores.Index" value=' + x + ' />' +
+                    '<label class="control-label" for="Prestadores[' + x + '].Nome">Nome do prestador</label>' +
+                    '<input name="Prestadores[' + x + '].NomePrestador" class="form-control" id="Prestadores[' + x + '].NomePrestador" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Prestadores[' + x + '].NomePrestador"></span>' +
+
+                    '<label class="control-label" for="Prestadores[' + x + '].Nome">Código do prestador</label>' +
+                    '<input name="Prestadores[' + x + '].CodPrestador" class="form-control" id="Prestadores[' + x + '].CodPrestador" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Prestadores[' + x + '].CodPrestador"></span>' +
+                    '<a href="#" class="btn btn-danger remove_field">Remove</a>' +
+                    '</div>');//add input box
+                x++; //text box increment
+            });
+
+            $(div_prestador).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+            $(div_paciente).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+        });
+
+
+    </script>
 }
