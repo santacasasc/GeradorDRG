@@ -49,6 +49,10 @@ namespace OracleProvider.Models
 
 			public string CaraterInternacao { get; set; }
 
+			public string NumeroOperadora { get; set; }
+
+			public string NumeroRegistro { get; set; }
+
 			public string NumeroAtendimento { get; set; }
 
 			public string NumeroAutorizacao { get; set; }
@@ -59,15 +63,19 @@ namespace OracleProvider.Models
 
 			public char CondicaoAlta { get; set; }
 
+			public string CodigoCidPrincipal { get; set; }
+
 			public string DataAutorizacao { get; set; }
 
-			public int CodigoCidPrincipal { get; set; }
-
 			public char InternadoOutrasVezes { get; set; }
+
+			public char HospitalInternacaoAnterior { get; set; }
 
 			public char Reinternacao { get; set; }
 
 			public char Recaida { get; set; }
+
+			public string Acao { get; set; }
 
 			public Hospital Hospitais { get; set; }
 

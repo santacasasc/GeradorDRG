@@ -42,6 +42,12 @@ namespace GeradorDRG.Models
 			[XmlElement(ElementName = "caraterInternacao")]
 			public string CaraterInternacao { get; set; }
 
+			[XmlElement(ElementName ="numeroOperadora")]
+			public string NumeroOperadora { get; set; }
+
+			[XmlElement(ElementName="numeroRegistro")]
+			public string NumeroRegistro { get; set; }
+
 			[XmlElement(ElementName = "numeroAtendimento")]
 			public string NumeroAtendimento { get; set; }
 
@@ -57,14 +63,18 @@ namespace GeradorDRG.Models
 			[XmlElement(ElementName = "condicaoAlta")]
 			public char CondicaoAlta { get; set; }
 
-			[XmlElement(ElementName = "dataAutorizacao")]
-			public string DataAutorizacao { get; set; }
-
 			[XmlElement(ElementName = "codigoCidPrincipal")]
 			public string CodigoCidPrincipal { get; set; }
 
+			[XmlElement(ElementName = "dataAutorizacao")]
+			public string DataAutorizacao { get; set; }
+
+
 			[XmlElement(ElementName = "internadoOutrasVezes")]
 			public char InternadoOutrasVezes { get; set; }
+
+			[XmlElement(ElementName ="hospitalInternacaoAnterior")]
+			public char HospitalInternacaoAnterior { get; set; }
 
 			[XmlElement(ElementName = "reinternacao")]
 			public char Reinternacao { get; set; }
@@ -72,6 +82,8 @@ namespace GeradorDRG.Models
 			[XmlElement(ElementName = "recaida")]
 			public char Recaida { get; set; }
 
+			[XmlElement(ElementName ="acao")]
+			public string Acao { get; set; }
 
 
 
