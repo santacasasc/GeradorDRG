@@ -18,5 +18,7 @@ namespace GeradorDRG.Models
         public string NomePaciente { get; set; }
 
         public virtual Configuracao Configuracao { get; set; }
+
+     
     }
 }

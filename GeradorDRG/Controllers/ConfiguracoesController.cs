@@ -102,7 +102,7 @@ namespace GeradorDRG.Controllers
                 id=_context.Configuracao.FirstOrDefault().Id;
             }
 
-            var configuracao = await _context.Configuracao.SingleOrDefaultAsync(m => m.Id == id);
+            var configuracao = await _context.Configuracao.Include(m=>m.Prestadores).Include(m=>m.Pacientes).SingleOrDefaultAsync(m => m.Id == id);
             if (configuracao == null)
             {
                 return NotFound();
@@ -117,7 +117,7 @@ namespace GeradorDRG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha")] Configuracao configuracao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste")] Configuracao configuracao)
         {
             if (id != configuracao.Id)
             {

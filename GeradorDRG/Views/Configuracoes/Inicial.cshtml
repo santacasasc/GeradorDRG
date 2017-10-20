@@ -1,6 +1,6 @@
 ﻿@model GeradorDRG.Models.Configuracao
 @{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Index";
 }
 
 <div class="container caixa">
@@ -105,7 +105,20 @@
                 <div class="row step-content" id="step-3">
                     <div class="col-md-12">
                         <div class="">
-                            <div id="div_prestador">
+                            <div id="div_prestador"> @*data-index="@Model.Prestadores.Count"*@
+
+                                @*@{
+                                    ViewBag.Index = 0;
+                                    foreach (var i in Model.Prestadores)
+                                    {
+                                        @Html.Partial("_Prestadores", i)
+                                        ViewBag.Index = ViewBag.Index + 1;
+
+                                    }
+
+
+                                }*@
+
                             </div>
                             <button type="button" id="add_prestador" class="btn-success">Adicionar Nome</button>
                         </div>
@@ -115,7 +128,20 @@
                 <div class="row step-content" id="step-4">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <div id="div_paciente">
+                            <div id="div_paciente" > @*data-index="@Model.Pacientes.Count"*@
+
+                                @*@{ 
+                                    ViewBag.Index = 0;
+                                    foreach( var i in Model.Pacientes)
+                                    {
+                                        @Html.Partial("_Pacientes", i)
+                                        ViewBag.Index = ViewBag.Index + 1;
+
+                                    }
+
+
+                                }*@
+
                             </div>
                             <button type="button" id="add_paciente" class="btn-success">Adicionar Nome</button>
                         </div>
