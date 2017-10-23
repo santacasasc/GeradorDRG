@@ -99,7 +99,7 @@ namespace GeradorDRG.Controllers
         {
             if (id == null)
             {
-                id=_context.Configuracao.FirstOrDefault().Id;
+                id=_context.Configuracao.FirstOrDefault().Id; 
             }
 
             var configuracao = await _context.Configuracao.Include(m=>m.Prestadores).Include(m=>m.Pacientes).SingleOrDefaultAsync(m => m.Id == id);

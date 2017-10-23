@@ -34,5 +34,6 @@ namespace GeradorDRG.Data
         public DbSet<GeradorDRG.Models.PrestadorTeste> PrestadorTeste { get; set; }
 
         public DbSet<GeradorDRG.Models.Configuracao> Configuracao { get; set; }
+
     }
 }
