@@ -1,86 +1,222 @@
 ﻿@model GeradorDRG.Models.Configuracao
-
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<div class="container caixa">
+    <div class="well" style="margin-top:50px;">
+        <div class="wizard col-lg-12">
+            <div class="wizard-row steps">
+                <div class="wizard-step col-md-3">
+                    <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                    <p>ID e SIstema Config Usuario </p>
+                </div>
 
-<h4>Configuracao</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="BancoId" class="control-label"></label>
-                <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
-                <span asp-validation-for="BancoId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SistemaId" class="control-label"></label>
-                <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
-                <span asp-validation-for="SistemaId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BancoURL" class="control-label"></label>
-                <input asp-for="BancoURL" class="form-control" />
-                <span asp-validation-for="BancoURL" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BancoUsuario" class="control-label"></label>
-                <input asp-for="BancoUsuario" class="form-control" />
-                <span asp-validation-for="BancoUsuario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BancoSenha" class="control-label"></label>
-                <input asp-for="BancoSenha" class="form-control" />
-                <span asp-validation-for="BancoSenha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BancoSID" class="control-label"></label>
-                <input asp-for="BancoSID" class="form-control" />
-                <span asp-validation-for="BancoSID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CodDRG" class="control-label"></label>
-                <input asp-for="CodDRG" class="form-control" />
-                <span asp-validation-for="CodDRG" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeDRG" class="control-label"></label>
-                <input asp-for="NomeDRG" class="form-control" />
-                <span asp-validation-for="NomeDRG" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
-                    </label>
+                <div class="wizard-step col-md-3">
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle disabled">2</a>
+                    <p>Nome Cógido</p>
+                </div>
+                <div class="wizard-step col-md-3">
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle disabled">3</a>
+                    <p>Prestador</p>
+                </div>
+                <div class="wizard-step col-md-3">
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
+                    <p>Pacientes</p>
                 </div>
             </div>
-            <div class="form-group">
-                <label asp-for="WebServiceUsuario" class="control-label"></label>
-                <input asp-for="WebServiceUsuario" class="form-control" />
-                <span asp-validation-for="WebServiceUsuario" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WebServiceSenha" class="control-label"></label>
-                <input asp-for="WebServiceSenha" class="form-control" />
-                <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+        <fieldset class="col-xs-12">
+            <legend></legend>
+            <form method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="row step-content" id="step-1">
+                    <div class="col-md-12">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="BancoId" class="control-label">Selecionar ID</label>
+                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
+                            <span asp-validation-for=" BancoId" class="text-danger"></span>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+                            <label asp-for="BancoId" class="control-label"></label>
+                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
+                            <span asp-validation-for="BancoId" class="text-danger"></span>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SistemaId" class="control-label">Selecionar Sistema</label>
+                            <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
+                            <span asp-validation-for="SistemaId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoURL" class="control-label">URL do Banco</label>
+                            <input asp-for="BancoURL" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoURL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoUsuario" class="control-label">Usuario</label>
+                            <input asp-for="BancoUsuario" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoSenha" class="control-label">Senha</label>
+                            <input asp-for="BancoSenha" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoSenha" class="control-label">Confirmar Senha</label>
+                            <input asp-for="BancoSenha" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for=" BancoSID" class="control-label">SID</label>
+                            <input asp-for="BancoSID" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSID" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+
+                <div class="row step-content" id="step-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="CodDRG" class="control-label">Código DRG</label>
+                            <input asp-for="CodDRG" required="required" class="form-control" />
+                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NomeDRG" class="control-label">Nome DRG</label>
+                            <input asp-for="NomeDRG" required="required" class="form-control" />
+                            <span asp-validation-for="NomeDRG" class="text-danger"></span>
+                        </div>
+                        <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+                <div class="row step-content" id="step-3">
+                    <div class="col-md-12">
+                        <div class="">
+                               <div id="div_prestador">
+
+                                @{
+                                    ViewBag.Index = 0;
+                                    foreach (var i in Model.Prestadores)
+                                    {
+                                        @Html.Partial("_Prestadores", i)
+                                        ViewBag.Index = ViewBag.Index + 1;
+
+                                    }
+
+
+                                }
+
+                            </div>
+                            <button type="button" id="add_prestador" class="btn btn-primary">Adicionar Nome</button>
+                        </div>
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                    </div>
+                </div>
+                <div class="row step-content" id="step-4">
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div id="div_paciente">
+
+                                @{
+                                    ViewBag.Inicial = 0;
+                                    foreach (var i in Model.Pacientes)
+                                    {
+                                        @Html.Partial("_Pacientes", i)
+                                        ViewBag.Inicial = ViewBag.Inicial + 1;
+
+                                    }
+
+
+                                }
+
+                            </div>
+                            <button type="button" id="add_paciente" class="btn btn-primary">Adicionar Nome</button>
+                        </div>
+
+                        <input type="submit" value="Salvar Alterações" class="btn btn-success pull-right" />
+                        @*<input type="submit" value="Save" class="btn btn-default" />*@
+
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        "use strict";
+
+        $(document).ready(function () {
+
+            var div_paciente = $("#div_paciente"); //Fields wrapper
+            var div_prestador = $("#div_prestador"); //Fields wrapper
+            var add_paciente = $("#add_paciente"); //Add button ID
+            var add_prestador = $("#add_prestador"); //Add button ID
+            var x = 0; //initlal text box count
+            var y = 0; //initlal text box count
+            $(add_paciente).click(function (e) { //on add input button click
+                e.preventDefault();
+
+
+                $(div_paciente).append('<div class="form-group">' +
+                    '<input type="hidden" name="Pacientes.Index" value=' + y + ' />' +
+                    '<label class="control-label" for="Pacientes[' + y + '].Nome">Nome do paciente</label>' +
+                    '<input name="Pacientes[' + y + '].NomePaciente" class="form-control" id="Pacientes[' + y + '].NomePaciente" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Pacientes[' + y + '].NomePaciente"></span>' +
+
+                    '<label class="control-label" for="Pacientes[' + y + '].Nome">Código do paciente</label>' +
+                    '<input name="Pacientes[' + y + '].CodPaciente" class="form-control" id="Pacientes[' + y + '].CodPaciente" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Pacientes[' + y + '].CodPaciente"></span>' +
+                    '<a href="#" class="btn btn-danger remove_field">Remove</a>' +
+                    '</div>'); //add input box
+                y++; //text box increment
+            });
+
+            $(add_prestador).click(function (e) { //on add input button click
+                e.preventDefault();
+
+
+                $(div_prestador).append('<div class="form-group">' +
+                    '<input type="hidden" name="Prestadores.Index" value=' + x + ' />' +
+                    '<label class="control-label" for="Prestadores[' + x + '].Nome">Nome do prestador</label>' +
+                    '<input name="Prestadores[' + x + '].NomePrestador" class="form-control" id="Prestadores[' + x + '].NomePrestador" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Prestadores[' + x + '].NomePrestador"></span>' +
+
+                    '<label class="control-label" for="Prestadores[' + x + '].Nome">Código do prestador</label>' +
+                    '<input name="Prestadores[' + x + '].CodPrestador" class="form-control" id="Prestadores[' + x + '].CodPrestador" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Prestadores[' + x + '].CodPrestador"></span>' +
+                    '<a href="#" class="btn btn-danger remove_field">Remove</a>' +
+                    '</div>');//add input box
+                x++; //text box increment
+            });
+
+            $(div_prestador).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+            $(div_paciente).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+        });
+
+
+    </script>
 }
