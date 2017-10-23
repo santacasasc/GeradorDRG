@@ -63,7 +63,7 @@ namespace ProjetoDRG.Controllers
 				{
 					Encoding = Encoding.UTF8,
 					Indent = true,
-					OmitXmlDeclaration=true
+					OmitXmlDeclaration = true
 				};
 
 				using (XmlWriter writer = XmlWriter.Create(sww, settings))

@@ -61,7 +61,7 @@ namespace GeradorDRG.Models
 			public string DataAlta { get; set; }
 
 			[XmlElement(ElementName = "condicaoAlta")]
-			public char CondicaoAlta { get; set; }
+			public string CondicaoAlta { get; set; }
 
 			[XmlElement(ElementName = "codigoCidPrincipal")]
 			public string CodigoCidPrincipal { get; set; }
@@ -71,16 +71,16 @@ namespace GeradorDRG.Models
 
 
 			[XmlElement(ElementName = "internadoOutrasVezes")]
-			public char InternadoOutrasVezes { get; set; }
+			public string InternadoOutrasVezes { get; set; }
 
 			[XmlElement(ElementName = "hospitalInternacaoAnterior")]
-			public char HospitalInternacaoAnterior { get; set; }
+			public string HospitalInternacaoAnterior { get; set; }
 
 			[XmlElement(ElementName = "reinternacao")]
-			public char Reinternacao { get; set; }
+			public string Reinternacao { get; set; }
 
 			[XmlElement(ElementName = "recaida")]
-			public char Recaida { get; set; }
+			public string Recaida { get; set; }
 
 			[XmlElement(ElementName = "acao")]
 			public string Acao { get; set; }
@@ -146,7 +146,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "recemNascido")]
 				public string RecemNascido { get; set; }
 				[XmlElement(ElementName = "particular")]
-				public bool Particular { get; set; }
+				public string Particular { get; set; }
 			}
 
 			public class Operadora
@@ -162,7 +162,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "numeroCarteira")]
 				public string NumeroCarteira { get; set; }
 				[XmlElement(ElementName = "dataValidade")]
-				public string DataValidade { get; set; }
+				public DateTime DataValidade { get; set; }
 				[XmlElement(ElementName = "tipo")]
 				public string Tipo { get; set; }
 
@@ -185,9 +185,9 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "especilidade")]
 				public string Especialiade { get; set; }
 				[XmlElement(ElementName = "medicoResponsavel")]
-				public char MedicoResponsavel { get; set; }
+				public string MedicoResponsavel { get; set; }
 				[XmlElement(ElementName = "tipoAtuacao")]
-				public char TipoAtuacao { get; set; }
+				public string TipoAtuacao { get; set; }
 
 			}
 
@@ -221,7 +221,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "codigoCidPrincipal")]
 				public string CodigoCidPrincipal { get; set; }
 				[XmlElement(ElementName = "condicaoAlta")]
-				public char CondicaoAlta { get; set; }
+				public string CondicaoAlta { get; set; }
 				[XmlElement(ElementName = "uf")]
 				public string Uf { get; set; }
 				[XmlElement(ElementName = "crm")]
@@ -266,13 +266,13 @@ namespace GeradorDRG.Models
 				public string NumeroAutorizacao { get; set; }
 
 				[XmlElement(ElementName = "dataAutorizacao")]
-				public DateTime DataAutorizacao { get; set; }
+				public string DataAutorizacao { get; set; }
 
 				[XmlElement(ElementName = "dataAtendimentoInicial")]
-				public DateTime DataInicialAtendimento { get; set; }
+				public string DataInicialAtendimento { get; set; }
 
 				[XmlElement(ElementName = "dataAtendimentoFinal")]
-				public DateTime DataFinalAtendimento { get; set; }
+				public string DataFinalAtendimento { get; set; }
 			}
 
 			public class AnaliseCritica
@@ -287,11 +287,11 @@ namespace GeradorDRG.Models
 			public class SuporteVentilatorio
 			{
 				[XmlElement(ElementName = "tipo")]
-				public char Tipo { get; set; }
+				public string Tipo { get; set; }
 				[XmlElement(ElementName = "tipoInvasivo")]
-				public char TipoInvasivo { get; set; }
+				public string TipoInvasivo { get; set; }
 				[XmlElement(ElementName = "local")]
-				public char Local { get; set; }
+				public string Local { get; set; }
 				[XmlElement(ElementName = "dataInicial")]
 				public string DataInical { get; set; }
 				[XmlElement(ElementName = "dataFinal")]
