@@ -84,7 +84,7 @@ namespace OracleProvider.Controllers
                         {
                             atendimento.Beneficiarios = new LoteInternacao.Internacao.Beneficiario
                             {
-                                Codigo = reader["CODIGOBENEFICIARIO"].ToString(),
+                                Codigo =reader["CODIGOBENEFICIARIO"].ToString(),
                                 Nome = reader["NOMEPACIENTE"].ToString()
                             };
                         }

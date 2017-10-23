@@ -18,22 +18,22 @@ using System.Web;
 
 namespace ProjetoDRG.Controllers
 {
-    public class GerarController : Controller
-    {
-        private readonly ApplicationDbContext _context;
+	public class GerarController : Controller
+	{
+		private readonly ApplicationDbContext _context;
 
-        public GerarController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            return View();
-        }
+		public GerarController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
+		public IActionResult Index()
+		{
+			return View();
+		}
 
-        public async Task<IActionResult> GeracaoXML(GerarXMLViewModel model)
-        {
-            if (ModelState.IsValid)
+		public async Task<IActionResult> GeracaoXML(GerarXMLViewModel model)
+		{
+			if (ModelState.IsValid)
 			{
 				var xml = "";
 				LoteInternacao subReq = await BuscaXmL(model);
@@ -43,7 +43,7 @@ namespace ProjetoDRG.Controllers
 
 			return null;
 
-        }
+		}
 
 		private static string SerializeXML(LoteInternacao subReq)
 		{
@@ -62,7 +62,8 @@ namespace ProjetoDRG.Controllers
 				var settings = new XmlWriterSettings
 				{
 					Encoding = Encoding.UTF8,
-					Indent = true
+					Indent = true,
+					OmitXmlDeclaration = true
 				};
 
 				using (XmlWriter writer = XmlWriter.Create(sww, settings))
@@ -70,6 +71,8 @@ namespace ProjetoDRG.Controllers
 					xsSubmit.Serialize(writer, subReq, ns);
 
 					xml = sww.ToString(); // Your XML
+
+
 
 				}
 
@@ -80,94 +83,95 @@ namespace ProjetoDRG.Controllers
 		}
 
 		public sealed class Utf8StringWriter : StringWriter
-        {
-            public override Encoding Encoding => Encoding.UTF8;
-        }
+		{
+			public override Encoding Encoding => Encoding.UTF8;
+		}
 
-        private static async Task<LoteInternacao> BuscaXmL(GerarXMLViewModel model)
-        {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri("http://localhost:53812/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		private static async Task<LoteInternacao> BuscaXmL(GerarXMLViewModel model)
+		{
+			using (var client = new HttpClient())
+			{
+				client.BaseAddress = new Uri("http://localhost:53812/");
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                                Convert.ToBase64String(
-                                            System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                                string.Format("{0}:{1}", "user", "password"))));
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
+								Convert.ToBase64String(
+											System.Text.ASCIIEncoding.ASCII.GetBytes(
+												string.Format("{0}:{1}", "user", "password"))));
 
-                string DataInicio = model.DataInicio.ToString("yyyy-MM-dd");
-                string DataFim = model.DataFim.ToString("yyyy-MM-dd");
-                // New code:
-                HttpResponseMessage response = await client.GetAsync($"api/GerarDados?DataInicio={DataInicio}&DataFim={DataFim}");
-                if (response.IsSuccessStatusCode)
-                {
-                    HttpContent content = response.Content;
+				string DataInicio = model.DataInicio.ToString("yyyy-MM-dd");
+				string DataFim = model.DataFim.ToString("yyyy-MM-dd");
+				// New code:
+				HttpResponseMessage response = await client.GetAsync($"api/GerarDados?DataInicio={DataInicio}&DataFim={DataFim}");
+				if (response.IsSuccessStatusCode)
+				{
+					HttpContent content = response.Content;
 
-                    string result = await content.ReadAsStringAsync();
+					string result = await content.ReadAsStringAsync();
 
-                    LoteInternacao l = Newtonsoft.Json.JsonConvert.DeserializeObject<LoteInternacao>(result);
+					LoteInternacao l = Newtonsoft.Json.JsonConvert.DeserializeObject<LoteInternacao>(result);
 
 
-                    return l;
+					return l;
 
-                }
+				}
 
-            }
+			}
 
-            return null;
-        }
+			return null;
+		}
 
-		public  async void  EnviarXmlWebService()
+		public async Task<string> EnviarXmlWebService()
 		{
 			var xml = "";
-			var model = new GerarXMLViewModel { DataInicio=DateTime.Now.AddDays(-10), DataFim=DateTime.Now};
+			string xmlEnvio;
+
+			string senha = "ewH69$1";
+			string usuario = "357_FEHosp-T";
+			var model = new GerarXMLViewModel { DataInicio = DateTime.Now.AddDays(-1), DataFim = DateTime.Now };
 			LoteInternacao subReq = await BuscaXmL(model);
 			xml = SerializeXML(subReq);
-			
-						HttpWebRequest request = HttpWebRequest.Create("https://iagwebservice.sigquali.com.br/iagwebservice/enviaDadosPaciente?usuarioIAG=357_FEHosp-T&senhaIAG=ewH69$1") as HttpWebRequest;
-						request.Method = "POST";
-						request.ContentType = "application/x-www-form-urlencoded";
-
-						Encoding e = Encoding.GetEncoding("iso-8859-1");
-						XmlDocument doc = new XmlDocument();
-						doc.LoadXml(xml);
-						string rawXml = doc.OuterXml;
-
-						string requestText = string.Format("enviaDadosPaciente={0}", HttpUtility.UrlEncode(rawXml,e));
-
-						Stream requestStream = request.GetRequestStream();
-						StreamWriter requestWriter = new StreamWriter(requestStream, e);
-						requestWriter.Write(requestText);
-						requestWriter.Close();
-						
-			/*HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://iagwebservice.sigquali.com.br/iagwebservice/enviaDadosPaciente?usuarioIAG=357_FEHosp-T&senhaIAG=ewH69$1");
+			//xml = "";
+			xmlEnvio = SOAP(xml, senha, usuario);
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://iagwebservice.sigquali.com.br/iagwebservice/enviaDadosPaciente");
 			byte[] bytes;
-			bytes = System.Text.Encoding.ASCII.GetBytes(xml);
-			request.ContentType = "text/xml; encoding='utf-8'" ;
+			bytes = System.Text.Encoding.ASCII.GetBytes(xmlEnvio);
+			request.ContentType = "text/xml; encoding='utf-8'";
 			request.ContentLength = bytes.Length;
 			request.Method = "POST";
 			Stream requestStream = request.GetRequestStream();
-			requestStream.Write(bytes,0,bytes.Length);
+			requestStream.Write(bytes, 0, bytes.Length);
 			requestStream.Close();
 			HttpWebResponse response;
 			response = (HttpWebResponse)request.GetResponse();
-			if (response.StatusCode==HttpStatusCode.OK)
+			if (response.StatusCode == HttpStatusCode.OK)
 			{
 				Stream responseStream = response.GetResponseStream();
 				string responseStr = new StreamReader(responseStream).ReadToEnd();
 				return responseStr;
-
 			}
 			return null;
-			*/
-		
 
-			
+
+
 		}
 
-
-
+		private static string SOAP(string xml, string senha, string usuario)
+		{
+			return $@"<?xml version=""1.0"" encoding=""UTF-8""?><soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.iagwebservice.sigquali.com.br/"">
+<soapenv:Header/>
+<soapenv:Body>
+<ser:enviaDadosInternacao>
+<!--Optional:-->
+<xml>
+{xml}
+</xml>
+<usuarioIAG>{usuario}</usuarioIAG>
+<senhaIAG>{senha}</senhaIAG>
+</ser:enviaDadosInternacao>
+</soapenv:Body>
+</soapenv:Envelope>";
+		}
 	}
 }
