@@ -7,42 +7,32 @@ using System.Xml.Serialization;
 namespace OracleProvider.Models
 {
 	public class LoteInternacao
-    {
+	{
 		public LoteInternacao()
 		{
-			
+
 			this.Internacoes = new List<Internacao>();
 		}
 
 		public virtual List<Internacao> Internacoes { get; set; }
 
-		public  class Internacao
+		public class Internacao
 		{
 			public Internacao()
 			{
-				this.Medicos = new List<Medico>();
-
-				this.Operadoras = new Operadora();
-
-				this.Beneficiarios = new Beneficiario();
-
 				this.Hospitais = new Hospital();
-
+				this.Beneficiarios = new Beneficiario();
+				this.Operadoras = new Operadora();
+				this.Medicos = new List<Medico>();
 				this.CidSecundarios = new List<CidSecundario>();
-
 				this.Procedimentos = new List<Procedimento>();
-
 				this.Ctis = new Cti();
-
-				this.SuporteVentilatorios = new SuporteVentilatorio();
-
-				this.CondicoesAdquirida = new CondicaoAdquirida();
-
-				this.AltasAdministrativa = new AltaAdministrativa();
-
 				this.Rns = new Rn();
-
+				this.CondicoesAdquirida = new CondicaoAdquirida();
+				this.AltasAdministrativa = new AltaAdministrativa();
 				this.AnalisesCritica = new AnaliseCritica();
+				this.SuporteVentilatorios = new SuporteVentilatorio();
+				this.CondicoesAdquiridasSuporteVentilatorio = new CondicaoAdquiridaSuporteVentilatorio();
 
 			}
 			public string Situacao { get; set; }
@@ -79,46 +69,58 @@ namespace OracleProvider.Models
 
 			public Hospital Hospitais { get; set; }
 
-            public Beneficiario Beneficiarios { get; set; }
+			public Beneficiario Beneficiarios { get; set; }
 
-            public Operadora Operadoras { get; set; }
+			public Operadora Operadoras { get; set; }
 
 			public List<Medico> Medicos { get; set; }
-			
+
 			public List<CidSecundario> CidSecundarios { get; set; }
-			
+
 			public List<Procedimento> Procedimentos { get; set; }
-			
+
 			public Cti Ctis { get; set; }
-			
-			public SuporteVentilatorio SuporteVentilatorios { get; set; }
-			
-			public CondicaoAdquirida CondicoesAdquirida { get; set; }
-			
-			public AltaAdministrativa AltasAdministrativa { get; set; }
-			
+
 			public Rn Rns { get; set; }
-			
+
+			public CondicaoAdquirida CondicoesAdquirida { get; set; }
+
+			public AltaAdministrativa AltasAdministrativa { get; set; }
+
 			public AnaliseCritica AnalisesCritica { get; set; }
 
+			public SuporteVentilatorio SuporteVentilatorios { get; set; }
+
+
+			public CondicaoAdquiridaSuporteVentilatorio CondicoesAdquiridasSuporteVentilatorio { get; set; }
+
+
+			public class Hospital
+			{
+				public string Codigo { get; set; }
+				public string Nome { get; set; }
+
+			}
 			public class Beneficiario
 			{
-			
+
 				public string Codigo { get; set; }
-				
+
 				public string Nome { get; set; }
-				
+
 				public string DataNascimento { get; set; }
-				
+
 				public char Sexo { get; set; }
-				
+
 				public string NomeMae { get; set; }
-				
+
 				public string Cpf { get; set; }
-				
+
 				public string Endereco { get; set; }
-				
+
 				public string RecemNascido { get; set; }
+
+				public bool Partcular { get; set; }
 			}
 
 			public class Operadora
@@ -129,6 +131,7 @@ namespace OracleProvider.Models
 				public string Plano { get; set; }
 				public string NumeroCarteira { get; set; }
 				public string DataValidade { get; set; }
+				public string Tipo { get; set; }
 
 			}
 
@@ -146,13 +149,6 @@ namespace OracleProvider.Models
 
 			}
 
-			public class Hospital
-			{
-				public string Codigo { get; set; }
-				public string Nome { get; set; }
-
-			}
-
 			public class CidSecundario
 			{
 				public string CodigoCidSecundario { get; set; }
@@ -163,6 +159,8 @@ namespace OracleProvider.Models
 				public int CodigoProcedimento { get; set; }
 				public DateTime DataAutorizacao { get; set; }
 				public DateTime DataExecucao { get; set; }
+				public string DataExecucaoFinal { get; set; }
+
 
 			}
 
@@ -170,19 +168,64 @@ namespace OracleProvider.Models
 			{
 				public DateTime DataInicial { get; set; }
 
-                public DateTime DataFinal { get; set; }
+				public DateTime DataFinal { get; set; }
 
-                public int CodigoCidPrincipal { get; set; }
+				public int CodigoCidPrincipal { get; set; }
 
-                public char CondicaoAlta { get; set; }
+				public char CondicaoAlta { get; set; }
 
-                public string Uf { get; set; }
+				public string Uf { get; set; }
 
-                public string Crm { get; set; }
+				public string Crm { get; set; }
 
-                public int CodigoHospital { get; set; }
+				public int CodigoHospital { get; set; }
 
-                public string NomeHospital { get; set; }
+				public string NomeHospital { get; set; }
+
+				public string Tipo { get; set; }
+
+			}
+			public class Rn
+			{
+
+				public string PesoNascimento { get; set; }
+
+				public string IdadeGestacional { get; set; }
+
+				public string Comprimento { get; set; }
+
+
+			}
+			public class CondicaoAdquirida
+			{
+				public string CodigoCondicaoAdquirida { get; set; }
+
+				public DateTime DataOcorrencia { get; set; }
+
+				public string Uf { get; set; }
+
+				public string Crm { get; set; }
+			}
+
+			public class AltaAdministrativa
+			{
+				public string NumeroAtendimento { get; set; }
+
+				public string NumeroAutorizacao { get; set; }
+
+				public DateTime DataAutorizacao { get; set; }
+
+				public DateTime DataInicialAtendimento { get; set; }
+
+				public DateTime DataFinalAtendimento { get; set; }
+			}
+
+			public class AnaliseCritica
+			{
+
+				public string DataAnalise { get; set; }
+
+				public string AnaliseCriticas { get; set; }
 
 			}
 
@@ -198,42 +241,17 @@ namespace OracleProvider.Models
 
 				public DateTime DataFinal { get; set; }
 
-				public CondicaoAdquirida CondicoesAdquirida { get; set; }
+				public CondicaoAdquiridaSuporteVentilatorio CondicoesAdquiridasSuporteVentilatorio { get; set; }
+
+
 			}
-			public class CondicaoAdquirida
+			public class CondicaoAdquiridaSuporteVentilatorio
 			{
 				public string CodigoCondicaoAdquirida { get; set; }
-				
-				public DateTime DataOcorrencia { get; set; }
+
+				public string DataOcorrencia { get; set; }
 			}
 
-			public class AltaAdministrativa
-			{
-				public string NumeroAtendimento { get; set; }
-
-                public string NumeroAutorizacao { get; set; }
-			}
-
-			public class Rn
-			{
-				
-				public string PesoNascimento { get; set; }
-				
-				public string IdadeGestacional { get; set; }
-				
-				public string Comprimento { get; set; }
-
-
-			}
-
-			public class AnaliseCritica
-			{
-				
-				public string DataAnalise { get; set; }
-				
-				public string AnaliseCriticas { get; set; }
-
-			}
 		}
 	}
 }
