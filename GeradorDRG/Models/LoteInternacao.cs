@@ -136,7 +136,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "dataNascimento")]
 				public string DataNascimento { get; set; }
 				[XmlElement(ElementName = "sexo")]
-				public char Sexo { get; set; }
+				public string Sexo { get; set; }
 				[XmlElement(ElementName = "nomeMae")]
 				public string NomeMae { get; set; }
 				[XmlElement(ElementName = "cpf")]
@@ -162,7 +162,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "numeroCarteira")]
 				public string NumeroCarteira { get; set; }
 				[XmlElement(ElementName = "dataValidade")]
-				public DateTime DataValidade { get; set; }
+				public string DataValidade { get; set; }
 				[XmlElement(ElementName = "tipo")]
 				public string Tipo { get; set; }
 
@@ -183,7 +183,7 @@ namespace GeradorDRG.Models
 				[XmlElement(ElementName = "crm")]
 				public string Crm { get; set; }
 				[XmlElement(ElementName = "especilidade")]
-				public string Especialiade { get; set; }
+				public string Especialidade { get; set; }
 				[XmlElement(ElementName = "medicoResponsavel")]
 				public string MedicoResponsavel { get; set; }
 				[XmlElement(ElementName = "tipoAtuacao")]

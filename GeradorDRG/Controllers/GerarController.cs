@@ -160,18 +160,18 @@ namespace ProjetoDRG.Controllers
 		private static string SOAP(string xml, string senha, string usuario)
 		{
 			return $@"<?xml version=""1.0"" encoding=""UTF-8""?><soapenv:Envelope xmlns:soapenv=""http://schemas.xmlsoap.org/soap/envelope/"" xmlns:ser=""http://service.iagwebservice.sigquali.com.br/"">
-<soapenv:Header/>
-<soapenv:Body>
-<ser:enviaDadosInternacao>
-<!--Optional:-->
-<xml>
-{xml}
-</xml>
-<usuarioIAG>{usuario}</usuarioIAG>
-<senhaIAG>{senha}</senhaIAG>
-</ser:enviaDadosInternacao>
-</soapenv:Body>
-</soapenv:Envelope>";
+                <soapenv:Header/>
+                <soapenv:Body>
+                <ser:enviaDadosInternacao>
+                <!--Optional:-->
+                <xml><![CDATA[
+                {xml}
+                ]]></xml>
+                <usuarioIAG>{usuario}</usuarioIAG>
+                <senhaIAG>{senha}</senhaIAG>
+                </ser:enviaDadosInternacao>
+                </soapenv:Body>
+                </soapenv:Envelope>";
 		}
 	}
 }
