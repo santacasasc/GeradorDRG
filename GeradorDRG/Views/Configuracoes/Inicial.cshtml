@@ -24,6 +24,10 @@
                     <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
                     <p>Pacientes</p>
                 </div>
+                <div class="wizard-step">
+                    <a href="#step-5" type="button" class="btn btn-default btn-circle disabled">5</a>
+                    <p>Alta Paciente</p>
+                </div>
             </div>
         </div>
         <fieldset class="col-xs-12">
@@ -148,6 +152,23 @@
 
                         <input type="submit" value="Adicionar" class="btn btn-success pull-right" />
 
+                    </div>
+                </div>
+                <div class="row step-content" id="step-5">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="MotivoAlta" class="control-label">Motivo da Alta</label>
+                            <input asp-for="MotivoAlta" required="required" class="form-control" />
+                            <span asp-validation-for=" MotivoAlta" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="TipoAlta" class="control-label">Tipo da Alta</label>
+                            <input asp-for="TipoAlta" required="required" class="form-control" />
+                            <span asp-validation-for="TipoAlta" class="text-danger"></span>
+                        </div>
+                        <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
+                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
                     </div>
                 </div>
             </form>

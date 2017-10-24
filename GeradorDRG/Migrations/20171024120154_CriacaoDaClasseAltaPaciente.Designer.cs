@@ -12,34 +12,15 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171024120154_CriacaoDaClasseAltaPaciente")]
+    partial class CriacaoDaClasseAltaPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
-
-            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CodigoMotivo");
-
-                    b.Property<int>("ConfiguracaoId");
-
-                    b.Property<string>("MotivoAlta");
-
-                    b.Property<int>("Tipo");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConfiguracaoId");
-
-                    b.ToTable("AltaPaciente");
-                });
 
             modelBuilder.Entity("GeradorDRG.Models.ApplicationUser", b =>
                 {
@@ -125,9 +106,13 @@ namespace GeradorDRG.Migrations
 
                     b.Property<string>("CodDRG");
 
+                    b.Property<string>("MotivoAlta");
+
                     b.Property<string>("NomeDRG");
 
                     b.Property<int>("SistemaId");
+
+                    b.Property<string>("TipoAlta");
 
                     b.Property<bool>("UtilizaWebService");
 
@@ -320,14 +305,6 @@ namespace GeradorDRG.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
-                {
-                    b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
-                        .WithMany("MotivoAlta")
-                        .HasForeignKey("ConfiguracaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GeradorDRG.Models.Configuracao", b =>
