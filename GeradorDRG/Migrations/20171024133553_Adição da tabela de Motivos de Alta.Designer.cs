@@ -12,9 +12,10 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171024133553_Adição da tabela de Motivos de Alta")]
+    partial class AdiçãodatabeladeMotivosdeAlta
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
