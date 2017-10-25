@@ -128,8 +128,41 @@ namespace GeradorDRG.Controllers
             {
                 try
                 {
-                    _context.Update(configuracao);
-                    await _context.SaveChangesAsync();
+					var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).SingleOrDefaultAsync(m => m.Id == id);
+					if (configuracao != null)
+					{
+						_context.PacienteTeste.RemoveRange(configuracaoAntiga.Pacientes);
+						_context.Entry(configuracaoAntiga).State = EntityState.Modified;
+
+						
+							configuracaoAntiga.BancoId = configuracao.BancoId;
+							configuracaoAntiga.Banco = configuracao.Banco;
+							configuracaoAntiga.BancoSenha = configuracao.BancoSenha;
+							configuracaoAntiga.BancoSID = configuracao.BancoSID;
+							configuracaoAntiga.BancoURL = configuracao.BancoURL;
+							configuracaoAntiga.BancoUsuario = configuracao.BancoUsuario;
+							configuracaoAntiga.CodDRG = configuracao.CodDRG;
+							configuracaoAntiga.Id = configuracao.Id;
+							configuracaoAntiga.MotivoAlta = configuracao.MotivoAlta;
+							configuracaoAntiga.NomeDRG = configuracao.NomeDRG;
+							configuracaoAntiga.Pacientes = configuracao.Pacientes;
+							configuracaoAntiga.Prestadores = configuracao.Prestadores;
+							configuracaoAntiga.Sistema = configuracao.Sistema;
+							configuracaoAntiga.SistemaId = configuracao.SistemaId;
+							configuracaoAntiga.UtilizaWebService = configuracao.UtilizaWebService;
+							configuracaoAntiga.WebServiceSenha = configuracao.WebServiceSenha;
+							configuracaoAntiga.WebServiceUsuario = configuracao.WebServiceUsuario;
+
+						
+
+
+
+						_context.Entry(configuracaoAntiga).State = EntityState.Modified;
+						await _context.SaveChangesAsync();
+						return RedirectToAction(nameof(Index));
+					}
+
+					
                 }
                 catch (DbUpdateConcurrencyException)
                 {

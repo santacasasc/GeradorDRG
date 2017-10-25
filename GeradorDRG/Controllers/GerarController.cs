@@ -121,7 +121,23 @@ namespace ProjetoDRG.Controllers
 
 			return null;
 		}
-
+		//Retira os pacientes teste e prestador teste
+		//Se paciente remove todo o atendimento
+		public void Filtro(LoteInternacao subreq)
+		{
+			LoteInternacao inter = new LoteInternacao();
+			Configuracao config = new Configuracao();
+			PacienteTeste paciente = new PacienteTeste();
+			PrestadorTeste prestador = new PrestadorTeste();
+			var medicosLista = _context.PrestadorTeste.Select(m=>m.NomePrestador).ToList();
+			var atendimentoLista = _context.PacienteTeste.Select(c=>c.CodPaciente).ToList();
+			foreach (var i in subreq.Internacoes)
+			{
+				var conteudoMedicos=i.Medicos.Where(m=>(medicosLista).Contains(m.Nome)).ToList();
+				conteudoMedicos.RemoveAll(m=>(medicosLista).Any());
+				//var conteudoPacientes=i
+			}
+		}
 		public async Task<string> EnviarXmlWebService()
 		{
 			var xml = "";

@@ -80,7 +80,7 @@ namespace OracleProvider.Controllers
 
             string queryCidSecundario = @"
                SELECT CODIGOCIDSECUNDARIO
-                from VIEW_GERADOR_DRG_CIDSECUNDARIO
+                from DBAMV.VIEW_GERADOR_DRG_CIDSECUNDARIO
                 where CD_ATENDIMENTO = ?";
 
             using (var connection = new OleDbConnection(connectionString))
