@@ -1,0 +1,26 @@
+﻿@model GeradorDRG.Models.AltaPaciente
+
+<div class="form-group">
+    <input type="hidden" name="MotivoAlta.Index" value="@ViewBag.Index" />
+    <label class="control-label" for="MotivoAlta[@ViewBag.Index].Nome">Configuração do ID</label>
+    <input name="MotivoAlta[@ViewBag.Index].ConfiguracaoId" class="form-control" id="MotivoAlta[@ViewBag.Index].NomePrestador" aria-required="true" required="required" type="text" value="@Model.ConfiguracaoId">
+    <span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[@ViewBag.Index].ConfiguracaoId"></span>
+
+    <input type="hidden" name="MotivoAlta.Index" value="@ViewBag.Index" />
+    <label class="control-label" for="MotivoAlta[@ViewBag.Index].Nome">Código Motivo</label>
+    <input name="MotivoAlta[@ViewBag.Index].CodigoMotivo" class="form-control" id="MotivoAlta[@ViewBag.Index].CodigoMotivo" aria-required="true" required="required" type="text" value="@Model.CodigoMotivo">
+    <span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[@ViewBag.Index].CodigoMotivo"></span>
+
+    input type="hidden" name="MotivoAlta.Index" value="@ViewBag.Index" />
+    <label class="control-label" for="MotivoAlta[@ViewBag.Index].Nome">Motivo Alta</label>
+    <input name="MotivoAlta[@ViewBag.Index].MotivoAlta" class="form-control" id="MotivoAlta[@ViewBag.Index].MotivoAlta" aria-required="true" required="required" type="text" value="@Model.MotivoAlta">
+    <span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[@ViewBag.Index].MotivoAlta"></span>
+
+    <input type="hidden" name="MotivoAlta.Index" value="@ViewBag.Index" />
+    <label class="control-label" for="MotivoAlta[@ViewBag.Index].Nome">Nome do prestador</label>
+    <input name="MotivoAlta[@ViewBag.Index].Tipo" class="form-control" id="MotivoAlta[@ViewBag.Index].Tipo" aria-required="true" required="required" type="text" value="@Model.Tipo">
+    <span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[@ViewBag.Index].Tipo"></span>
+    <a href="#" class="btn btn-danger remove_field">Remove</a>
+</div>
+
+MotivoAlta
