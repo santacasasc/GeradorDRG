@@ -110,7 +110,7 @@
                 <div class="row step-content" id="step-3">
                     <div class="col-md-12">
                         <div class="">
-                               <div id="div_prestador">
+                            <div id="div_prestador">
 
                                 @{
                                     ViewBag.Index = 0;
@@ -158,30 +158,31 @@
                 <div class="row step-content " id="step-5">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <div class="col-md-12">
+                                <div id="div_altapaciente">
 
-                            <label asp-for="MotivoAlta" class="control-label">Selecionar Motivo da Alta</label>
-                            <select asp-for="MotivoAlta" class="form-control" asp-items="ViewBag.MotivoAlta"></select>
-                            <span asp-validation-for="MotivoAlta" class="text-danger"></span>
+                                    @{
+                                        ViewBag.Inicial = 0;
+                                        foreach (var i in Model.MotivoAlta)
+                                        {
+                                            @Html.Partial("_AltaPaciente", i)
+                                            ViewBag.Inicial = ViewBag.Inicial + 1;
 
-                            @*<label asp-for="MotivoAlta" class="control-label">Motivo da Alta</label>
-                            <input asp-for="MotivoAlta" required="required" class="form-control" />
-                            <span asp-validation-for=" MotivoAlta" class="text-danger"></span>*@
+                                        }
+
+
+                                    }
+
+                                </div>
+                                <button type="button" id="add_altapaciente" class="btn btn-primary">Adicionar Nome</button>
+                            </div>
+
+
+                            <input type="submit" value="Salvar Alterações" class="btn btn-success pull-right" />
+                            <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
                         </div>
-
-                        <div class="form-group">
-
-                            <label asp-for="TipoAlta" class="control-label">Selecionar Tipo da Alta</label>
-                            <select asp-for="TipoAlta" class="form-control" asp-items="ViewBag.TipoAlta"></select>
-                            <span asp-validation-for="TipoAlta" class="text-danger"></span>
-
-                            @*<label asp-for="TipoAlta" class="control-label">Tipo da Alta</label>
-                            <input asp-for="TipoAlta" required="required" class="form-control" />
-                            <span asp-validation-for="TipoAlta" class="text-danger"></span>*@
-                        </div>
-
-                        <input type="submit" value="Salvar Alterações" class="btn btn-success pull-right" />
-                        <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
                     </div>
+
                 </div>
             </form>
         </fieldset>
@@ -200,8 +201,11 @@
             var div_prestador = $("#div_prestador"); //Fields wrapper
             var add_paciente = $("#add_paciente"); //Add button ID
             var add_prestador = $("#add_prestador"); //Add button ID
+            var div_altapaciente = $("#div_altapaciente");
+            var add_altapaciente = $("#add_altapaciente");
             var x = 0; //initlal text box count
             var y = 0; //initlal text box count
+            var z = 0;
             $(add_paciente).click(function (e) { //on add input button click
                 e.preventDefault();
 
@@ -238,11 +242,48 @@
                 x++; //text box increment
             });
 
+            $(add_altapaciente).click(function (e) { //on add input button click
+                e.preventDefault();
+
+
+                $(div_altapaciente).append('<div class="form-group">' +
+                    '<input type="hidden" name="MotivoAlta.Index" value=' + z + ' />' +
+                    '<label class="control-label" for="MotivoAlta[' + z + '].Nome">Código Motivo</label>' +
+                    '<input name="MotivoAlta[' + z + '].CodigoMotivo" class="form-control" id="MotivoAlta[' + z + '].CodigoMotivo" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].CodigoMotivo"></span>' +
+
+                    '<label class="control-label" for="MotivoAlta[' + z + '].Nome">Motivo Alta</label>' +
+                    '<input name="MotivoAlta[' + z + '].MotivoAlta" class="form-control" id="MotivoAlta[' + z + '].MotivoAlta" aria-required="true" required="required" type="text" value="">' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].MotivoAlta"></span>' +
+
+                    '<label class="control-label" for="MotivoAlta[' + z + '].Nome">Tipo Alta</label>' +
+                    '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].Tipo"></span>' +
+
+                    '<select name="MotivoAlta[' + z + '].Tipo" class="form-control" id="Motivoalta[' + z + '].Tipo" data-val-required="required" data-val="true">' +
+                    '<option value= "0" > A(Casa / Auto - Cuidado)</option> '+
+                    '<option value="1">I (Instituição de longa permanência)</option>'+
+                    '<option value="2">D (Atenção domiciliar)</option>' +
+                    '<option value="3">P (Alta a pedido)</option>' +
+                    '<option value="4">C (Transferido para hospital de curta permanência)</option>' +
+                    '<option value="5">L (Transferido para hospital de longa permanência (unidade de cuidados crônicos, reabilitação))</option>' +
+                    '<option value="6">O (Óbito)</option>' +
+                    '<option value="7">E (Evasão)</option>' +
+                    '</select>' +
+                    '<a href="#" class="btn btn-danger remove_field">Remove</a>' +
+                    '</div>'); //add input box
+                z++; //text box increment
+            });
+
+
             $(div_prestador).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
 
             $(div_paciente).on("click", ".remove_field", function (e) { //user click on remove text
+                e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+
+            $(div_altapaciente).on("click", ".remove_field", function (e) { //user click on remove text
                 e.preventDefault(); $(this).parent('div').remove(); x--;
             })
 

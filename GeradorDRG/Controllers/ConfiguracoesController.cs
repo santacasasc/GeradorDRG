@@ -75,13 +75,13 @@ namespace GeradorDRG.Controllers
         {
             ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome");
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome");
-            return View();
+            return View(new Configuracao());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,Prestadores,Pacientes")] Configuracao configuracao)
+        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,Prestadores,Pacientes,MotivoAlta")] Configuracao configuracao)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +117,7 @@ namespace GeradorDRG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste")] Configuracao configuracao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste,MotivoAlta")] Configuracao configuracao)
         {
             if (id != configuracao.Id)
             {
