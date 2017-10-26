@@ -102,7 +102,7 @@ namespace GeradorDRG.Controllers
                 id=_context.Configuracao.FirstOrDefault().Id; 
             }
 
-            var configuracao = await _context.Configuracao.Include(m=>m.Prestadores).Include(m=>m.Pacientes).SingleOrDefaultAsync(m => m.Id == id);
+            var configuracao = await _context.Configuracao.Include(m=>m.Prestadores).Include(m=>m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
             if (configuracao == null)
             {
                 return NotFound();
@@ -128,7 +128,7 @@ namespace GeradorDRG.Controllers
             {
                 try
                 {
-					var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).SingleOrDefaultAsync(m => m.Id == id);
+					var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
 					if (configuracao != null)
 					{
 						_context.PacienteTeste.RemoveRange(configuracaoAntiga.Pacientes);
