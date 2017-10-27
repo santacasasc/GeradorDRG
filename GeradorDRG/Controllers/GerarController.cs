@@ -125,19 +125,49 @@ namespace ProjetoDRG.Controllers
 		//Se paciente remove todo o atendimento
 		public void Filtro(LoteInternacao subreq)
 		{
-			LoteInternacao inter = new LoteInternacao();
-			Configuracao config = new Configuracao();
-			PacienteTeste paciente = new PacienteTeste();
-			PrestadorTeste prestador = new PrestadorTeste();
-			var medicosLista = _context.PrestadorTeste.Select(m=>m.NomePrestador).ToList();
-			var atendimentoLista = _context.PacienteTeste.Select(c=>c.CodPaciente).ToList();
+			
+			var medicosLista = _context.PrestadorTeste.Select(m => m.NomePrestador).ToList();
+			var atendimentoLista = _context.PacienteTeste.Select(c => c.CodPaciente).ToList();
+			var conteudoPacientes = subreq.Internacoes.Where(a => (atendimentoLista).Contains(a.NumeroRegistro)).ToList();
+			subreq.Internacoes.RemoveRange(conteudoPacientes);
+
+			for (int i=subreq.Internacoes.Count-1;i>=0;i--)
+			{
+				
+				for (int j=0; j<conteudoPacientes.Count;j++)
+				{
+					if (subreq.Internacoes[i].NumeroRegistro==conteudoPacientes[j].NumeroRegistro)
+					{
+						subreq.Internacoes.RemoveAt(i);
+					}
+				}
+				/*if (conteudoPacientes[i] == subreq.Internacoes.Where(a => atendimentoLista.Contains(a.NumeroRegistro)))
+					subreq.Internacoes.RemoveRange(0,i);*/
+				//subreq.Internacoes.RemoveAll(x=>conteudoPacientes.Any(y=>y.NumeroRegistro==x.NumeroRegistro));
+
+			}
+
+
+
+		/*	foreach (var i in subreq.Internacoes)
+			{
+
+				conteudoPacientes.RemoveAll(a => (atendimentoLista).Any(p => atendimentoLista.Contains(p)));
+			}*/
 			foreach (var i in subreq.Internacoes)
 			{
-				var conteudoMedicos=i.Medicos.Where(m=>(medicosLista).Contains(m.Nome)).ToList();
-				conteudoMedicos.RemoveAll(m=>(medicosLista).Any());
-				//var conteudoPacientes=i
+				
+				var conteudoMedicos = i.Medicos.Where(m => (medicosLista).Contains(m.Nome)).ToList();
+				conteudoMedicos.RemoveAll(m => (medicosLista).Any());
+
+
+
+
 			}
 		}
+
+		
+
 		public async Task<string> EnviarXmlWebService()
 		{
 			var xml = "";
@@ -147,6 +177,7 @@ namespace ProjetoDRG.Controllers
 			string usuario = "357_FEHosp-T";
 			var model = new GerarXMLViewModel { DataInicio = DateTime.Now.AddDays(-1), DataFim = DateTime.Now };
 			LoteInternacao subReq = await BuscaXmL(model);
+			Filtro(subReq);
 			xml = SerializeXML(subReq);
 			//xml = "";
 			xmlEnvio = SOAP(xml, senha, usuario);
