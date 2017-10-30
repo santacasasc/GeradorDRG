@@ -129,31 +129,12 @@ namespace ProjetoDRG.Controllers
 			var medicosLista = _context.PrestadorTeste.Select(m => m.NomePrestador).ToList();
 			var atendimentoLista = _context.PacienteTeste.Select(c => c.CodPaciente).ToList();
 			var conteudoPacientes = subreq.Internacoes.Where(a => (atendimentoLista).Contains(a.NumeroRegistro)).ToList();
-			subreq.Internacoes.RemoveRange(conteudoPacientes);
 
-			for (int i=subreq.Internacoes.Count-1;i>=0;i--)
+			for(int i = conteudoPacientes.Count - 1; i >= 0; i--)
 			{
-				
-				for (int j=0; j<conteudoPacientes.Count;j++)
-				{
-					if (subreq.Internacoes[i].NumeroRegistro==conteudoPacientes[j].NumeroRegistro)
-					{
-						subreq.Internacoes.RemoveAt(i);
-					}
-				}
-				/*if (conteudoPacientes[i] == subreq.Internacoes.Where(a => atendimentoLista.Contains(a.NumeroRegistro)))
-					subreq.Internacoes.RemoveRange(0,i);*/
-				//subreq.Internacoes.RemoveAll(x=>conteudoPacientes.Any(y=>y.NumeroRegistro==x.NumeroRegistro));
-
+				conteudoPacientes.RemoveAt(i);
 			}
-
-
-
-		/*	foreach (var i in subreq.Internacoes)
-			{
-
-				conteudoPacientes.RemoveAll(a => (atendimentoLista).Any(p => atendimentoLista.Contains(p)));
-			}*/
+			Console.Write("");
 			foreach (var i in subreq.Internacoes)
 			{
 				
