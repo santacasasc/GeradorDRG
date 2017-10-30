@@ -66,7 +66,7 @@ namespace GeradorDRG.Controllers
             }
             ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
-            return View("Inicial",configuracao);
+            return View("Inicial", configuracao);
         }
 
 
@@ -94,15 +94,17 @@ namespace GeradorDRG.Controllers
             return View(configuracao);
         }
 
+
+
         // GET: Configuracoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                id=_context.Configuracao.FirstOrDefault().Id; 
+                id = _context.Configuracao.FirstOrDefault().Id;
             }
 
-            var configuracao = await _context.Configuracao.Include(m=>m.Prestadores).Include(m=>m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
+            var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
             if (configuracao == null)
             {
                 return NotFound();
@@ -111,6 +113,8 @@ namespace GeradorDRG.Controllers
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
             return View(configuracao);
         }
+
+
 
         // POST: Configuracoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -128,41 +132,41 @@ namespace GeradorDRG.Controllers
             {
                 try
                 {
-					var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
-					if (configuracao != null)
-					{
-						_context.PacienteTeste.RemoveRange(configuracaoAntiga.Pacientes);
-						_context.Entry(configuracaoAntiga).State = EntityState.Modified;
+                    var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
+                    if (configuracao != null)
+                    {
+                        _context.PacienteTeste.RemoveRange(configuracaoAntiga.Pacientes);
+                        _context.Entry(configuracaoAntiga).State = EntityState.Modified;
 
-						
-							configuracaoAntiga.BancoId = configuracao.BancoId;
-							configuracaoAntiga.Banco = configuracao.Banco;
-							configuracaoAntiga.BancoSenha = configuracao.BancoSenha;
-							configuracaoAntiga.BancoSID = configuracao.BancoSID;
-							configuracaoAntiga.BancoURL = configuracao.BancoURL;
-							configuracaoAntiga.BancoUsuario = configuracao.BancoUsuario;
-							configuracaoAntiga.CodDRG = configuracao.CodDRG;
-							configuracaoAntiga.Id = configuracao.Id;
-							configuracaoAntiga.MotivoAlta = configuracao.MotivoAlta;
-							configuracaoAntiga.NomeDRG = configuracao.NomeDRG;
-							configuracaoAntiga.Pacientes = configuracao.Pacientes;
-							configuracaoAntiga.Prestadores = configuracao.Prestadores;
-							configuracaoAntiga.Sistema = configuracao.Sistema;
-							configuracaoAntiga.SistemaId = configuracao.SistemaId;
-							configuracaoAntiga.UtilizaWebService = configuracao.UtilizaWebService;
-							configuracaoAntiga.WebServiceSenha = configuracao.WebServiceSenha;
-							configuracaoAntiga.WebServiceUsuario = configuracao.WebServiceUsuario;
 
-						
+                        configuracaoAntiga.BancoId = configuracao.BancoId;
+                        configuracaoAntiga.Banco = configuracao.Banco;
+                        configuracaoAntiga.BancoSenha = configuracao.BancoSenha;
+                        configuracaoAntiga.BancoSID = configuracao.BancoSID;
+                        configuracaoAntiga.BancoURL = configuracao.BancoURL;
+                        configuracaoAntiga.BancoUsuario = configuracao.BancoUsuario;
+                        configuracaoAntiga.CodDRG = configuracao.CodDRG;
+                        configuracaoAntiga.Id = configuracao.Id;
+                        configuracaoAntiga.MotivoAlta = configuracao.MotivoAlta;
+                        configuracaoAntiga.NomeDRG = configuracao.NomeDRG;
+                        configuracaoAntiga.Pacientes = configuracao.Pacientes;
+                        configuracaoAntiga.Prestadores = configuracao.Prestadores;
+                        configuracaoAntiga.Sistema = configuracao.Sistema;
+                        configuracaoAntiga.SistemaId = configuracao.SistemaId;
+                        configuracaoAntiga.UtilizaWebService = configuracao.UtilizaWebService;
+                        configuracaoAntiga.WebServiceSenha = configuracao.WebServiceSenha;
+                        configuracaoAntiga.WebServiceUsuario = configuracao.WebServiceUsuario;
 
 
 
-						_context.Entry(configuracaoAntiga).State = EntityState.Modified;
-						await _context.SaveChangesAsync();
-						return RedirectToAction(nameof(Index));
-					}
 
-					
+
+                        _context.Entry(configuracaoAntiga).State = EntityState.Modified;
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -217,5 +221,21 @@ namespace GeradorDRG.Controllers
         {
             return _context.Configuracao.Any(e => e.Id == id);
         }
+
+
+        /// ////////////////////////////////////////////////////
+
+
+
+        // GET
+        public async Task<IActionResult> BuscaBanco(int? id)
+        {
+            var bancos = await _context.SistemaBanco.Where(m => m.SistemaId == id).Select(m => m.Banco).ToListAsync();
+
+            return Json(bancos);
+        }
+
+
+
     }
 }
