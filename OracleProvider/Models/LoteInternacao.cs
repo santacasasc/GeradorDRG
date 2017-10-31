@@ -187,6 +187,8 @@ namespace OracleProvider.Models
 
             public class Medico
             {
+				[XmlIgnore]
+				public string Codigo { get; set; }
                 [XmlElement(ElementName = "nome")]
                 public string Nome { get; set; }
 
@@ -332,6 +334,8 @@ namespace OracleProvider.Models
                 {
                     CondicoesAdquiridasSuporteVentilatorio = new List<CondicaoAdquiridaSuporteVentilatorio>();
                 }
+				[XmlIgnore]
+				public string Codigo { get; set; }
 
                 [XmlElement(ElementName = "tipo")]
                 public string Tipo { get; set; }

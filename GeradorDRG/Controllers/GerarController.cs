@@ -33,12 +33,34 @@ namespace ProjetoDRG.Controllers
 
 		public async Task<IActionResult> GeracaoXML(GerarXMLViewModel model)
 		{
+
 			if (ModelState.IsValid)
 			{
-				var xml = "";
-				LoteInternacao subReq = await BuscaXmL(model);
-				xml = SerializeXML(subReq);
-				return File(Encoding.UTF8.GetBytes(xml), "text/xml", "repasse.xml");
+				var configuracao = _context.Configuracao.FirstOrDefault();
+				if (configuracao != null)
+				{
+					if (configuracao.UtilizaWebService == true)
+					{
+						var usuario = configuracao.WebServiceUsuario;
+						var senha = configuracao.WebServiceSenha;
+						var response = await EnviarXmlWebService(model, usuario, senha);
+						if (true)
+						{
+							ViewBag.Mensagem = "OK";
+						}
+						return View("Index",model);
+					}
+					else
+					{
+						var xml = "";
+						LoteInternacao subReq = await BuscaXmL(model);
+						xml = SerializeXML(subReq);
+						return File(Encoding.UTF8.GetBytes(xml), "text/xml", "repasse.xml");
+					}
+
+				}
+
+
 			}
 
 			return null;
@@ -125,19 +147,19 @@ namespace ProjetoDRG.Controllers
 		//Se paciente remove todo o atendimento
 		public void Filtro(LoteInternacao subreq)
 		{
-			
+
 			var medicosLista = _context.PrestadorTeste.Select(m => m.NomePrestador).ToList();
 			var atendimentoLista = _context.PacienteTeste.Select(c => c.CodPaciente).ToList();
 			var conteudoPacientes = subreq.Internacoes.Where(a => (atendimentoLista).Contains(a.NumeroRegistro)).ToList();
 
-			for(int i = conteudoPacientes.Count - 1; i >= 0; i--)
+			for (int i = conteudoPacientes.Count - 1; i >= 0; i--)
 			{
 				conteudoPacientes.RemoveAt(i);
 			}
 			Console.Write("");
 			foreach (var i in subreq.Internacoes)
 			{
-				
+
 				var conteudoMedicos = i.Medicos.Where(m => (medicosLista).Contains(m.Nome)).ToList();
 				conteudoMedicos.RemoveAll(m => (medicosLista).Any());
 
@@ -147,16 +169,16 @@ namespace ProjetoDRG.Controllers
 			}
 		}
 
-		
 
-		public async Task<string> EnviarXmlWebService()
+
+		private async Task<string> EnviarXmlWebService(GerarXMLViewModel model, string usuario, string senha)
 		{
 			var xml = "";
 			string xmlEnvio;
 
-			string senha = "ewH69$1";
+			/*string senha = "ewH69$1";
 			string usuario = "357_FEHosp-T";
-			var model = new GerarXMLViewModel { DataInicio = DateTime.Now.AddDays(-1), DataFim = DateTime.Now };
+			var model = new GerarXMLViewModel { DataInicio = DateTime.Now.AddDays(-1), DataFim = DateTime.Now };*/
 			LoteInternacao subReq = await BuscaXmL(model);
 			Filtro(subReq);
 			xml = SerializeXML(subReq);
@@ -201,5 +223,7 @@ namespace ProjetoDRG.Controllers
                 </soapenv:Body>
                 </soapenv:Envelope>";
 		}
+
+
 	}
 }
