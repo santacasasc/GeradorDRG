@@ -228,6 +228,7 @@ namespace GeradorDRG.Controllers
 
 
         // GET
+        [AllowAnonymous]
         public async Task<IActionResult> BuscaBanco(int? id)
         {
             var bancos = await _context.SistemaBanco.Where(m => m.SistemaId == id).Select(m => m.Banco).ToListAsync();

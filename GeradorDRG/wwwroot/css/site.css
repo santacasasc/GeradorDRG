@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color:#e9f5f5;
 }
 
 /* Wrapping element */
@@ -71,10 +72,26 @@ h2 {
     border-radius: 25px;
     box-shadow: 5px 5px 25px 5px rgba(46,61,73,0.2);
     /*box-shadow: 2px 2px 1px 1px gray;*/
-    background-color: #c3f6f3;
+    background-color: #f3f3f3;
     border-top: 6px solid #24a49c;
     overflow: auto;
     margin-top: 40px;
     padding-bottom: 30px;
 }
 
+.backbroudColorCABECALHO {
+    background-color: #24a49c;
+}
+
+
+.navbar-inverse .navbar-brand{
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+    color:white;
+}
+
+.navbar-inverse .btn-link {
+    color: white;
+}
