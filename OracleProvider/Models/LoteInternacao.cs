@@ -348,7 +348,8 @@ namespace OracleProvider.Models
                 [XmlElement(ElementName = "dataFinal")]
                 public string DataFinal { get; set; }
 
-                public IList<CondicaoAdquiridaSuporteVentilatorio> CondicoesAdquiridasSuporteVentilatorio { get; set; }
+				[XmlElement(ElementName = "CondicaoAdquiridaSuporteVentilatorio")]
+				public List<CondicaoAdquiridaSuporteVentilatorio> CondicoesAdquiridasSuporteVentilatorio { get; set; }
 
             }
 
