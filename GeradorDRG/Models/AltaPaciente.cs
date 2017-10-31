@@ -21,6 +21,7 @@ namespace GeradorDRG.Models
 
         public string CodigoMotivo { get; set; }
 
+        [Required]
         public string MotivoAlta { get; set; }
 
         public TipoDRG Tipo { get; set; }

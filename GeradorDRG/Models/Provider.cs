@@ -8,7 +8,13 @@ namespace GeradorDRG.Models
 {
     public enum Provider
     {
-        [Description("Oracle")]
-        oracle = 0
+        [Description("Oracle,Skt")]
+        oracle = 0,
+        skt = 1
+
+           
+           
     }
+
+
 }

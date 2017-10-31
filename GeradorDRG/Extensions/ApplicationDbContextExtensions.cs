@@ -19,12 +19,15 @@ namespace GeradorDRG.Extensions
             IList<Banco> bancos = new List<Banco>();
 
             bancos.Add(new Banco { Nome = "Oracle", Padrao = true, Provider = Provider.oracle });
+            bancos.Add(new Banco { Nome = "Skt", Padrao = true, Provider = Provider.skt });
 
             IList<Sistema> sistemas = new List<Sistema>();
 
             sistemas.Add(new Sistema { Nome = "MV", Padrao = true});
+            sistemas.Add(new Sistema { Nome = "Telecom", Padrao = true });
 
-            foreach(var b in bancos)
+
+            foreach (var b in bancos)
             {
                 var banco = context.Banco.Where(m => m.Nome == b.Nome).FirstOrDefault();
                 if (banco == null)

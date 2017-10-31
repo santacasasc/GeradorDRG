@@ -19,6 +19,7 @@ namespace GeradorDRG.Models
         public bool Padrao { get; set; }
 
         public virtual IList<SistemaBanco> SistemaBanco { get; set; }
-
+        
     }
+
 }
