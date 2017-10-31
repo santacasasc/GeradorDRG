@@ -3,7 +3,7 @@
     ViewData["Title"] = "ConfiguracaoInicial";
 }
 
-<div class="container caixa">
+<div class="container caixa2">
     <div class="well" style="margin-top:50px; ">
         <div class="wizard col-lg-12">
             <div class="wizard-row steps">
@@ -13,19 +13,19 @@
                 </div>
 
                 <div class="wizard-step col-md-3">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle disabled">2</a>
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle activade">2</a>
                     <p>CONFIGURAÇÃO DRG</p>
                 </div>
                 <div class="wizard-step col-md-3">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle disabled">3</a>
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle activade">3</a>
                     <p>PRESTADOR</p>
                 </div>
                 <div class="wizard-step col-md-2">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle disabled">4</a>
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle activade">4</a>
                     <p>PACIENTES</p>
                 </div>
                 <div class="wizard-step col-md-2">
-                    <a href="#step-5" type="button" class="btn btn-default btn-circle disabled">5</a>
+                    <a href="#step-5" type="button" class="btn btn-default btn-circle activade">5</a>
                     <p>ALTA PACIENTES</p>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     <div class="col-md-12">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                        <div class="form-group"  > 
+                        <div class="form-group">
                             <label asp-for="SistemaId" class="control-label"></label>
                             <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
                             <span asp-validation-for="SistemaId" class="text-danger"></span>
@@ -46,37 +46,36 @@
                         </div>
 
                         <div class="form-group">
-
                             <label asp-for="BancoId" class="control-label"></label>
-                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
+                            <select asp-for="BancoId" class="form-control" disabled asp-items="ViewBag.BancoId"></select>
                             <span asp-validation-for="BancoId" class="text-danger"></span>
 
                         </div>
 
                         <div class="form-group">
-                            <label asp-for=" BancoSID"  class="control-label">SID</label>
+                            <label asp-for=" BancoSID" class="control-label"></label>
                             <input asp-for="BancoSID" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSID" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for=" BancoURL" class="control-label">URL do Banco</label>
+                            <label asp-for=" BancoURL" class="control-label"></label>
                             <input asp-for="BancoURL" required="required" class="form-control" />
                             <span asp-validation-for=" BancoURL" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for=" BancoUsuario" class="control-label">Usuario</label>
+                            <label asp-for=" BancoUsuario" class="control-label"></label>
                             <input asp-for="BancoUsuario" required="required" class="form-control" />
                             <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label asp-for=" BancoSenha" class="control-label">Senha</label>
+                            <label asp-for=" BancoSenha" class="control-label"></label>
                             <input asp-for="BancoSenha" required="required" class="form-control" />
                             <span asp-validation-for=" BancoSenha" class="text-danger"></span>
                         </div>
 
-                        <button id="btn2" class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button id="btn2" class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                         <button id="btn1" class="btn btn-success  pull-left" onclick="btn1_Click" type="button">VERIFICAR CAMPOS</button>
                     </div>
                 </div>
@@ -84,13 +83,13 @@
                 <div class="row step-content" id="step-2">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label asp-for="CodDRG" class="control-label">Código DRG</label>
+                            <label asp-for="CodDRG" class="control-label"></label>
                             <input asp-for="CodDRG" required="required" class="form-control" />
                             <span asp-validation-for=" CodDRG" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="NomeDRG" class="control-label">Nome DRG</label>
+                            <label asp-for="NomeDRG" class="control-label"></label>
                             <input asp-for="NomeDRG" required="required" class="form-control" />
                             <span asp-validation-for="NomeDRG" class="text-danger"></span>
                         </div>
@@ -101,8 +100,19 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label asp-for="WebServiceUsuario" class="control-label"></label>
+                            <input asp-for="WebServiceUsuario" required="required" class="form-control" />
+                            <span asp-validation-for=" WebServiceUsuario" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="WebServiceSenha" class="control-label"></label>
+                            <input asp-for="WebServiceSenha" required="required" class="form-control" />
+                            <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
+                        </div>
                         <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content" id="step-3">
@@ -125,7 +135,7 @@
                             </div>
                             <button type="button" id="add_prestador" class="btn btn-primary">Adicionar Nome</button>
                         </div>
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content" id="step-4">
@@ -150,7 +160,7 @@
                         </div>
 
                         @*<input type="submit" value="Save" class="btn btn-default" />*@
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content " id="step-5">
@@ -289,18 +299,27 @@
 
         $("#SistemaId").change(function () {
             var url = '/Configuracoes/BuscaBanco/:parentId:';
+            var $banco = $("#BancoId");
+            $banco.attr("disabled", true);
 
+            var id = $(this).val();
 
-            $.getJSON(url.replace(':parentId:', $(this).val()), function (items) {
-                var newOptions = '<option value="">Selecione o Banco</option>';
-                for (var id in items) {
-                newOptions += '<option value="' + items[id].id + '">' + items[id].nome + '</option>';
-                }
-                $("#BancoId").empty();
-                $("#BancoId").append(newOptions);
-            });
+            if (id != "") {
+
+                $.getJSON(url.replace(':parentId:', id), function (items) {
+                    var newOptions = '<option value="">Selecione o Banco</option>';
+                    for (var id in items) {
+                        newOptions += '<option value="' + items[id].id + '">' + items[id].nome + '</option>';
+                    }
+                    $banco.empty();
+                    $banco.append(newOptions);
+                    $banco.removeAttr('disabled');
+
+                });
+            }
+
         });
-
-
     </script>
 }
+
+

@@ -3,30 +3,30 @@
     ViewData["Title"] = "Edit";
 }
 
-<div class="container caixa">
+<div class="container caixa2">
     <div class="well" style="margin-top:50px; ">
         <div class="wizard col-lg-12">
             <div class="wizard-row steps">
                 <div class="wizard-step col-md-2">
                     <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                    <p>ID e SIstema Config Usuario </p>
+                    <p>CONFIGURAÇÃO SISTEMA</p>
                 </div>
 
                 <div class="wizard-step col-md-3">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle activated">2</a>
-                    <p>Nome Cógido</p>
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle activade">2</a>
+                    <p>CONFIGURAÇÃO DRG</p>
                 </div>
                 <div class="wizard-step col-md-3">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle activated">3</a>
-                    <p>Prestador</p>
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle activade">3</a>
+                    <p>PRESTADOR</p>
                 </div>
                 <div class="wizard-step col-md-2">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle activated">4</a>
-                    <p>Pacientes</p>
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle activade">4</a>
+                    <p>PACIENTES</p>
                 </div>
                 <div class="wizard-step col-md-2">
-                    <a href="#step-5" type="button" class="btn btn-default btn-circle activated">5</a>
-                    <p>Alta Paciente</p>
+                    <a href="#step-5" type="button" class="btn btn-default btn-circle activade">5</a>
+                    <p>ALTA PACIENTES</p>
                 </div>
             </div>
         </div>
@@ -37,32 +37,61 @@
                 <div class="row step-content" id="step-1">
                     <div class="col-md-12">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-group">
-                            <label asp-for="BancoId" class="control-label">Selecionar ID</label>
-                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
-                            <span asp-validation-for=" BancoId" class="text-danger"></span>
-
-                            <label asp-for="BancoId" class="control-label"></label>
-                            <select asp-for="BancoId" class="form-control" asp-items="ViewBag.BancoId"></select>
-                            <span asp-validation-for="BancoId" class="text-danger"></span>
-
-
-                        </div>
 
                         <div class="form-group">
-                            <label asp-for="SistemaId" class="control-label">Selecionar Sistema</label>
+                            <label asp-for="SistemaId" class="control-label"></label>
                             <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
                             <span asp-validation-for="SistemaId" class="text-danger"></span>
+
                         </div>
+
                         <div class="form-group">
-                            <label asp-for=" BancoURL" class="control-label">URL do Banco</label>
+                            <label asp-for="BancoId" class="control-label"></label>
+                            <select asp-for="BancoId" class="form-control" disabled asp-items="ViewBag.BancoId"></select>
+                            <span asp-validation-for="BancoId" class="text-danger"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for=" BancoSID" class="control-label"></label>
+                            <input asp-for="BancoSID" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSID" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for=" BancoURL" class="control-label"></label>
                             <input asp-for="BancoURL" required="required" class="form-control" />
                             <span asp-validation-for=" BancoURL" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for=" BancoUsuario" class="control-label">Usuario</label>
+                            <label asp-for=" BancoUsuario" class="control-label"></label>
                             <input asp-for="BancoUsuario" required="required" class="form-control" />
                             <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for=" BancoSenha" class="control-label"></label>
+                            <input asp-for="BancoSenha" required="required" class="form-control" />
+                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                        </div>
+
+                        <button id="btn2" class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
+                        <button id="btn1" class="btn btn-success  pull-left" onclick="btn1_Click" type="button">VERIFICAR CAMPOS</button>
+                    </div>
+                </div>
+
+                <div class="row step-content" id="step-2">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="CodDRG" class="control-label"></label>
+                            <input asp-for="CodDRG" required="required" class="form-control" />
+                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NomeDRG" class="control-label"></label>
+                            <input asp-for="NomeDRG" required="required" class="form-control" />
+                            <span asp-validation-for="NomeDRG" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <div class="checkbox">
@@ -72,39 +101,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label asp-for=" BancoSenha" class="control-label">Senha</label>
-                            <input asp-for="BancoSenha" required="required" class="form-control" />
-                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for=" BancoSenha" class="control-label">Confirmar Senha</label>
-                            <input asp-for="BancoSenha" required="required" class="form-control" />
-                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for=" BancoSID" class="control-label">SID</label>
-                            <input asp-for="BancoSID" required="required" class="form-control" />
-                            <span asp-validation-for=" BancoSID" class="text-danger"></span>
-                        </div>
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
-                    </div>
-                </div>
-
-                <div class="row step-content" id="step-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="CodDRG" class="control-label">Código DRG</label>
-                            <input asp-for="CodDRG" required="required" class="form-control" />
-                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                            <label asp-for="WebServiceUsuario" class="control-label"></label>
+                            <input asp-for="WebServiceUsuario" required="required" class="form-control" />
+                            <span asp-validation-for=" WebServiceUsuario" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label asp-for="NomeDRG" class="control-label">Nome DRG</label>
-                            <input asp-for="NomeDRG" required="required" class="form-control" />
-                            <span asp-validation-for="NomeDRG" class="text-danger"></span>
+                            <label asp-for="WebServiceSenha" class="control-label"></label>
+                            <input asp-for="WebServiceSenha" required="required" class="form-control" />
+                            <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
                         </div>
                         <!-- <input type="submit" value="Testar" class="btn btn-default" /> -->
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content" id="step-3">
@@ -127,7 +135,7 @@
                             </div>
                             <button type="button" id="add_prestador" class="btn btn-primary">Adicionar Nome</button>
                         </div>
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content" id="step-4">
@@ -152,7 +160,7 @@
                         </div>
 
                         @*<input type="submit" value="Save" class="btn btn-default" />*@
-                        <button class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
+                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
                     </div>
                 </div>
                 <div class="row step-content " id="step-5">
@@ -169,12 +177,13 @@
                                             ViewBag.Inicial = ViewBag.Inicial + 1;
 
                                         }
+
+
                                     }
 
                                 </div>
                                 <button type="button" id="add_altapaciente" class="btn btn-primary">Adicionar Nome</button>
                             </div>
-
 
 
                             <input type="submit" value="Salvar Alterações" class="btn btn-success pull-right" />
@@ -192,6 +201,7 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
+
         "use strict";
 
         $(document).ready(function () {
@@ -207,8 +217,6 @@
             var z = 0;
             $(add_paciente).click(function (e) { //on add input button click
                 e.preventDefault();
-
-
                 $(div_paciente).append('<div class="form-group">' +
                     '<input type="hidden" name="Pacientes.Index" value=' + y + ' />' +
                     '<label class="control-label" for="Pacientes[' + y + '].Nome">Nome do paciente</label>' +
@@ -249,7 +257,7 @@
                     '<label class="control-label" for="MotivoAlta[' + z + '].Nome">Código Motivo</label>' +
                     '<input name="MotivoAlta[' + z + '].CodigoMotivo" class="form-control" id="MotivoAlta[' + z + '].CodigoMotivo" aria-required="true" required="required" type="text" value="">' +
                     '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].CodigoMotivo"></span>' +
-                
+
                     '<label class="control-label" for="MotivoAlta[' + z + '].Nome">Motivo Alta</label>' +
                     '<input name="MotivoAlta[' + z + '].MotivoAlta" class="form-control" id="MotivoAlta[' + z + '].MotivoAlta" aria-required="true" required="required" type="text" value="">' +
                     '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].MotivoAlta"></span>' +
@@ -258,8 +266,8 @@
                     '<span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="MotivoAlta[' + z + '].Tipo"></span>' +
 
                     '<select name="MotivoAlta[' + z + '].Tipo" class="form-control" id="Motivoalta[' + z + '].Tipo" data-val-required="required" data-val="true">' +
-                    '<option value="0">A (Casa / Auto - Cuidado)</option> '+
-                    '<option value="1">I (Instituição de longa permanência)</option>'+
+                    '<option value= "0" > A(Casa / Auto - Cuidado)</option> ' +
+                    '<option value="1">I (Instituição de longa permanência)</option>' +
                     '<option value="2">D (Atenção domiciliar)</option>' +
                     '<option value="3">P (Alta a pedido)</option>' +
                     '<option value="4">C (Transferido para hospital de curta permanência)</option>' +
@@ -287,6 +295,29 @@
 
         });
 
+        ////////////////////////////////////////////////////////////////////
 
+        $("#SistemaId").change(function () {
+            var url = '/Configuracoes/BuscaBanco/:parentId:';
+            var $banco = $("#BancoId");
+            $banco.attr("disabled", true);
+
+            var id = $(this).val();
+
+            if (id != "") {
+
+                $.getJSON(url.replace(':parentId:', id), function (items) {
+                    var newOptions = '<option value="">Selecione o Banco</option>';
+                    for (var id in items) {
+                        newOptions += '<option value="' + items[id].id + '">' + items[id].nome + '</option>';
+                    }
+                    $banco.empty();
+                    $banco.append(newOptions);
+                    $banco.removeAttr('disabled');
+
+                });
+            }
+
+        });
     </script>
 }
