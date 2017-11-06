@@ -95,3 +95,44 @@ h2 {
 .navbar-inverse .btn-link {
     color: white;
 }
+
+/*.btn-primary:hover {
+    background-color: #24a49c;
+    border-color: #24a49c;
+}*/
+
+.btn-circle {
+    width: 60px;
+    height: 60px;
+    text-align: end;
+    font-size: 20px;
+    font-weight: lighter;
+    line-height: 44px;
+    border-radius: 50%;
+    background-color: #24a49c;
+}
+
+
+@media (max-width: 768px) {
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        /*font-weight: lighter;*/
+        line-height: 15px;
+        border-radius: 50%;
+        background-color: #24a49c;
+    }
+
+    .fontsizeWizard {
+        font-size: 10px;
+        position: page;
+    }
+}
+
+/*#Footer {
+    position: absolute;
+    
+   
+}*/
