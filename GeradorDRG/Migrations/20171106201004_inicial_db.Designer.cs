@@ -12,8 +12,8 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171017120058_Add url e sid na configuracao")]
-    partial class Addurlesidnaconfiguracao
+    [Migration("20171106201004_inicial_db")]
+    partial class inicial_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,6 +21,27 @@ namespace GeradorDRG.Migrations
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CodigoMotivo");
+
+                    b.Property<int>("ConfiguracaoId");
+
+                    b.Property<string>("MotivoAlta")
+                        .IsRequired();
+
+                    b.Property<int>("Tipo");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfiguracaoId");
+
+                    b.ToTable("AltaPaciente");
+                });
 
             modelBuilder.Entity("GeradorDRG.Models.ApplicationUser", b =>
                 {
@@ -301,6 +322,14 @@ namespace GeradorDRG.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
+                {
+                    b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
+                        .WithMany("MotivoAlta")
+                        .HasForeignKey("ConfiguracaoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("GeradorDRG.Models.Configuracao", b =>

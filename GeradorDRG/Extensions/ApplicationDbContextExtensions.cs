@@ -2,6 +2,7 @@
 using GeradorDRG.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,18 +19,19 @@ namespace GeradorDRG.Extensions
 
             IList<Banco> bancos = new List<Banco>();
 
-            bancos.Add(new Banco { Nome = "Oracle", Padrao = true, Provider = Provider.oracle });
-            bancos.Add(new Banco { Nome = "Skt", Padrao = true, Provider = Provider.skt });
+            Banco bancoOracle = new Banco { Nome = "Oracle", Padrao = true, Provider = Provider.oracle };
+
+            bancos.Add(bancoOracle);
 
             IList<Sistema> sistemas = new List<Sistema>();
 
-            sistemas.Add(new Sistema { Nome = "MV", Padrao = true});
-            sistemas.Add(new Sistema { Nome = "Telecom", Padrao = true });
+            Sistema sistemaMv = new Sistema { Nome = "MV", Padrao = true };
 
+            sistemas.Add(sistemaMv);
 
             foreach (var b in bancos)
             {
-                var banco = context.Banco.Where(m => m.Nome == b.Nome).FirstOrDefault();
+                var banco = context.Banco.Where(m => m.Nome == b.Nome && m.Padrao).FirstOrDefault();
                 if (banco == null)
                 {
                     context.Banco.Add(b);
@@ -38,11 +40,18 @@ namespace GeradorDRG.Extensions
 
             foreach (var s in sistemas)
             {
-                var sitema = context.Sistema.Where(m => m.Nome == s.Nome).FirstOrDefault();
+                var sitema = context.Sistema.Where(m => m.Nome == s.Nome && m.Padrao).FirstOrDefault();
                 if (sitema == null)
                 {
                     context.Sistema.Add(s);
                 }
+            }
+
+            if(context.SistemaBanco.Where(m => m.Banco.Nome == "Oracle" && m.Banco.Padrao && m.Sistema.Nome == "MV" && m.Sistema.Padrao).FirstOrDefault() == null)
+            {
+                context.SistemaBanco.Add(new SistemaBanco { BancoId = context.Banco.Where(m => m.Padrao && m.Nome == "Oracle").FirstOrDefault().Id,
+                    SistemaId = context.Sistema.Where(m => m.Padrao && m.Nome == "MV").FirstOrDefault().Id
+                });
             }
 
             // Save changes and release resources
