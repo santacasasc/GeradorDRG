@@ -41,6 +41,7 @@ namespace ProjetoDRG.Controllers
 				{
 					if (configuracao.UtilizaWebService == true)
 					{
+
 						var usuario = configuracao.WebServiceUsuario;
 						var senha = configuracao.WebServiceSenha;
 						var response = await EnviarXmlWebService(model, usuario, senha);
@@ -48,7 +49,13 @@ namespace ProjetoDRG.Controllers
 						{
 							ViewBag.Mensagem = "OK";
 						}
-						return View("Index",model);
+
+
+
+
+
+
+						return View("Index", model);
 					}
 					else
 					{
@@ -194,12 +201,21 @@ namespace ProjetoDRG.Controllers
 			requestStream.Write(bytes, 0, bytes.Length);
 			requestStream.Close();
 			HttpWebResponse response;
-			response = (HttpWebResponse)request.GetResponse();
-			if (response.StatusCode == HttpStatusCode.OK)
+			try
 			{
-				Stream responseStream = response.GetResponseStream();
-				string responseStr = new StreamReader(responseStream).ReadToEnd();
-				return responseStr;
+				
+				response = (HttpWebResponse)request.GetResponse();
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					Stream responseStream = response.GetResponseStream();
+					string responseStr = new StreamReader(responseStream).ReadToEnd();
+					return responseStr;
+				}
+			}
+			catch (Exception ex)
+			{
+
+				throw;
 			}
 			return null;
 
