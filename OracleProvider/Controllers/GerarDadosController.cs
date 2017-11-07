@@ -9,10 +9,11 @@ using System.Web.Mvc;
 
 namespace OracleProvider.Controllers
 {
+
+    [System.Web.Http.Authorize]
     public class GerarDadosController : ApiController
     {
         // GET: GerarDados
-
         public LoteInternacao Get([FromUri] DateTime DataInicio, [FromUri] DateTime DataFim)
         {
             LoteInternacao Lote = new LoteInternacao();
@@ -20,14 +21,14 @@ namespace OracleProvider.Controllers
             string connectionString = "Provider=OraOLEDB.Oracle.1;Data Source=producao.world;User ID=GERADOR_DRG;Password=GERADOR_DRG";
 
             string queryInternacao = $@"SELECT SITUACAO ,
-                                            CARATERINTERNACAO ,
+                                            CDTIPOINTERNACAO ,
                                             NUMEROOPERADORA ,
                                             NUMEROREGISTRO ,
                                             NUMEROATENDIMENTO ,
                                             NUMEROAUTORIZACAO ,
                                             DATAINTERNACAO ,
                                             DATAALTA ,
-                                            CONDICAOALTA ,
+                                            CDMOTALT ,
                                             CODIGOCIDPRINCIPAL ,
                                             DATAAUTORIZACAO ,
                                             INTERNADOOUTRASVEZES ,
@@ -35,7 +36,7 @@ namespace OracleProvider.Controllers
                                             REINTERNACAO ,
                                             RECAIDA ,
                                             ACAO FROM dbamv.VIEW_GERADOR_DRG_INTERNACAO
-                                            where DATAALTA BETWEEN To_Date('{DataInicio.ToString("dd/MM/yyyy")}', 'dd/mm/yyyy') AND To_Date('{DataFim.ToString("dd/MM/yyyy")}', 'dd/mm/yyyy')
+                                            where DATABUSCA BETWEEN To_Date('{DataInicio.ToString("dd/MM/yyyy")}', 'dd/mm/yyyy') AND To_Date('{DataFim.ToString("dd/MM/yyyy")}', 'dd/mm/yyyy')
                                             ";
 
             string queryBenificiario = @"SELECT CODIGO ,
@@ -59,7 +60,8 @@ namespace OracleProvider.Controllers
                                         where CD_ATENDIMENTO = ?";
 
             string queryMedicos = @"
-                    SELECT NOME ,
+                    SELECT CODIGO,
+                    NOME ,
                     DDD ,
                     TELEFONE ,
                     EMAIL ,
@@ -102,7 +104,7 @@ namespace OracleProvider.Controllers
                         {
                             Situacao = reader["Situacao"].ToString()
                             ,
-                            CaraterInternacao = reader["CaraterInternacao"].ToString()
+                            CdTipoInternacao = reader["CdTipoInternacao"].ToString()
                             ,
                             NumeroOperadora = reader["NumeroOperadora"].ToString()
                             ,
@@ -116,7 +118,7 @@ namespace OracleProvider.Controllers
                             ,
                             DataAlta = reader["DataAlta"].ToString()
                             ,
-                            CondicaoAlta = reader["CondicaoAlta"].ToString()
+                            CdMotAlt = reader["CdMotAlt"].ToString()
                             ,
                             DataAutorizacao = reader["DataAutorizacao"].ToString()
                             ,
@@ -150,7 +152,7 @@ namespace OracleProvider.Controllers
                     {
                         while (reader.Read())
                         {
-                            atendimento.Beneficiarios = new LoteInternacao.Internacao.Beneficiario
+                            atendimento.Beneficiario = new LoteInternacao.Beneficiario
                             {
                                 Codigo = reader["Codigo"].ToString()
                                 ,
@@ -186,7 +188,7 @@ namespace OracleProvider.Controllers
                     {
                         while (reader.Read())
                         {
-                            atendimento.Operadoras = new LoteInternacao.Internacao.Operadora
+                            atendimento.Operadora = new LoteInternacao.Operadora
                             {
                                 Codigo = reader["Codigo"].ToString()
                                 ,
@@ -218,8 +220,10 @@ namespace OracleProvider.Controllers
                     {
                         while (reader.Read())
                         {
-                            atendimento.Medicos.Add(new LoteInternacao.Internacao.Medico
+                            atendimento.Medicos.Add(new LoteInternacao.Medico
                             {
+                                Codigo = reader["Codigo"].ToString()
+                                ,
                                 Nome = reader["Nome"].ToString()
                                 ,
                                 Ddd = reader["ddd"].ToString()
@@ -254,7 +258,7 @@ namespace OracleProvider.Controllers
                     {
                         while (reader.Read())
                         {
-                            atendimento.Procedimentos.Add(new LoteInternacao.Internacao.Procedimento
+                            atendimento.Procedimentos.Add(new LoteInternacao.Procedimento
                             {
                                 CodigoProcedimento = reader["CodigoProcedimento"].ToString()
                                 ,
@@ -280,7 +284,7 @@ namespace OracleProvider.Controllers
                     {
                         while (reader.Read())
                         {
-                            atendimento.CidSecundarios.Add(new LoteInternacao.Internacao.CidSecundario
+                            atendimento.CidSecundarios.Add(new LoteInternacao.CidSecundario
                             {
                                 CodigoCidSecundario = reader["CodigoCidSecundario"].ToString()
                             });

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GeradorDRG.Migrations
 {
-    public partial class inicial_db : Migration
+    public partial class banco_incial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -246,21 +246,21 @@ namespace GeradorDRG.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AltaPaciente",
+                name: "MotivoAlta",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CodigoMotivo = table.Column<string>(type: "longtext", nullable: true),
+                    CodigoMotivo = table.Column<string>(type: "longtext", nullable: false),
                     ConfiguracaoId = table.Column<int>(type: "int", nullable: false),
-                    MotivoAlta = table.Column<string>(type: "longtext", nullable: false),
-                    Tipo = table.Column<int>(type: "int", nullable: false)
+                    DsMotivoAlta = table.Column<string>(type: "longtext", nullable: true),
+                    TipoDRG = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AltaPaciente", x => x.Id);
+                    table.PrimaryKey("PK_MotivoAlta", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AltaPaciente_Configuracao_ConfiguracaoId",
+                        name: "FK_MotivoAlta_Configuracao_ConfiguracaoId",
                         column: x => x.ConfiguracaoId,
                         principalTable: "Configuracao",
                         principalColumn: "Id",
@@ -309,10 +309,27 @@ namespace GeradorDRG.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_AltaPaciente_ConfiguracaoId",
-                table: "AltaPaciente",
-                column: "ConfiguracaoId");
+            migrationBuilder.CreateTable(
+                name: "TipoInterncao",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CodigoTipo = table.Column<string>(type: "longtext", nullable: false),
+                    ConfiguracaoId = table.Column<int>(type: "int", nullable: false),
+                    Tipo = table.Column<string>(type: "longtext", nullable: true),
+                    TipoDRG = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TipoInterncao", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TipoInterncao_Configuracao_ConfiguracaoId",
+                        column: x => x.ConfiguracaoId,
+                        principalTable: "Configuracao",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -362,6 +379,11 @@ namespace GeradorDRG.Migrations
                 column: "SistemaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MotivoAlta_ConfiguracaoId",
+                table: "MotivoAlta",
+                column: "ConfiguracaoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PacienteTeste_ConfiguracaoId",
                 table: "PacienteTeste",
                 column: "ConfiguracaoId");
@@ -380,13 +402,15 @@ namespace GeradorDRG.Migrations
                 name: "IX_SistemaBanco_SistemaId",
                 table: "SistemaBanco",
                 column: "SistemaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoInterncao_ConfiguracaoId",
+                table: "TipoInterncao",
+                column: "ConfiguracaoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AltaPaciente");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -403,6 +427,9 @@ namespace GeradorDRG.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "MotivoAlta");
+
+            migrationBuilder.DropTable(
                 name: "PacienteTeste");
 
             migrationBuilder.DropTable(
@@ -410,6 +437,9 @@ namespace GeradorDRG.Migrations
 
             migrationBuilder.DropTable(
                 name: "SistemaBanco");
+
+            migrationBuilder.DropTable(
+                name: "TipoInterncao");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

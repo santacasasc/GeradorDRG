@@ -12,7 +12,8 @@ namespace GeradorDRG.Models
 		public Configuracao() {
 			this.Pacientes=new List<PacienteTeste>();
 			this.Prestadores = new List<PrestadorTeste>();
-            this.MotivoAlta = new List<AltaPaciente>();
+            this.MotivosAlta = new List<MotivoAlta>();
+            this.MotivosAlta = new List<MotivoAlta>();
         }
         [Key]
         public int Id { get; set; }
@@ -59,8 +60,8 @@ namespace GeradorDRG.Models
 
         public IList<PrestadorTeste> Prestadores { get; set; }
 
-        public IList<AltaPaciente> MotivoAlta { set; get; }
+        public IList<MotivoAlta> MotivosAlta { set; get; }
 
-
+        public IList<TipoInterncao> TiposInterncao { set; get; }
     }
 }

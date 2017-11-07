@@ -1,46 +1,47 @@
 ﻿@model ProjetoDRG.ViewModels.GerarXMLViewModel
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Gerar XML";
 }
 
 <div class="col-md-4 col-md-push-4 col-xs-10 col-xs-push-1 col-sm-8 col-sm-push-2 caixa2 ">
     <h2>GERAR XML</h2>
-    <div  style="margin-top:50px;">
-        @*class="well"*@
-        @*<div class="wizard col-lg-12">
-            <div class="wizard-row steps">
-                <div class="wizard-step">
-                    <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                    <p>Gerar XML</p>
-                </div>
-              
-            </div>
-        </div>*@
+    <div style="margin-top:50px;">
         <fieldset class="col-xs-12">
             <legend></legend>
-            <form role="form" asp-action="GeracaoXML" method="get">
-                <div class="row">                
-                        @if (ViewBag.Mensagem == "OK")
+            <form role="form" asp-action="GeracaoXML" method="post">
+                <div class="row">
+                    @if (ViewBag.UtilizaWebService == true)
+                    {
+                        if (ViewBag.Mensagem == "OK")
                         {
                             <div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <strong>Atenção!</strong> XML enviado com sucesso.
-                            </div>}
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label asp-for="DataInicio" class="control-label"></label>
-                                <input asp-for="DataInicio" required="required" class="form-control" />
-                                <span asp-validation-for="DataInicio" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="DataFim" class="control-label"></label>
-                                <input asp-for="DataFim" required="required" class="form-control" />
-                                <span asp-validation-for="DataFim" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Atenção!</strong> Ocorreu um erro ao enviar o XML.
                             </div>
-                            <input type="submit" value="Gerar" class="btn btn-default GeerarPadding" />
+
+                        }
+                    }
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label asp-for="DataInicio" class="control-label"></label>
+                            <input asp-for="DataInicio" required="required" class="form-control" />
+                            <span asp-validation-for="DataInicio" class="text-danger"></span>
                         </div>
-                  
+                        <div class="form-group">
+                            <label asp-for="DataFim" class="control-label"></label>
+                            <input asp-for="DataFim" required="required" class="form-control" />
+                            <span asp-validation-for="DataFim" class="text-danger"></span>
+                        </div>
+                        <input type="submit" value="Gerar" class="btn btn-default GeerarPadding" />
+                    </div>
                 </div>
             </form>
         </fieldset>

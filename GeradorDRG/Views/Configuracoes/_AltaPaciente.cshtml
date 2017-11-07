@@ -1,20 +1,20 @@
-﻿@model GeradorDRG.Models.AltaPaciente
+﻿@model GeradorDRG.Models.MotivoAlta
 
 <div class="form-group">
-    
-    <input asp-for="MotivoAlta" type="hidden" class="form-control" name="MotivoAlta.[@ViewBag.Index].ConfiguracaoId" value="Model.ConfiguracaoId" />
+
+    <input asp-for="DsMotivoAlta" type="hidden" class="form-control" name="MotivoAlta.[@ViewBag.Index].ConfiguracaoId" value="Model.ConfiguracaoId" />
 
     <input type="hidden" asp-for="MotivoAlta" value="ViewBag.Index" name="MotivoAlta.Index" />
     <label asp-for="CodigoMotivo" for="MotivoAlta[@ViewBag.Index].Tipo" class="control-label">Código Motivo</label>
     <input asasp-for="MotivoAlta" name="MotivoAlta[@ViewBag.Index].CodigoMotivo" class="form-control" id="MotivoAlta[@ViewBag.Index].CodigoMotivo" />
     <span asp-validation-for="CodigoMotivo" class="text-danger" data-valmsg-for="MotivoAlta[@ViewBag.Index].CodigoMotivo"></span>
 
-    <label asp-for="MotivoAlta"  class="control-label" for="MotivoAlta[@ViewBag.Index].Tipo">Motivo Alta</label>
+    <label asp-for="MotivoAlta" class="control-label" for="MotivoAlta[@ViewBag.Index].Tipo">Motivo Alta</label>
     <input name="MotivoAlta[@ViewBag.Index].MotivoAlta" asp-for="MotivoAlta" class="form-control" id="MotivoAlta[@ViewBag.Index].MotivoAlta" />
     <span asp-validation-for="CodigoMotivo" class="text-danger" data-valmsg-for="MotivoAlta/[@ViewBag.Index/].MotivoAlta"></span>
 
     <label asp-for="MotivoAlta" class="control-label" for="MotivoAlta[@ViewBag.Index].Tipo">Tipo da Alta</label>
-    <select asp-for="Tipo" class="form-control" asp-items="Html.GetEnumSelectList<GeradorDRG.Models.AltaPaciente.TipoDRG>()"></select>
+    <select asp-for="Tipo" class="form-control" asp-items="GeradorDRG.Helpers.TipoDRG.AltaTipos"></select>
     <span asp-validation-for="Tipo" class="text-danger" data-valmsg-for="MotivoAlta[@ViewBag.Index].MotivoAlta"></span>
     <a href="#" class="btn btn-danger remove_field">Remove</a>
 

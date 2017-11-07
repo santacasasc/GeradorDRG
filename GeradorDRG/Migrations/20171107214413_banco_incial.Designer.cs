@@ -12,8 +12,8 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171106201004_inicial_db")]
-    partial class inicial_db
+    [Migration("20171107214413_banco_incial")]
+    partial class banco_incial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,27 +21,6 @@ namespace GeradorDRG.Migrations
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
-
-            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("CodigoMotivo");
-
-                    b.Property<int>("ConfiguracaoId");
-
-                    b.Property<string>("MotivoAlta")
-                        .IsRequired();
-
-                    b.Property<int>("Tipo");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConfiguracaoId");
-
-                    b.ToTable("AltaPaciente");
-                });
 
             modelBuilder.Entity("GeradorDRG.Models.ApplicationUser", b =>
                 {
@@ -146,6 +125,27 @@ namespace GeradorDRG.Migrations
                     b.ToTable("Configuracao");
                 });
 
+            modelBuilder.Entity("GeradorDRG.Models.MotivoAlta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CodigoMotivo")
+                        .IsRequired();
+
+                    b.Property<int>("ConfiguracaoId");
+
+                    b.Property<string>("DsMotivoAlta");
+
+                    b.Property<string>("TipoDRG");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfiguracaoId");
+
+                    b.ToTable("MotivoAlta");
+                });
+
             modelBuilder.Entity("GeradorDRG.Models.PacienteTeste", b =>
                 {
                     b.Property<int>("Id")
@@ -215,6 +215,27 @@ namespace GeradorDRG.Migrations
                     b.HasIndex("SistemaId");
 
                     b.ToTable("SistemaBanco");
+                });
+
+            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CodigoTipo")
+                        .IsRequired();
+
+                    b.Property<int>("ConfiguracaoId");
+
+                    b.Property<string>("Tipo");
+
+                    b.Property<string>("TipoDRG");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConfiguracaoId");
+
+                    b.ToTable("TipoInterncao");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -324,14 +345,6 @@ namespace GeradorDRG.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("GeradorDRG.Models.AltaPaciente", b =>
-                {
-                    b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
-                        .WithMany("MotivoAlta")
-                        .HasForeignKey("ConfiguracaoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("GeradorDRG.Models.Configuracao", b =>
                 {
                     b.HasOne("GeradorDRG.Models.Banco", "Banco")
@@ -342,6 +355,14 @@ namespace GeradorDRG.Migrations
                     b.HasOne("GeradorDRG.Models.Sistema", "Sistema")
                         .WithMany()
                         .HasForeignKey("SistemaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GeradorDRG.Models.MotivoAlta", b =>
+                {
+                    b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
+                        .WithMany("MotivosAlta")
+                        .HasForeignKey("ConfiguracaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -371,6 +392,14 @@ namespace GeradorDRG.Migrations
                     b.HasOne("GeradorDRG.Models.Sistema", "Sistema")
                         .WithMany("SistemaBanco")
                         .HasForeignKey("SistemaId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+                {
+                    b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
+                        .WithMany("TiposInterncao")
+                        .HasForeignKey("ConfiguracaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

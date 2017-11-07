@@ -24,22 +24,24 @@ namespace ProjetoDRG.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly Configuracao configuracao;
+
         public GerarController(ApplicationDbContext context)
         {
             _context = context;
+            configuracao = _context.Configuracao.Include("Banco").Include("Sistema").FirstOrDefault();
         }
         public IActionResult Index()
         {
             return View();
         }
 
+        [HttpPost]
         public async Task<IActionResult> GeracaoXML(GerarXMLViewModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var configuracao = _context.Configuracao.Include("Banco").Include("Sistema").FirstOrDefault();
-
                 if (configuracao != null)
                 {
                     if (configuracao.Banco.Nome == "Oracle" && configuracao.Sistema.Nome == "MV")
@@ -47,10 +49,14 @@ namespace ProjetoDRG.Controllers
                         var xml = "";
 
                         LoteInternacao subReq = await BuscaXmL(model,configuracao.BancoURL);
+
+                        Filtro(subReq,configuracao.CodDRG,configuracao.NomeDRG);
+
                         xml = SerializeXML(subReq);
 
                         if (configuracao.UtilizaWebService == true)
                         {
+                            ViewBag.UtilizaWebService = true;
 
                             var usuario = configuracao.WebServiceUsuario;
                             var senha = configuracao.WebServiceSenha;
@@ -144,12 +150,11 @@ namespace ProjetoDRG.Controllers
         }
         //Retira os pacientes teste e prestador teste
         //Se paciente remove todo o atendimento
-        public void Filtro(LoteInternacao subreq)
+        public void Filtro(LoteInternacao subreq,string CodDRG, string NomeDRG)
         {
-
-            var medicosLista = _context.PrestadorTeste.Select(m => m.NomePrestador).ToList();
-            var atendimentoLista = _context.PacienteTeste.Select(c => c.CodPaciente).ToList();
-            var conteudoPacientes = subreq.Internacoes.Where(a => (atendimentoLista).Contains(a.NumeroRegistro)).ToList();
+            var prestadoresTeste = configuracao.Prestadores.Select(m => m.CodPrestador).ToList();
+            var PacientesTeste = configuracao.Pacientes.Select(c => c.CodPaciente).ToList();
+            var conteudoPacientes = subreq.Internacoes.Where(a => (PacientesTeste).Contains(a.NumeroRegistro)).ToList();
 
             for (int i = conteudoPacientes.Count - 1; i >= 0; i--)
             {
@@ -158,9 +163,33 @@ namespace ProjetoDRG.Controllers
 
             foreach (var i in subreq.Internacoes)
             {
+                var alta = configuracao.MotivosAlta.Where(m => m.CodigoMotivo == i.CdMotAlt).FirstOrDefault();
 
-                var conteudoMedicos = i.Medicos.Where(m => (medicosLista).Contains(m.Nome)).ToList();
-                conteudoMedicos.RemoveAll(m => (medicosLista).Any());
+                if(alta == null)
+                {
+                    i.CondicaoAlta = "X";
+                }
+                else
+                {
+                    i.CondicaoAlta = alta.TipoDRG;
+                }
+
+                var internacao = configuracao.TiposInterncao.Where(m => m.CodigoTipo == i.CdTipoInternacao).FirstOrDefault();
+
+                if (internacao == null)
+                {
+                    i.CaraterInternacao = "X";
+                }
+                else
+                {
+                    i.CaraterInternacao = internacao.TipoDRG;
+                }
+
+                i.Hospital.Codigo = CodDRG;
+                i.Hospital.Nome = NomeDRG;
+
+                var conteudoMedicos = i.Medicos.Where(m => (prestadoresTeste).Contains(m.Nome)).ToList();
+                conteudoMedicos.RemoveAll(m => (prestadoresTeste).Any());
 
             }
         }
@@ -185,37 +214,6 @@ namespace ProjetoDRG.Controllers
 
                 return await response.Content.ReadAsStringAsync();
             }
-
-
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://iagwebservice.sigquali.com.br/iagwebservice/enviaDadosPaciente");
-            //byte[] bytes;
-            //bytes = System.Text.Encoding.ASCII.GetBytes(xmlEnvio);
-            //request.ContentType = "text/xml; encoding='utf-8'";
-            //request.ContentLength = bytes.Length;
-            //request.Method = "POST";
-            //Stream requestStream = request.GetRequestStream();
-            //requestStream.Write(bytes, 0, bytes.Length);
-            //requestStream.Close();
-            //HttpWebResponse response;
-            //try
-            //{
-
-            //    response = (HttpWebResponse)request.GetResponse();
-            //    if (response.StatusCode == HttpStatusCode.OK)
-            //    {
-            //        Stream responseStream = response.GetResponseStream();
-            //        string responseStr = new StreamReader(responseStream).ReadToEnd();
-            //        return responseStr;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    throw;
-            //}
-            //return null;
-
-
 
         }
 

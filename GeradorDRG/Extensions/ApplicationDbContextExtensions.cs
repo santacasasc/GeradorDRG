@@ -1,6 +1,8 @@
 ﻿using GeradorDRG.Data;
 using GeradorDRG.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,8 +15,7 @@ namespace GeradorDRG.Extensions
     {
         public static void Seed(this ApplicationDbContext context)
         {
-            // Perform database delete and create
-            //context.Database.EnsureDeleted();
+
             context.Database.Migrate();
 
             IList<Banco> bancos = new List<Banco>();
@@ -47,10 +48,12 @@ namespace GeradorDRG.Extensions
                 }
             }
 
-            if(context.SistemaBanco.Where(m => m.Banco.Nome == "Oracle" && m.Banco.Padrao && m.Sistema.Nome == "MV" && m.Sistema.Padrao).FirstOrDefault() == null)
+            if (context.SistemaBanco.Where(m => m.Banco.Nome == "Oracle" && m.Banco.Padrao && m.Sistema.Nome == "MV" && m.Sistema.Padrao).FirstOrDefault() == null)
             {
-                context.SistemaBanco.Add(new SistemaBanco { BancoId = context.Banco.Where(m => m.Padrao && m.Nome == "Oracle").FirstOrDefault().Id,
-                    SistemaId = context.Sistema.Where(m => m.Padrao && m.Nome == "MV").FirstOrDefault().Id
+                context.SistemaBanco.Add(new SistemaBanco
+                {
+                    Banco = bancoOracle,
+                    Sistema = sistemaMv
                 });
             }
 
@@ -58,7 +61,6 @@ namespace GeradorDRG.Extensions
             context.SaveChanges();
             context.Dispose();
         }
-
 
     }
 }

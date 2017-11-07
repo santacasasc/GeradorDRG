@@ -24,52 +24,6 @@ namespace GeradorDRG.Controllers
             _context = context;
         }
 
-        // GET: Configuracoes
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Configuracao.Include(c => c.Banco).Include(c => c.Sistema);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: Configuracoes/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var configuracao = await _context.Configuracao
-                .Include(c => c.Banco)
-                .Include(c => c.Sistema)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (configuracao == null)
-            {
-                return NotFound();
-            }
-
-            return View(configuracao);
-        }
-
-        // POST: Configuracoes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha")] Configuracao configuracao)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(configuracao);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
-            ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
-            return View("Inicial", configuracao);
-        }
-
-
         [AllowAnonymous]
         public IActionResult Inicial()
         {
@@ -81,13 +35,13 @@ namespace GeradorDRG.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,Prestadores,Pacientes,MotivoAlta")] Configuracao configuracao)
+        public async Task<IActionResult> Inicial([Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste,MotivosAlta,TiposInterncao")] Configuracao configuracao)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(configuracao);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Gerar");
             }
             ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
@@ -104,7 +58,7 @@ namespace GeradorDRG.Controllers
                 id = _context.Configuracao.FirstOrDefault().Id;
             }
 
-            var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
+            var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivosAlta).SingleOrDefaultAsync(m => m.Id == id);
             if (configuracao == null)
             {
                 return NotFound();
@@ -121,7 +75,7 @@ namespace GeradorDRG.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste,MotivoAlta")] Configuracao configuracao)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,BancoId,SistemaId,BancoURL,BancoUsuario,BancoSenha,BancoSID,CodDRG,NomeDRG,UtilizaWebService,WebServiceUsuario,WebServiceSenha,PacienteTeste,PrestadorTeste,MotivosAlta,TiposInterncao")] Configuracao configuracao)
         {
             if (id != configuracao.Id)
             {
@@ -132,7 +86,7 @@ namespace GeradorDRG.Controllers
             {
                 try
                 {
-                    var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivoAlta).SingleOrDefaultAsync(m => m.Id == id);
+                    var configuracaoAntiga = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivosAlta).SingleOrDefaultAsync(m => m.Id == id);
                     if (configuracao != null)
                     {
                         _context.PacienteTeste.RemoveRange(configuracaoAntiga.Pacientes);
@@ -147,23 +101,20 @@ namespace GeradorDRG.Controllers
                         configuracaoAntiga.BancoUsuario = configuracao.BancoUsuario;
                         configuracaoAntiga.CodDRG = configuracao.CodDRG;
                         configuracaoAntiga.Id = configuracao.Id;
-                        configuracaoAntiga.MotivoAlta = configuracao.MotivoAlta;
+                        configuracaoAntiga.MotivosAlta = configuracao.MotivosAlta;
                         configuracaoAntiga.NomeDRG = configuracao.NomeDRG;
                         configuracaoAntiga.Pacientes = configuracao.Pacientes;
                         configuracaoAntiga.Prestadores = configuracao.Prestadores;
+                        configuracaoAntiga.TiposInterncao = configuracao.TiposInterncao;
                         configuracaoAntiga.Sistema = configuracao.Sistema;
                         configuracaoAntiga.SistemaId = configuracao.SistemaId;
                         configuracaoAntiga.UtilizaWebService = configuracao.UtilizaWebService;
                         configuracaoAntiga.WebServiceSenha = configuracao.WebServiceSenha;
                         configuracaoAntiga.WebServiceUsuario = configuracao.WebServiceUsuario;
 
-
-
-
-
                         _context.Entry(configuracaoAntiga).State = EntityState.Modified;
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
+                        return RedirectToAction("Index","Gerar");
                     }
 
 
@@ -179,53 +130,16 @@ namespace GeradorDRG.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
             return View(configuracao);
         }
 
-        // GET: Configuracoes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var configuracao = await _context.Configuracao
-                .Include(c => c.Banco)
-                .Include(c => c.Sistema)
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (configuracao == null)
-            {
-                return NotFound();
-            }
-
-            return View(configuracao);
-        }
-
-        // POST: Configuracoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var configuracao = await _context.Configuracao.SingleOrDefaultAsync(m => m.Id == id);
-            _context.Configuracao.Remove(configuracao);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
         private bool ConfiguracaoExists(int id)
         {
             return _context.Configuracao.Any(e => e.Id == id);
         }
-
-
-        /// ////////////////////////////////////////////////////
-
-
 
         // GET
         [AllowAnonymous]
@@ -234,9 +148,8 @@ namespace GeradorDRG.Controllers
             var bancos = await _context.SistemaBanco.Where(m => m.SistemaId == id).Select(m => m.Banco).ToListAsync();
 
             return Json(bancos);
+
         }
-
-
-
+        
     }
 }

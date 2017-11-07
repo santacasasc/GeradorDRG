@@ -1,22 +1,17 @@
-﻿CREATE USER gerador_drg IDENTIFIED BY "GERADOR_DRG"
+CREATE USER gerador_drg IDENTIFIED BY "GERADOR_DRG"
     DEFAULT TABLESPACE "MV2000_D"
     TEMPORARY TABLESPACE "TEMP";
 
 GRANT "CONNECT" TO "GERADOR_DRG";
 
 
-  CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_INTERNACAO" ("SITUACAO", "CARATERINTERNACAO", "NUMEROOPERADORA", "NUMEROREGISTRO", "NUMEROATENDIMENTO", "NUMEROAUTORIZACAO", "DATAINTERNACAO", "DATAALTA", "CONDICAOALTA", "CODIGOCIDPRINCIPAL", "DATAAUTORIZACAO", "INTERNADOOUTRASVEZES", "HOSPITALINTERNACAOANTERIOR", "REINTERNACAO", "RECAIDA", "ACAO") AS 
+  CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_INTERNACAO" ("SITUACAO", "CDTIPOINTERNACAO", "NUMEROOPERADORA", "NUMEROREGISTRO", "NUMEROATENDIMENTO", "NUMEROAUTORIZACAO", "DATAINTERNACAO", "DATAALTA", "CDMOTALT", "CODIGOCIDPRINCIPAL", "DATAAUTORIZACAO", "INTERNADOOUTRASVEZES", "HOSPITALINTERNACAOANTERIOR", "REINTERNACAO", "RECAIDA", "ACAO","DATABUSCA") AS 
   select
   CASE
     WHEN a.dt_alta IS NULL THEN '1'
     ELSE '3'
   END AS Situacao,
-
-  CASE
-    WHEN b.TP_INTERNACAO IN('1','7','8') THEN '1'
-    WHEN b.TP_INTERNACAO IN('2','4') THEN '2'
-  END AS CaraterInternacao,
-
+  a.CD_TIPO_INTERNACAO AS CdTipoInternacao,
   CASE
     WHEN a.cd_convenio=01 THEN '1'
     WHEN a.cd_convenio=40 THEN ''
@@ -26,18 +21,9 @@ GRANT "CONNECT" TO "GERADOR_DRG";
   a.cd_paciente NumeroRegistro,
   a.cd_atendimento NumeroAtendimento,
   '' NumeroAutorizacao,
-  a.dt_atendimento DataInternacao,
-  a.hr_alta DataAlta,
-
-  CASE
-    WHEN a.cd_mot_alt IN(53)          THEN 'A'
-    WHEN a.cd_mot_alt IN(10)          THEN 'I'
-    WHEN a.cd_mot_alt IN(54)          THEN 'D'
-    WHEN a.cd_mot_alt IN(4)           THEN 'P'
-    WHEN a.cd_mot_alt IN(51,52,12,23) THEN 'O'
-    WHEN a.cd_mot_alt IN(6)           THEN 'E'
-    ELSE 'X'
-  END AS CondicaoAlta,
+  To_Char(a.dt_atendimento, 'yyyy-MM-dd') || 'T' || To_Char(a.hr_atendimento, 'hh24:mi:ss') DataInternacao,
+  To_Char(a.dt_alta, 'yyyy-MM-dd') || 'T' || To_Char(a.hr_alta, 'hh24:mi:ss') DataAlta,
+  a.cd_mot_alt AS CdMotAlt,
 
   a.cd_cid AS CodigoCidPrincipal,
   To_Char(a.dt_atendimento, 'yyyy-MM-dd') || 'T' || To_Char(a.hr_atendimento, 'hh24:mi:ss') DataAutorizacao,
@@ -50,8 +36,8 @@ GRANT "CONNECT" TO "GERADOR_DRG";
           WHERE
             ate.cd_paciente=a.cd_paciente
             AND ate.dt_alta < a.dt_alta
-            AND ate.tp_atendimento='I') > 0 THEN 'N'
-    ELSE null
+            AND ate.tp_atendimento='I') > 0 THEN 'S'
+    ELSE 'N'
   END AS InternadoOutrasVezes,
 
   CASE
@@ -89,10 +75,10 @@ GRANT "CONNECT" TO "GERADOR_DRG";
                        AND ROWNUM=1) THEN 'S'
     ELSE 'N'
   END AS recaida,
-  'INCLUIR' AS Acao
+  'INCLUIR' AS Acao,
+  trunc(a.dt_alta) DataBusca
 FROM
   atendime             a
-  JOIN tipo_internacao b ON( b.cd_tipo_internacao=a.cd_tipo_internacao)
   JOIN convenio        c ON( c.cd_convenio=a.cd_convenio)
   JOIN paciente        e ON( e.cd_paciente=a.cd_paciente)
 WHERE
@@ -103,7 +89,7 @@ WHERE
   CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_BENEFICIARIO" ("CODIGO", "NOME", "DATANASCIMENTO", "SEXO", "NOMEMAE", "CPF", "ENDERECO", "RECEMNASCIDO", "PARTICULAR", "CD_ATENDIMENTO") AS 
   SELECT
   CASE
-    WHEN a.cd_convenio IN( 1) THEN b.nr_cns
+    WHEN a.cd_convenio IN(1) THEN b.nr_cns
     WHEN a.cd_convenio IN(40) THEN ''
     ELSE c.nr_carteira
   END AS codigo,
@@ -113,9 +99,12 @@ WHERE
   b.nm_mae AS nomeMae,
   b.nr_cpf AS cpf,
   b.ds_endereco || ' ' || nr_endereco || ', ' || b.nm_bairro || ' - ' || d.nm_cidade || ' - ' || b.nr_cep AS endereco,
-  'N' AS recemNascido,
+    CASE
+    WHEN a.CD_ATENDIMENTO_PAI is null THEN 'N'
+    ELSE 'S'
+  END AS recemNascido,
   CASE
-    WHEN a.cd_convenio IN(40) THEN 'S'
+    WHEN e.TP_CONVENIO = 'P' THEN 'S'
     ELSE 'N'
   END AS particular,
   a.CD_ATENDIMENTO CD_ATENDIMENTO
@@ -124,8 +113,11 @@ FROM
   JOIN paciente b ON( b.cd_paciente=a.cd_paciente)
   LEFT
   JOIN carteira c ON( c.cd_paciente=a.cd_paciente
-                  AND c.cd_convenio=a.cd_convenio)
-  JOIN cidade   d ON( d.cd_cidade=b.cd_cidade);
+                  AND c.cd_convenio=a.cd_convenio
+                  AND c.SN_CARTEIRA_ATIVO = 'S')
+  JOIN cidade   d ON( d.cd_cidade=b.cd_cidade)
+  inner join CONVENIO e
+  on e.CD_CONVENIO = a.CD_CONVENIO;
 
   
 CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_OPERADORA" ("CODIGO", "NOME", "SIGLA", "PLANO", "NUMEROCARTEIRA", "DATAVALIDADE", "TIPO", "CD_ATENDIMENTO") AS 
@@ -167,8 +159,9 @@ FROM
 
 
   
-  CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_MEDICOS" ("NOME", "DDD", "TELEFONE", "EMAIL", "UF", "CRM", "ESPECIALIDADE", "MEDICORESPONSAVEL", "TIPOATUACAO", "CD_ATENDIMENTO") AS 
+  CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_MEDICOS" ("CODIGO","NOME", "DDD", "TELEFONE", "EMAIL", "UF", "CRM", "ESPECIALIDADE", "MEDICORESPONSAVEL", "TIPOATUACAO", "CD_ATENDIMENTO") AS 
   SELECT
+  b.cd_prestador as CODIGO,
   b.nm_prestador AS nome,
   CASE
     WHEN c.nr_ddi_celular is not null THEN c.nr_ddi_celular
