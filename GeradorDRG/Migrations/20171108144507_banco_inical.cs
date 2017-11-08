@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GeradorDRG.Migrations
 {
-    public partial class banco_incial : Migration
+    public partial class banco_inical : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

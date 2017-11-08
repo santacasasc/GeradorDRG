@@ -27,9 +27,12 @@ namespace GeradorDRG.Controllers
         [AllowAnonymous]
         public IActionResult Inicial()
         {
-            ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome");
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome");
-            return View(new Configuracao());
+
+            @ViewBag.Ativo = "disabled";
+
+            return View("Configuracao",new Configuracao());
+
         }
 
         [HttpPost]
@@ -43,9 +46,12 @@ namespace GeradorDRG.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index","Gerar");
             }
-            ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
+
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
-            return View(configuracao);
+
+            @ViewBag.Ativo = "activade";
+
+            return View("Configuracao",configuracao);
         }
 
 
@@ -59,16 +65,18 @@ namespace GeradorDRG.Controllers
             }
 
             var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivosAlta).SingleOrDefaultAsync(m => m.Id == id);
+
             if (configuracao == null)
             {
                 return NotFound();
             }
-            ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
+
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
-            return View(configuracao);
+
+            @ViewBag.Ativo = "activade";
+
+            return View("Configuracao",configuracao);
         }
-
-
 
         // POST: Configuracoes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -131,9 +139,12 @@ namespace GeradorDRG.Controllers
                     }
                 }
             }
-            ViewData["BancoId"] = new SelectList(_context.Banco, "Id", "Nome", configuracao.BancoId);
+
             ViewData["SistemaId"] = new SelectList(_context.Sistema, "Id", "Nome", configuracao.SistemaId);
-            return View(configuracao);
+
+            @ViewBag.Ativo = "activade";
+
+            return View("Configuracao",configuracao);
         }
 
         private bool ConfiguracaoExists(int id)

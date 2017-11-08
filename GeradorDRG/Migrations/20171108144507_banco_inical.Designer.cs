@@ -12,8 +12,8 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171107214413_banco_incial")]
-    partial class banco_incial
+    [Migration("20171108144507_banco_inical")]
+    partial class banco_inical
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

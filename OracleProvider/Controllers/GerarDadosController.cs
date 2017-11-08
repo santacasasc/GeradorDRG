@@ -1,4 +1,5 @@
-﻿using OracleProvider.Models;
+﻿using OracleProvider.Extensions;
+using OracleProvider.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
@@ -11,14 +12,12 @@ namespace OracleProvider.Controllers
 {
 
     [System.Web.Http.Authorize]
-    public class GerarDadosController : ApiController
+    public class GerarDadosController : ApiConnectionStringController
     {
         // GET: GerarDados
         public LoteInternacao Get([FromUri] DateTime DataInicio, [FromUri] DateTime DataFim)
         {
             LoteInternacao Lote = new LoteInternacao();
-
-            string connectionString = "Provider=OraOLEDB.Oracle.1;Data Source=producao.world;User ID=GERADOR_DRG;Password=GERADOR_DRG";
 
             string queryInternacao = $@"SELECT SITUACAO ,
                                             CDTIPOINTERNACAO ,

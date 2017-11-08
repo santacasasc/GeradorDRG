@@ -10,11 +10,17 @@ namespace GeradorDRG.Models
 	public class Configuracao
 	{
 		public Configuracao() {
+
 			this.Pacientes=new List<PacienteTeste>();
+
 			this.Prestadores = new List<PrestadorTeste>();
+
             this.MotivosAlta = new List<MotivoAlta>();
-            this.MotivosAlta = new List<MotivoAlta>();
+
+            this.TiposInterncao = new List<TipoInterncao>();
+
         }
+
         [Key]
         public int Id { get; set; }
 
@@ -24,7 +30,6 @@ namespace GeradorDRG.Models
         [ForeignKey("Sistema")]
         public int SistemaId { get; set; }
 
-        //[ForeignKey("AltaPaciente")]
         [Display(Name ="URL do Banco")]
         public string BancoURL { get; set; }
 
@@ -54,7 +59,6 @@ namespace GeradorDRG.Models
         public virtual Banco Banco { get; set; }
 
         public virtual Sistema Sistema { get; set; }
-
 
         public IList<PacienteTeste> Pacientes { get; set; }
 
