@@ -5,215 +5,215 @@
 
 <div class="container caixa2">
     <div style="margin-top:60px;">
-        <div class="wizard">
-            <div class="container wizard-row steps ">
-                <div class="wizard-step  col-xs-2">
-                    <a href="#step-1" type="button" class="btn btn-primary btn-circle activade">1</a>
-                    <p class="fontsizeWizard">CONFIGURAÇÃO SISTEMA</p>
-                </div>
+        <div id="rootwizard">
+            <ul>
+                <li><a href="#tab1" data-toggle="tab">Configuração do Sistema</a></li>
+                <li><a href="#tab2" data-toggle="tab">Configuração da DRG</a></li>
+                <li><a href="#tab3" data-toggle="tab">Motivo de Alta</a></li>
+                <li><a href="#tab4" data-toggle="tab">Tipo de Internação</a></li>
+                <li><a href="#tab5" data-toggle="tab">Prestadores</a></li>
+                <li><a href="#tab6" data-toggle="tab">Pacientes</a></li>
+            </ul>
 
-                <div class="container wizard-step col-xs-2">
-                    <a href="#step-2" type="button" class="btn btn-default btn-circle @ViewBag.Ativo">2</a>
-                    <p class="fontsizeWizard">CONFIGURAÇÃO DRG</p>
-                </div>
-                <div class="container wizard-step col-xs-2">
-                    <a href="#step-3" type="button" class="btn btn-default btn-circle @ViewBag.Ativo">3</a>
-                    <p class="fontsizeWizard">MOTIVO DE ALTA</p>
-                </div>
-                <div class="container wizard-step col-xs-2">
-                    <a href="#step-4" type="button" class="btn btn-default btn-circle @ViewBag.Ativo">4</a>
-                    <p class="fontsizeWizard">TIPO DE INTERNAÇÃO</p>
-                </div>
-                <div class="container wizard-step col-xs-2">
-                    <a href="#step-5" type="button" class="btn btn-default btn-circle @ViewBag.Ativo">5</a>
-                    <p class="fontsizeWizard">PRESTADOR</p>
-                </div>
-                <div class="container wizard-step col-xs-2">
-                    <a href="#step-6" type="button" class="btn btn-default btn-circle @ViewBag.Ativo">6</a>
-                    <p class="fontsizeWizard">PACIENTES</p>
-                </div>
+            <div class="form-horizontal">
+                <form method="post" id="form">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="tab-content">
+                        <div class="tab-pane" id="tab1">
+                            <div class="col-md-12">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label asp-for="SistemaId" class="control-label"></label>
+                                    <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId">
+                                        <option value="">Selecione um Sistema</option>
+                                    </select>
+                                    <span asp-validation-for="SistemaId" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="BancoId" class="control-label"></label>
+                                    <select asp-for="BancoId" class="form-control" disabled></select>
+                                    <span asp-validation-for="BancoId" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for=" BancoURL" class="control-label"></label>
+                                    <input asp-for="BancoURL" class="form-control" />
+                                    <span asp-validation-for="BancoURL" class="text-danger"></span>
+                                </div>
+
+                                @*<div class="form-group">
+                                    <label asp-for=" BancoSID" class="control-label"></label>
+                                    <input asp-for="BancoSID" class="form-control" />
+                                    <span asp-validation-for=" BancoSID" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for=" BancoUsuario" class="control-label"></label>
+                                    <input asp-for="BancoUsuario" class="form-control" />
+                                    <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for=" BancoSenha" class="control-label"></label>
+                                    <input asp-for="BancoSenha" class="form-control" />
+                                    <span asp-validation-for=" BancoSenha" class="text-danger"></span>
+                                </div>*@
+
+                                <div class="form-group">
+                                    <button id="verifica-conexao" class="btn btn-success  pull-left" type="button">Verificar Conexão</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="hidden" id="conexao" class="conexao do-not-ignore" name="conexao">
+                                    <div class="text-danger field-validation-error" role="alert" data-valmsg-replace="true" data-valmsg-for="conexao">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label asp-for="CodDRG" class="control-label"></label>
+                                    <input asp-for="CodDRG" required="required" class="form-control" />
+                                    <span asp-validation-for=" CodDRG" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="NomeDRG" class="control-label"></label>
+                                    <input asp-for="NomeDRG" required="required" class="form-control" />
+                                    <span asp-validation-for="NomeDRG" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="WebServiceUsuario" class="control-label"></label>
+                                    <input asp-for="WebServiceUsuario" required="required" class="form-control" />
+                                    <span asp-validation-for=" WebServiceUsuario" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="WebServiceSenha" class="control-label"></label>
+                                    <input asp-for="WebServiceSenha" required="required" class="form-control" />
+                                    <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="div-motivo-alta">
+                                            @{
+                                                ViewBag.Inicial = 0;
+                                                foreach (var i in Model.MotivosAlta)
+                                                {
+                                                    @Html.Partial("_MotivoAlta", i)
+                                                    ViewBag.Inicial = ViewBag.Inicial + 1;
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab4">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div id="div-tipo-internacao">
+                                            @{
+                                                ViewBag.Inicial = 0;
+                                                foreach (var i in Model.TiposInterncao)
+                                                {
+                                                    @Html.Partial("_TipoInternacao", i)
+                                                    ViewBag.Inicial = ViewBag.Inicial + 1;
+
+                                                }
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane" id="tab5">
+                            <div class="col-md-12">
+                                <div class="">
+                                    <div id="div-prestadores">
+                                        @{
+                                            ViewBag.Index = 0;
+                                            foreach (var i in Model.Prestadores)
+                                            {
+                                                @Html.Partial("_Prestador", i)
+                                                ViewBag.Index = ViewBag.Index + 1;
+                                            }
+
+                                        }
+                                    </div>
+                                    <button type="button" id="add-prestador" data-target="#div-prestadores" data-count="@Model.Prestadores.Count" data-url="_Prestador" class="btn btn-primary add-item">Adicionar Prestador</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab6">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div id="div-pacientes">
+
+                                        @{
+                                            ViewBag.Inicial = 0;
+                                            foreach (var i in Model.Pacientes)
+                                            {
+                                                @Html.Partial("_Paciente", i)
+                                                ViewBag.Inicial = ViewBag.Inicial + 1;
+
+                                            }
+
+                                        }
+
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" id="add-paciente" data-target="#div-pacientes" data-count="@Model.Pacientes.Count" data-url="_Paciente" class="btn btn-primary add-item">Adicionar Paciente</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="pager wizard">
+                            <li class="previous first" style="display:none;"><a href="#">Primeiro</a></li>
+                            <li class="previous"><a href="#">Anterior</a></li>
+                            <li class="next last" style="display:none;"><a href="#">Ultimo</a></li>
+                            <li class="next"><a href="#">Proxímo</a></li>
+                        </ul>
+                    </div>
+                </form>
             </div>
         </div>
-        <fieldset class="col-xs-12">
-            <form method="post">
-                <input type="hidden" asp-for="Id" />
-                <div class="row step-content" id="step-1">
-                    <div class="col-md-12">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                        <div class="form-group">
-                            <label asp-for="SistemaId" class="control-label"></label>
-                            <select asp-for="SistemaId" class="form-control" asp-items="ViewBag.SistemaId"></select>
-                            <span asp-validation-for="SistemaId" class="text-danger"></span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="BancoId" class="control-label"></label>
-                            <select asp-for="BancoId" class="form-control" disabled></select>
-                            <span asp-validation-for="BancoId" class="text-danger"></span>
-
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for=" BancoURL" class="control-label"></label>
-                            <input asp-for="BancoURL" class="form-control" />
-                            <span asp-validation-for="BancoURL" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for=" BancoSID" class="control-label"></label>
-                            <input asp-for="BancoSID" class="form-control" />
-                            <span asp-validation-for=" BancoSID" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for=" BancoUsuario" class="control-label"></label>
-                            <input asp-for="BancoUsuario" class="form-control" />
-                            <span asp-validation-for=" BancoUsuario" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for=" BancoSenha" class="control-label"></label>
-                            <input asp-for="BancoSenha" class="form-control" />
-                            <span asp-validation-for=" BancoSenha" class="text-danger"></span>
-                        </div>
-
-                        <button id="verifica_conexao" class="btn btn-success  pull-left" type="button">Verifica Conexão</button>
-
-                        <button id="btn2" class="btn btn-primary nextBtn pull-right" type="button">Próximo</button>
-                    </div>
-                </div>
-                <div class="row step-content" id="step-2">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label asp-for="CodDRG" class="control-label"></label>
-                            <input asp-for="CodDRG" required="required" class="form-control" />
-                            <span asp-validation-for=" CodDRG" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="NomeDRG" class="control-label"></label>
-                            <input asp-for="NomeDRG" required="required" class="form-control" />
-                            <span asp-validation-for="NomeDRG" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="UtilizaWebService" /> @Html.DisplayNameFor(model => model.UtilizaWebService)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WebServiceUsuario" class="control-label"></label>
-                            <input asp-for="WebServiceUsuario" required="required" class="form-control" />
-                            <span asp-validation-for=" WebServiceUsuario" class="text-danger"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label asp-for="WebServiceSenha" class="control-label"></label>
-                            <input asp-for="WebServiceSenha" required="required" class="form-control" />
-                            <span asp-validation-for="WebServiceSenha" class="text-danger"></span>
-                        </div>
-                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
-                    </div>
-                </div>
-                <div class="row step-content " id="step-3">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div id="div_altapaciente">
-                                    @{
-                                        ViewBag.Inicial = 0;
-                                        foreach (var i in Model.MotivosAlta)
-                                        {
-                                            @Html.Partial("_MotivoAlta", i)
-                                            ViewBag.Inicial = ViewBag.Inicial + 1;
-
-                                        }
-                                    }
-                                </div>
-                                <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row step-content " id="step-4">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <div class="col-md-12">
-                                <div id="div_tipo_internacao">
-                                    @{
-                                        ViewBag.Inicial = 0;
-                                        foreach (var i in Model.TiposInterncao)
-                                        {
-                                            @Html.Partial("_TipoInternacao", i)
-                                            ViewBag.Inicial = ViewBag.Inicial + 1;
-
-                                        }
-
-                                    }
-                                </div>
-                                <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row step-content" id="step-5">
-                    <div class="col-md-12">
-                        <div class="">
-                            <div id="div_prestador">
-                                @{
-                                    ViewBag.Index = 0;
-                                    foreach (var i in Model.Prestadores)
-                                    {
-                                        @Html.Partial("_Prestadores", i)
-                                        ViewBag.Index = ViewBag.Index + 1;
-
-                                    }
-
-                                }
-                            </div>
-                            <button type="button" id="add_prestador"  data-count="@Model.Prestadores.Count" class="btn btn-primary">Adicionar Nome</button>
-                        </div>
-                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
-                    </div>
-                </div>
-                <div class="row step-content" id="step-6">
-                    <div class="col-md-12">
-                        <div class="col-md-12">
-                            <div id="div_paciente">
-
-                                @{
-                                    ViewBag.Inicial = 0;
-                                    foreach (var i in Model.Pacientes)
-                                    {
-                                        @Html.Partial("_Pacientes", i)
-                                        ViewBag.Inicial = ViewBag.Inicial + 1;
-
-                                    }
-
-                                }
-
-                            </div>
-                            <button type="button" id="add_paciente" data-count="@Model.Pacientes.Count" class="btn btn-primary">Adicionar Nome</button>
-                        </div>
-                        <button class="btn btn-primary nextBtn pull-right " type="button">Próximo</button>
-                        <input type="submit" value="Salvar Alterações" class="btn btn-success pull-right" />
-                    </div>
-                </div>
-            </form>
-        </fieldset>
     </div>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
     <environment include="Development">
+        <script src="~/lib/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
         <script src="~/js/configuracao.js" asp-append-version="true"></script>
     </environment>
     <environment exclude="Development">
+        <script src="~/lib/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
         <script src="~/js/configuracao.min.js" asp-append-version="true"></script>
     </environment>
 }

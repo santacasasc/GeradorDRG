@@ -1,0 +1,18 @@
+﻿@model GeradorDRG.Models.PacienteTeste
+
+<div class="form-group">
+    <input type="hidden" name="Pacientes.Index" value="@ViewBag.Index" />
+
+    <input asp-for="ConfiguracaoId" type="hidden" class="form-control" name="Pacientes.[@ViewBag.Index].ConfiguracaoId" value="Model.ConfiguracaoId" />
+
+    <label asp-for="CodPaciente" for="Pacientes[@ViewBag.Index].CodPaciente" class="control-label"></label>
+    <input asp-for="CodPaciente" name="Pacientes[@ViewBag.Index].CodPaciente" class="form-control" id="Pacientes[@ViewBag.Index].CodPaciente" />
+    <span asp-validation-for="CodPaciente" class="text-danger" data-valmsg-for="Pacientes[@ViewBag.Index].CodPaciente"></span>
+
+    <label asp-for="NomePaciente" for="Pacientes[@ViewBag.Index].NomePaciente" class="control-label"></label>
+    <input asp-for="NomePaciente" name="Pacientes[@ViewBag.Index].NomePaciente" class="form-control" id="Pacientes[@ViewBag.Index].NomePaciente" />
+    <span asp-validation-for="NomePaciente" class="text-danger" data-valmsg-for="Pacientes[@ViewBag.Index].NomePaciente"></span>
+    
+    <input type="button" class="btn btn-danger remove-item" data-parent="#div-pacientes" value="Remove" />
+
+</div>

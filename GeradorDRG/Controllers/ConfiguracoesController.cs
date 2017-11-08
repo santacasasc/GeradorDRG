@@ -152,6 +152,24 @@ namespace GeradorDRG.Controllers
             return _context.Configuracao.Any(e => e.Id == id);
         }
 
+        [AllowAnonymous]
+        public IActionResult _Prestador(int id)
+        {
+            ViewBag.Inicial = id;
+
+            return PartialView(new PrestadorTeste());
+
+        }
+
+        [AllowAnonymous]
+        public IActionResult _Paciente(int id)
+        {
+            ViewBag.Inicial = id;
+
+            return PartialView(new PacienteTeste());
+
+        }
+
         // GET
         [AllowAnonymous]
         public async Task<IActionResult> BuscaBanco(int? id)

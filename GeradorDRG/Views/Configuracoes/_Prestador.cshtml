@@ -1,0 +1,18 @@
+﻿@model GeradorDRG.Models.PrestadorTeste
+
+<div class="form-group">
+    <input type="hidden" name="Prestadores.Index" value="@ViewBag.Index" />
+
+    <input asp-for="ConfiguracaoId" type="hidden" class="form-control" name="Prestadores.[@ViewBag.Index].ConfiguracaoId" value="Model.ConfiguracaoId" />
+
+    <label asp-for="CodPrestador" for="Prestadores[@ViewBag.Index].CodPrestador" class="control-label"></label>
+    <input asp-for="CodPrestador" name="Prestadores[@ViewBag.Index].CodPrestador" class="form-control" id="Prestadores[@ViewBag.Index].CodPrestador" />
+    <span asp-validation-for="CodPrestador" class="text-danger" data-valmsg-for="Prestadores[@ViewBag.Index].CodPrestador"></span>
+
+    <label asp-for="NomePrestador" for="Prestadores[@ViewBag.Index].NomePrestador" class="control-label"></label>
+    <input asp-for="NomePrestador" name="Prestadores[@ViewBag.Index].NomePrestador" class="form-control" id="Prestadores[@ViewBag.Index].NomePrestador" />
+    <span asp-validation-for="NomePrestador" class="text-danger" data-valmsg-for="Prestadores[@ViewBag.Index].NomePrestador"></span>
+    
+    <input type="button" class="btn btn-danger remove-item" data-parent="#div-prestadores" value="Remove" />
+    
+</div>

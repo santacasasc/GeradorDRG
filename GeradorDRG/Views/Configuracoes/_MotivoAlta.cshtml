@@ -2,17 +2,18 @@
 
 <div class="form-group">
     <input type="hidden" value="ViewBag.Index" name="MotivoAlta.Index" />
+
     <input asp-for="ConfiguracaoId" type="hidden" class="form-control" name="MotivoAlta.[@ViewBag.Index].ConfiguracaoId" value="Model.ConfiguracaoId" />
 
     <label asp-for="CodigoMotivo" for="MotivoAlta[@ViewBag.Index].CodigoMotivo" class="control-label"></label>
-    <input asp-for="CodigoMotivo" name="MotivoAlta[@ViewBag.Index].CodigoMotivo" class="form-control" id="MotivoAlta[@ViewBag.Index].CodigoMotivo" />
+    <input asp-for="CodigoMotivo" class="form-control" name="MotivoAlta[@ViewBag.Index].CodigoMotivo"  id="MotivoAlta[@ViewBag.Index].CodigoMotivo" />
     <span asp-validation-for="CodigoMotivo" class="text-danger" data-valmsg-for="MotivoAlta[@ViewBag.Index].CodigoMotivo"></span>
 
     <label asp-for="DsMotivoAlta" class="control-label" for="MotivoAlta[@ViewBag.Index].DsMotivoAlta">Motivo Alta</label>
-    <input name="MotivoAlta[@ViewBag.Index].DsMotivoAlta" asp-for="DsMotivoAlta" class="form-control" id="MotivoAlta[@ViewBag.Index].DsMotivoAlta" />
+    <input asp-for="DsMotivoAlta" class="form-control" name="MotivoAlta[@ViewBag.Index].DsMotivoAlta"  id="MotivoAlta[@ViewBag.Index].DsMotivoAlta" />
     <span asp-validation-for="DsMotivoAlta" class="text-danger" data-valmsg-for="MotivoAlta/[@ViewBag.Index/].DsMotivoAlta"></span>
 
     <label asp-for="TipoDRG" class="control-label" for="MotivoAlta[@ViewBag.Index].TipoDRG">Tipo da Alta</label>
-    <select asp-for="TipoDRG" class="form-control" asp-items="GeradorDRG.Helpers.TipoDRG.AltaTipos"></select>
+    <select asp-for="TipoDRG" asp-items="GeradorDRG.Helpers.TipoDRG.AltaTipos" class="form-control"></select>
     <span asp-validation-for="TipoDRG" class="text-danger" data-valmsg-for="MotivoAlta[@ViewBag.Index].TipoDRG"></span>
 </div>
