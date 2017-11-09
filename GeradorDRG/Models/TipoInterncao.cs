@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GeradorDRG.Models
 {
-    public class TipoInterncao
+    public class TipoInternacao
     {
         [Key]
         public int Id { get; set; }

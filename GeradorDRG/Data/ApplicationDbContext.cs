@@ -37,7 +37,7 @@ namespace GeradorDRG.Data
 
         public DbSet<GeradorDRG.Models.MotivoAlta> MotivoAlta { get; set; }
 
-        public DbSet<GeradorDRG.Models.TipoInterncao> TipoInterncao { get; set; }
+        public DbSet<GeradorDRG.Models.TipoInternacao> TipoInterncao { get; set; }
 
     }
 }

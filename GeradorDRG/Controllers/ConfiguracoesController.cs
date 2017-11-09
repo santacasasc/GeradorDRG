@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Xml;
 using Microsoft.AspNetCore.Authorization;
+using GeradorDRG.Services;
 
 namespace GeradorDRG.Controllers
 {
@@ -64,7 +65,7 @@ namespace GeradorDRG.Controllers
                 id = _context.Configuracao.FirstOrDefault().Id;
             }
 
-            var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivosAlta).SingleOrDefaultAsync(m => m.Id == id);
+            var configuracao = await _context.Configuracao.Include(m => m.Prestadores).Include(m => m.Pacientes).Include(m => m.MotivosAlta).Include(m => m.TiposInternacao).Include(m => m.MotivosAlta).SingleOrDefaultAsync(m => m.Id == id);
 
             if (configuracao == null)
             {
@@ -113,7 +114,7 @@ namespace GeradorDRG.Controllers
                         configuracaoAntiga.NomeDRG = configuracao.NomeDRG;
                         configuracaoAntiga.Pacientes = configuracao.Pacientes;
                         configuracaoAntiga.Prestadores = configuracao.Prestadores;
-                        configuracaoAntiga.TiposInterncao = configuracao.TiposInterncao;
+                        configuracaoAntiga.TiposInternacao = configuracao.TiposInternacao;
                         configuracaoAntiga.Sistema = configuracao.Sistema;
                         configuracaoAntiga.SistemaId = configuracao.SistemaId;
                         configuracaoAntiga.UtilizaWebService = configuracao.UtilizaWebService;
@@ -179,6 +180,75 @@ namespace GeradorDRG.Controllers
             return Json(bancos);
 
         }
-        
+
+        [AllowAnonymous]
+        public async Task<IActionResult> _MotivoAlta(string URLBase, int banco, int sistema)
+        {
+            var b = await _context.Banco.Where(m => m.Id == banco).FirstOrDefaultAsync();
+
+            var s = await _context.Sistema.Where(m => m.Id == sistema).FirstOrDefaultAsync();
+
+            if(b != null && s!= null)
+            {
+                if(b.Id == 1 && b.Padrao && s.Id == 1 && s.Padrao)
+                {
+                    string URL = $"api/MotivoAlta";
+
+                    var motivos = await WebApiService.GetResponseAsync<List<MotivoAlta>>(URLBase, URL);
+
+                    return PartialView(motivos);
+                }
+            }
+
+            return PartialView(new List<MotivoAlta>());
+
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> _TipoInternacao(string URLBase, int banco, int sistema)
+        {
+            var b = await _context.Banco.Where(m => m.Id == banco).FirstOrDefaultAsync();
+
+            var s = await _context.Sistema.Where(m => m.Id == sistema).FirstOrDefaultAsync();
+
+            if (b != null && s != null)
+            {
+                if (b.Id == 1 && b.Padrao && s.Id == 1 && s.Padrao)
+                {
+                    string URL = $"api/TipoInternacao";
+
+                    var tipos = await WebApiService.GetResponseAsync<List<TipoInternacao>>(URLBase, URL);
+
+                    return PartialView(tipos);
+                }
+            }
+
+            return PartialView(new List<TipoInternacao>());
+
+        }
+
+        [AllowAnonymous]
+        public async Task<string> _VerificaConexao(string URLBase, int banco, int sistema)
+        {
+            var b = await _context.Banco.Where(m => m.Id == banco).FirstOrDefaultAsync();
+
+            var s = await _context.Sistema.Where(m => m.Id == sistema).FirstOrDefaultAsync();
+
+            if (b != null && s != null && URLBase != null)
+            {
+                if (b.Id == 1 && b.Padrao && s.Id == 1 && s.Padrao)
+                {
+                    string URL = $"api/VerificaConexao";
+
+                    var conexao = await WebApiService.GetResponseAsync<object>(URLBase, URL);
+
+                    return conexao.ToString();
+                }
+            }
+
+            return "N";
+
+        }
+
     }
 }

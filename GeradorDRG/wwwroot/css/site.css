@@ -37,41 +37,7 @@
 
 .caixa {
     border-radius: 25px;
-    box-shadow: 5px 5px 25px 5px rgba(46,61,73,0.2);
-    /*box-shadow: 2px 2px 1px 1px gray;*/
-    background-color: rgba(123, 183, 243, 0.2);
-    border-top: 6px solid #10afbf;
-    overflow: auto;
-    margin-top: 40px;
-    padding-bottom: 30px;
-}
-
-.GeerarPadding{
-    margin-bottom: 10px;
-}
-
-.InputFields{
-    
-    float:right;
-
-}
-
-h1{
-    font-family:'Franklin Gothic Medium', 'Arial Narrow, Arial, sans-serif';
-    font-size:70px;
-    text-align:center;
-}
-
-h2 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow, Arial, sans-serif';
-    font-size: 50px;
-    text-align: center;
-}
-
-.caixa2 {
-    border-radius: 25px;
-    box-shadow: 5px 5px 25px 5px rgba(46,61,73,0.2);
-    /*box-shadow: 2px 2px 1px 1px gray;*/
+    box-shadow: 5px 5px 25px 5px #d5d8da;
     background-color: #f3f3f3;
     border-top: 6px solid #24a49c;
     overflow: auto;
@@ -79,60 +45,11 @@ h2 {
     padding-bottom: 30px;
 }
 
-.backbroudColorCABECALHO {
-    background-color: #24a49c;
+
+#rootwizard li {
+    width: 16%;
 }
-
-
-.navbar-inverse .navbar-brand{
-    color: white;
+#rootwizard ul {
+    margin-left: auto;
+    margin-right: auto;
 }
-
-.navbar-inverse .navbar-nav > li > a{
-    color:white;
-}
-
-.navbar-inverse .btn-link {
-    color: white;
-}
-
-/*.btn-primary:hover {
-    background-color: #24a49c;
-    border-color: #24a49c;
-}*/
-
-.btn-circle {
-    width: 60px;
-    height: 60px;
-    text-align: end;
-    font-size: 20px;
-    font-weight: lighter;
-    line-height: 44px;
-    border-radius: 50%;
-    background-color: #24a49c;
-}
-
-
-@media (max-width: 768px) {
-
-    .btn-circle {
-        width: 30px;
-        height: 30px;
-        font-size: 12px;
-        /*font-weight: lighter;*/
-        line-height: 15px;
-        border-radius: 50%;
-        background-color: #24a49c;
-    }
-
-    .fontsizeWizard {
-        font-size: 10px;
-        position: page;
-    }
-}
-
-/*#Footer {
-    position: absolute;
-    
-   
-}*/

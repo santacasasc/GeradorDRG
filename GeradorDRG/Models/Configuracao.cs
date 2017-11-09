@@ -17,7 +17,7 @@ namespace GeradorDRG.Models
 
             this.MotivosAlta = new List<MotivoAlta>();
 
-            this.TiposInterncao = new List<TipoInterncao>();
+            this.TiposInternacao = new List<TipoInternacao>();
 
         }
 
@@ -66,6 +66,6 @@ namespace GeradorDRG.Models
 
         public IList<MotivoAlta> MotivosAlta { set; get; }
 
-        public IList<TipoInterncao> TiposInterncao { set; get; }
+        public IList<TipoInternacao> TiposInternacao { set; get; }
     }
 }

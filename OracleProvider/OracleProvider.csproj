@@ -180,7 +180,8 @@
     <Compile Include="Controllers\GerarDadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MotivoAltaController.cs" />
-    <Compile Include="Controllers\TipoDeInternacaoController.cs" />
+    <Compile Include="Controllers\VerificaConexaoController.cs" />
+    <Compile Include="Controllers\TipoInternacaoController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Extensions\ApiConnectionStringController.cs" />
     <Compile Include="Global.asax.cs">

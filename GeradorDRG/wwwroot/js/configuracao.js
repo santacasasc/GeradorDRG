@@ -23,19 +23,61 @@ $(document).ready(function () {
         }
     });
 
-
-
 });
 
 $(document).on("click", "#verifica-conexao", function (e) {
 
-    alert("falta");
+    var url = "../Configuracoes/_VerificaConexao/?URLBase=" + encodeURIComponent($("#BancoURL").val()) + "&banco=" + $("#BancoId").val() + "&sistema=" + $("#SistemaId").val();
 
-    $("#conexao").val("1");
+    $.ajax({
+        type: "GET",
+        url: url,
+        cache: false,
+        success: function (text) {
+            var response = text;
 
-    $("#form").valid();
+            if (response == "S") {
+                MotivoAlta();
+                TipoInternacao();
+                $("#conexao").val("S");
+            }
+        },
+        complete: function () {
+            $("#form").valid();
+        }
+
+    });
+
+
+
 
 });
+
+function TipoInternacao() {
+    var url = "../Configuracoes/_TipoInternacao/?URLBase=" + encodeURIComponent($("#BancoURL").val()) + "&banco=" + $("#BancoId").val() + "&sistema=" + $("#SistemaId").val();
+    $.ajax({
+        type: "GET",
+        url: url,
+        cache: false,
+        success: function (text) {
+            var response = text;
+            $("#div-tipo-internacao").append(response);
+        }
+    });
+}
+
+function MotivoAlta() {
+    var url = "../Configuracoes/_MotivoAlta/?URLBase=" + encodeURIComponent($("#BancoURL").val()) + "&banco=" + $("#BancoId").val() + "&sistema=" + $("#SistemaId").val()
+    $.ajax({
+        type: "GET",
+        url: url,
+        cache: false,
+        success: function (text) {
+            var response = text;
+            $("#div-motivo-alta").append(response);
+        }
+    });
+}
 
 $(document).on("click", ".add-item", function (e) {
     e.preventDefault();
@@ -70,6 +112,7 @@ $(document).on("click", ".remove-item", function (e) {
 });
 
 $(document).on("change", "#SistemaId", function (e) {
+
     var id = $(this).val();
 
     var url = '/Configuracoes/BuscaBanco/:parentId:';

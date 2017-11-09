@@ -51,8 +51,9 @@ CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_INTERNACAO" (
         AS situacao,
         a.cd_tipo_internacao AS cdtipointernacao,
             CASE
-                WHEN a.cd_convenio = 01   THEN '1'
-                WHEN a.cd_convenio = 40   THEN ''
+                WHEN e.tp_convenio = 'H'
+                THEN '1'
+                WHEN e.tp_convenio = 'P' THEN ''
                 ELSE c.nr_registro_operadora_ans
             END
         AS numerooperadora,
@@ -161,12 +162,9 @@ CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_BENEFICIARIO" (
 ) AS
     SELECT
             CASE
-                WHEN a.cd_convenio IN (
-                    1
-                ) THEN b.nr_cns
-                WHEN a.cd_convenio IN (
-                    40
-                ) THEN ''
+                WHEN e.tp_convenio = 'H'
+                THEN b.nr_cns
+                WHEN e.tp_convenio = 'P' THEN ''
                 ELSE c.nr_carteira
             END
         AS codigo,
@@ -226,8 +224,9 @@ CREATE OR REPLACE FORCE VIEW "DBAMV"."VIEW_GERADOR_DRG_OPERADORA" (
 ) AS
     SELECT
             CASE
-                WHEN a.cd_convenio = 01   THEN '1'
-                WHEN a.cd_convenio = 40   THEN ''
+                WHEN b.tp_convenio = 'H'
+                THEN '1'
+                WHEN b.tp_convenio = 'P' THEN ''
                 ELSE b.nr_registro_operadora_ans
             END
         AS codigo,

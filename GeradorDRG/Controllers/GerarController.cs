@@ -17,6 +17,7 @@ using System.Net;
 using System.Web;
 using GeradorDRG.Helpers;
 using Microsoft.EntityFrameworkCore;
+using GeradorDRG.Services;
 
 namespace ProjetoDRG.Controllers
 {
@@ -31,6 +32,7 @@ namespace ProjetoDRG.Controllers
             _context = context;
             configuracao = _context.Configuracao.Include("Banco").Include("Sistema").FirstOrDefault();
         }
+
         public IActionResult Index()
         {
             return View();
@@ -114,38 +116,15 @@ namespace ProjetoDRG.Controllers
             return xml;
         }
 
-        private static async Task<LoteInternacao> BuscaXmL(GerarXMLViewModel model,string URL)
+        private static async Task<LoteInternacao> BuscaXmL(GerarXMLViewModel model,string URLBase)
         {
-            using (var client = new HttpClient())
-            {
-                client.BaseAddress = new Uri(URL);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-                                Convert.ToBase64String(
-                                            System.Text.ASCIIEncoding.ASCII.GetBytes(
-                                                string.Format("{0}:{1}", "user", "password"))));
+            string DataInicio = model.DataInicio.ToString("yyyy-MM-dd");
+            string DataFim = model.DataFim.ToString("yyyy-MM-dd");
 
-                string DataInicio = model.DataInicio.ToString("yyyy-MM-dd");
-                string DataFim = model.DataFim.ToString("yyyy-MM-dd");
+            string URL = $"api/GerarDados?DataInicio={DataInicio}&DataFim={DataFim}";
 
-                HttpResponseMessage response = await client.GetAsync($"api/GerarDados?DataInicio={DataInicio}&DataFim={DataFim}");
-                if (response.IsSuccessStatusCode)
-                {
-                    HttpContent content = response.Content;
-
-                    string result = await content.ReadAsStringAsync();
-
-                    LoteInternacao l = Newtonsoft.Json.JsonConvert.DeserializeObject<LoteInternacao>(result);
-
-                    return l;
-
-                }
-
-            }
-
-            return new LoteInternacao();
+            return await WebApiService.GetResponseAsync<LoteInternacao>(URLBase,URL);
 
         }
         //Retira os pacientes teste e prestador teste
@@ -174,7 +153,7 @@ namespace ProjetoDRG.Controllers
                     i.CondicaoAlta = alta.TipoDRG;
                 }
 
-                var internacao = configuracao.TiposInterncao.Where(m => m.CodigoTipo == i.CdTipoInternacao).FirstOrDefault();
+                var internacao = configuracao.TiposInternacao.Where(m => m.CodigoTipo == i.CdTipoInternacao).FirstOrDefault();
 
                 if (internacao == null)
                 {

@@ -216,7 +216,7 @@ namespace GeradorDRG.Migrations
                     b.ToTable("SistemaBanco");
                 });
 
-            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+            modelBuilder.Entity("GeradorDRG.Models.TipoInternacao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -394,10 +394,10 @@ namespace GeradorDRG.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+            modelBuilder.Entity("GeradorDRG.Models.TipoInternacao", b =>
                 {
                     b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
-                        .WithMany("TiposInterncao")
+                        .WithMany("TiposInternacao")
                         .HasForeignKey("ConfiguracaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -11,14 +11,14 @@ using System.Web.Http;
 namespace OracleProvider.Controllers
 {
     [System.Web.Http.Authorize]
-    public class TipoDeInternacaoController : ApiConnectionStringController
+    public class VerificaConexaoController : ApiConnectionStringController
     {
         // GET: GerarDados
-        public IList<TipoInterncao> Get()
+        public string Get()
         {
-            IList<TipoInterncao> Tipos = new List<TipoInterncao>();
+            string conexao = "N";
 
-            string queryTipoInternacao = $@"SELECT CodigoTipo,Tipo FROM dbamv.VIEW_GERADOR_DRG_TP_INTERNACAO";
+            string queryconexao = $@"SELECT 'A' from sys.dual";
 
             using (var connection = new OleDbConnection(connectionString))
             {
@@ -26,27 +26,20 @@ namespace OracleProvider.Controllers
 
                 var command = new OleDbCommand();
 
-                command = new OleDbCommand(queryTipoInternacao, connection);
-
+                command = new OleDbCommand(queryconexao, connection);
 
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
-
                     {
-                        Tipos.Add(new TipoInterncao
-                        {
-                            CodigoTipo = reader["CodigoTipo"].ToString()
-                                ,
-                            Tipo = reader["Tipo"].ToString()
-                        });
+                        conexao = "S";
                     }
                 }
 
                 connection.Close();
             }
 
-            return Tipos;
+            return conexao;
         }
     }
 }

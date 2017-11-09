@@ -12,8 +12,8 @@ using System;
 namespace GeradorDRG.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171108144507_banco_inical")]
-    partial class banco_inical
+    [Migration("20171109170236_migracao-inicial")]
+    partial class migracaoinicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -217,7 +217,7 @@ namespace GeradorDRG.Migrations
                     b.ToTable("SistemaBanco");
                 });
 
-            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+            modelBuilder.Entity("GeradorDRG.Models.TipoInternacao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -395,10 +395,10 @@ namespace GeradorDRG.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("GeradorDRG.Models.TipoInterncao", b =>
+            modelBuilder.Entity("GeradorDRG.Models.TipoInternacao", b =>
                 {
                     b.HasOne("GeradorDRG.Models.Configuracao", "Configuracao")
-                        .WithMany("TiposInterncao")
+                        .WithMany("TiposInternacao")
                         .HasForeignKey("ConfiguracaoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

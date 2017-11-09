@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OracleProvider.Models
 {
-    public class TipoInterncao
+    public class TipoInternacao
     {
         [Key]
         public int Id { get; set; }

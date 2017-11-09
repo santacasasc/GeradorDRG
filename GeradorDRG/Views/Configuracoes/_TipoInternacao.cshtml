@@ -1,18 +1,28 @@
-﻿@model GeradorDRG.Models.TipoInterncao
+﻿@model IEnumerable<GeradorDRG.Models.TipoInternacao>
+@{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        <input type="hidden" value="i" name="MotivoAlta.Index" />
+        <input asp-for="@item.ConfiguracaoId" type="hidden" value="Model.ConfiguracaoId" class="form-control" name="TiposInterncao.[@i].ConfiguracaoId" />
 
-<div class="form-group">
-    <input type="hidden" value="ViewBag.Index" name="MotivoAlta.Index" />
-    <input asp-for="ConfiguracaoId" type="hidden" value="Model.ConfiguracaoId" class="form-control" name="TiposInterncao.[@ViewBag.Index].ConfiguracaoId"  />
+        <div class="form-group">
+            <label asp-for="@item.CodigoTipo" for="TiposInterncao[@i].CodigoMotivo" class="control-label"></label>
+            <input asp-for="@item.CodigoTipo" name="TiposInterncao[@i].CodigoMotivo" class="form-control" id="TiposInterncao[@i].CodigoMotivo" />
+            <span asp-validation-for="@item.CodigoTipo" class="text-danger" data-valmsg-for="TiposInterncao[@i].CodigoMotivo"></span>
+        </div>
 
-    <label asp-for="CodigoTipo" for="TiposInterncao[@ViewBag.Index].CodigoMotivo" class="control-label"></label>
-    <input asp-for="CodigoTipo" name="TiposInterncao[@ViewBag.Index].CodigoMotivo" class="form-control" id="TiposInterncao[@ViewBag.Index].CodigoMotivo" />
-    <span asp-validation-for="CodigoTipo" class="text-danger" data-valmsg-for="TiposInterncao[@ViewBag.Index].CodigoMotivo"></span>
+        <div class="form-group">
+            <label asp-for="@item.Tipo" class="control-label" for="TiposInterncao[@i].DsMotivoAlta"></label>
+            <input asp-for="@item.Tipo" class="form-control" name="TiposInterncao[@i].Tipo" id="TiposInterncao[@i].Tipo" />
+            <span asp-validation-for="@item.Tipo" class="text-danger" data-valmsg-for="TiposInterncao[@i].Tipo"></span>
+        </div>
 
-    <label asp-for="Tipo" class="control-label" for="TiposInterncao[@ViewBag.Index].DsMotivoAlta"></label>
-    <input asp-for="Tipo" class="form-control"  name="TiposInterncao[@ViewBag.Index].Tipo" id="TiposInterncao[@ViewBag.Index].Tipo"/>
-    <span asp-validation-for="Tipo" class="text-danger" data-valmsg-for="TiposInterncao[@ViewBag.Index].Tipo"></span>
-
-    <label asp-for="TipoDRG" class="control-label" for="TiposInterncao[@ViewBag.Index].TipoDRG"></label>
-    <select asp-for="TipoDRG" asp-items="GeradorDRG.Helpers.TipoDRG.InternacaoTipos" class="form-control" name="TiposInterncao[@ViewBag.Index].Tipo"></select>
-    <span asp-validation-for="TipoDRG" class="text-danger" data-valmsg-for="TiposInterncao[@ViewBag.Index].TipoDRG"></span>
-</div>
+        <div class="form-group">
+            <label asp-for="@item.TipoDRG" class="control-label" for="TiposInterncao[@i].TipoDRG"></label>
+            <select asp-for="@item.TipoDRG" asp-items="GeradorDRG.Helpers.TipoDRG.InternacaoTipos" class="form-control" name="TiposInterncao[@i].Tipo"></select>
+            <span asp-validation-for="@item.TipoDRG" class="text-danger" data-valmsg-for="TiposInterncao[@i].TipoDRG"></span>
+        </div>
+        i++;
+    }
+}
